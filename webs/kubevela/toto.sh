@@ -6,7 +6,7 @@ source ${initdir}/libs/common.sh
 
 
 before_kubevela(){
-    npm install
+    yarn install
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'8c8b1d6d-a7fa-43ca-9933-db30591777e9'}}]})}),|g" docusaurus.config.js
     cat ./docusaurus.config.js
 }
@@ -14,7 +14,7 @@ before_kubevela(){
 after_kubevela(){
     echo "npm build-----"
 
-    npm run build
+    yarn build
 
     ls -lh
 
