@@ -26,7 +26,10 @@ after_flux_website(){
     # --enableGitInfo \
     # --baseURL https://flux.cncfstack.com
 
+    
     sed -i 's|--baseURL $(URL)|--baseURL https://flux.cncfstack.com|g' Makefile
+    make prereqs
+    make gen-content
     make production-build
 
 }
