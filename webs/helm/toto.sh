@@ -39,6 +39,7 @@ after_helm_website(){
     $OSSUTIL ls
 }
 
+cat .git/config
 
 if cat .git/config  |grep '/helm/helm-www.git' ;then
     before_helm_website
