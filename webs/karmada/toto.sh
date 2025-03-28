@@ -10,14 +10,10 @@ before_karmada(){
     cat ./docusaurus.config.js
 }
 after_karmada(){
-     echo "npm build-----"
-
+    echo "npm build-----"
     npm run build
 
     ls -lh
-
-    echo "复制文件到OSS"
-#    $OSSUTIL cp -fr build oss://cncfstack-karmada
 }
 
 save_return(){
@@ -29,7 +25,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/karmada-io/website.git' ;then
-    echo "/karmada-io/website.git"
+    echo "=============================================> 匹配到 karmada"
     before_karmada
     find_and_sed
     after_karmada
