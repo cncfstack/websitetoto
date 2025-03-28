@@ -1,10 +1,9 @@
 #!/bin/bash
 
-#workdir=$1
-#initdir=$2
+workdir=$1
+initdir=$2
 
 source ${initdir}/libs/common.sh
-
 
 before_helm_website(){
     echo "install hugo"
@@ -43,6 +42,7 @@ after_helm_website(){
 cd $workdir
 
 if cat .git/config  |grep '/helm/helm-www.git' ;then
+    echo "helmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
     before_helm_website
     find_and_sed
     after_helm_website
