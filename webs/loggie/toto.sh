@@ -24,7 +24,6 @@ after_loggie(){
     # 特殊情况，在构建完成后的文件中包含emoji表情svg文件，这这构建前是不可知道的，所以在构建完成后再替换一次。
     find_and_sed
 
-#    $OSSUTIL cp -fr site oss://cncfstack-loggie
 }
 
 
@@ -38,7 +37,7 @@ cd $workdir
 
 
 if cat .git/config  |grep '/loggie-io/docs.git' ;then
-    echo "/loggie-io/docs.git"
+    echo "=============================================> 匹配到 loggie"
     before_loggie
     find_and_sed
     after_loggie
