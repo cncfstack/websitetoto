@@ -18,8 +18,6 @@ after_kubevela(){
 
     ls -lh
 
-    echo "复制文件到OSS"
-#    $OSSUTIL cp -fr build oss://cncfstack-kubevela 
 }
 
 
@@ -33,7 +31,7 @@ cd $workdir
 
 
 if cat .git/config  |grep '/kubevela/kubevela.github.io.git' ;then
-    echo "/kubevela/kubevela.github.io.git"
+    echo "=============================================> 匹配到 kubevela"
     before_kubevela
     find_and_sed
     after_kubevela
