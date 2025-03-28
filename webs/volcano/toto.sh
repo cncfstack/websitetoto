@@ -15,7 +15,8 @@ before_volcano(){
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="8ccc7a7d-06b8-477d-9d25-eb27c0ac9bbc"></script>' >> layouts/partials/favicons.html
 
 
-    rm content/zh/blog/kube-batch-customers.md
+    rm -f content/zh/blog/kube-batch-customers.md
+    rm -f content/zh/blog/kube-batch-startup.md
 }
 after_volcano(){
     mkdir website-site
