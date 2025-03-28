@@ -37,6 +37,18 @@ jobs:
               ret=`toto.sh $project`
               src=`echo $ret|awk -F'&' '{print $1}'`
               dest=`echo $ret|awk -F'&' '{print $2}'`
-              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  ls
+
+
+
+              uuid=`date  "+%s%N"`
+              mkdir ./tmp/${uuid} -p
+              workdir=./tmp/${uuid}
+
+              git clone $project_giturl $workdir
+
+              find ./webs -name toto.sh -exec bash -x {} $workdir \;
+
+
+              #./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  ls
           done
 
