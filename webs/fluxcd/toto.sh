@@ -20,7 +20,7 @@ after_flux_website(){
 
 
     ./hugo \
-    --destination ./output
+    --destination ./output \
     --minify \
     --gc \
     --enableGitInfo \
