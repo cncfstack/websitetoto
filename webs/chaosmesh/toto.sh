@@ -4,8 +4,6 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 
-
-
 before_chaosmesh(){
     
     npm install
@@ -31,7 +29,6 @@ before_chaosmesh(){
 # ],
  
 
-
 }
 
 after_chaosmesh(){
@@ -42,21 +39,17 @@ after_chaosmesh(){
     echo "当前目录中文件列表"
     ls -lh
 
-    echo "复制文件到OSS"
-    #$OSSUTIL cp -fr build oss://cncfstack-chaosmesh
 }
-
 
 
 save_return(){
     echo "${workdir}/build&oss://cncfstack-chaosmesh" > ${workdir}/ret-data
 }
 
-
 cd $workdir
 
 if cat .git/config  |grep '/chaos-mesh/website.git' ;then
-    echo "/chaos-mesh/website.git"
+    echo "=============================================> 匹配到 chaos-mesh"
     before_chaosmesh
     find_and_sed
     after_chaosmesh
