@@ -31,9 +31,6 @@ after_volcano(){
     --templateMetrics  \
     --templateMetricsHints \
     --baseURL https://volcano.cncfstack.com
-
-    echo "复制文件到OSS"
-    #$OSSUTIL cp -fr website-site oss://cncfstack-volcano
 }
 
 
@@ -47,7 +44,7 @@ cd $workdir
 
 
 if cat .git/config  |grep '/volcano-sh/website.git' ;then
-    echo "/volcano-sh/website.git"
+    echo "=============================================> 匹配到 volcano"
     before_volcano
     find_and_sed
     after_volcano
