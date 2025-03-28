@@ -36,7 +36,7 @@ jobs:
 
           source ${initdir}/libs/common.sh
 
-          cat ${initdir}/sed/* > ${workdir}/toto.sed
+          sudo cat ${initdir}/sed/* > ${workdir}/toto.sed
 
 
           for project in `cat push.list`
