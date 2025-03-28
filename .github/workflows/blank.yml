@@ -46,6 +46,7 @@ jobs:
               workdir=./tmp/${uuid}
 
               git clone $project $workdir
+               ls $workdir
 
               find ./webs -name toto.sh -exec bash -x {} $workdir $initdir \;
 

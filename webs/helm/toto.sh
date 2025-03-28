@@ -6,16 +6,7 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 
-
 before_helm_website(){
-    # 需要安装 postCSS https://gohugo.io/functions/css/postcss/
-    # postCSS 依赖 Nodejs
-    # 安装 nodejs
-    #ossutil cp oss://cncfstack-cdn/dist/v22.14.0/node-v22.14.0-linux-x64.tar.xz ./
-    #tar xf node-v22.14.0-linux-x64.tar.xz
-    #mv node-v22.14.0-linux-x64 /opt/
-    # echo 'PATH=/opt/node-v22.14.0-linux-x64/bin/:$PATH' >> /etc/profiles
-    # source /etc/profiles
     echo "install hugo"
     install_hugo
 
