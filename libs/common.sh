@@ -50,7 +50,7 @@ find_and_sed(){
     # 循环依次处理可能包含外部链接的文件，并进行替换
     for file in `cat ${workdir}/filelist`
     do
-        sudo sed -i -f ${initdir}/toto.sed $file
+        sudo sed -i -f ${workdir}/toto.sed $file
     done
 
     check_cdn_change
