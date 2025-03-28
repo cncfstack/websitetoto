@@ -6,6 +6,6 @@ do
     project_name=`echo $project |awk -F'/' '{print $NF}'|sed 's/\.git//g'`
     #git clone $project
     #cd $project_name
-    echo  ${{ secrets.TEST1 }}
+    echo  $TEST1
 done
 
