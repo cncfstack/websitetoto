@@ -136,6 +136,7 @@ cd $workdir
 
 
 if cat .git/config  |grep '/kubernetes/website.git' ;then
+echo "=============================================> 匹配到 kubernetes"
     before_kubernetes_website
     find_and_sed
     after_kubernetes_website
