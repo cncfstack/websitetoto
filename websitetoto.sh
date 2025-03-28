@@ -1,11 +1,6 @@
 #!/bin/bash -x
-project_list=$1
+source libs/aliyun.sh
 
-for project in `cat $project_list`
-do
-    project_name=`echo $project |awk -F'/' '{print $NF}'|sed 's/\.git//g'`
-    #git clone $project
-    #cd $project_name
-    echo  $TEST1
-done
-
+main(){
+    install_aliyun_ossutil
+}
