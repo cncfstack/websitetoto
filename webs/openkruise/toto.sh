@@ -16,9 +16,6 @@ after_openkruise(){
     npm run build
 
     ls -lh
-
-    echo "复制文件到OSS"
-#    $OSSUTIL cp -fr build oss://cncfstack-openkruise
 }
 
 
@@ -31,7 +28,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/openkruise/openkruise.io.git' ;then
-    echo "/openkruise/openkruise.io.git"
+    echo "=============================================> 匹配到 openkruise"
     before_openkruise
     find_and_sed
     after_openkruise
