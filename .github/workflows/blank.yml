@@ -40,10 +40,10 @@ jobs:
 
 
               uuid=`date  "+%s%N"`
-              mkdir ./tmp/${uuid} -p
+              mkdir -p ./tmp/${uuid}
               workdir=./tmp/${uuid}
 
-              git clone $project_giturl $workdir
+              git clone $project $workdir
 
               find ./webs -name toto.sh -exec bash -x {} $workdir \;
 
