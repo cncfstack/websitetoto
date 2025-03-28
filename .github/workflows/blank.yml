@@ -25,4 +25,6 @@ jobs:
 
       # Runs a single command using the runners shell
       - name: Run a one-line script
-        run:  /bin/bash websitetoto.sh push.list
+        run: |
+          echo  ${{ secrets.TEST1 }}
+          /bin/bash websitetoto.sh push.list
