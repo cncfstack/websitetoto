@@ -21,7 +21,7 @@ before_helm_website(){
 after_helm_website(){
 
     # 构建
-    $HUGO \
+    ./hugo \
     --cleanDestinationDir \
     --buildFuture \
     --noBuildLock \
