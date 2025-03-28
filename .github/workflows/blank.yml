@@ -24,9 +24,19 @@ jobs:
       # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
 
-
       # Runs a single command using the runners shell
       - name: Run a one-line script
         run: |
-          echo "xxx" 
-          /bin/bash websitetoto.sh push.list
+
+          source libs/aliyun.sh
+          install_aliyun_ossutil
+
+          for project in `cat push.list`
+          do
+              # ret="build-output-dirpash&remote_oss_path"
+              ret=`toto.sh $project`
+              src=`echo $ret|awk -F'&' '{print $1}'`
+              dest=`echo $ret|awk -F'&' '{print $2}'`
+              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  ls
+          done
+
