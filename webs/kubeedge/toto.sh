@@ -17,8 +17,6 @@ after_kubeedge(){
 
     ls -lh
 
-    echo "复制文件到OSS"
-    #$OSSUTIL cp -fr build oss://cncfstack-kubeedge
 }
 
 
@@ -30,7 +28,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/kubeedge/website.git' ;then
-    echo "/kubeedge/website.git"
+    echo "=============================================> 匹配到 kubeedge"
     before_kubeedge
     find_and_sed
     after_kubeedge
