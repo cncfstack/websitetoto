@@ -47,7 +47,7 @@ jobs:
               git clone $project $workdir
                ls $workdir
 
-              find ./webs -name toto.sh -exec . {} \;
+              find ./webs -name toto.sh -exec /bin/bash {} $workdir $initdir \;
 
               src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
               dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`

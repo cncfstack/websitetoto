@@ -1,8 +1,8 @@
 
-#workdir=$1
-#initdir=$2
+workdir=$1
+initdir=$2
 
-#source ${initdir}/libs/common.sh
+source ${initdir}/libs/common.sh
 
 before_helm_website(){
     echo "install hugo"
@@ -35,7 +35,7 @@ after_helm_website(){
 }
 
 save_return(){
-    echo "复制文件到OSS"
+    echo "复制文件到OSS $workdir $initdir"
     touch ${workdir}/ret-data
     echo 'app&oss://cncfstack-helm' > ${workdir}/ret-data
 }
