@@ -25,11 +25,13 @@ jobs:
       - uses: actions/checkout@v4
 
       # Runs a single command using the runners shell
-      - name: Run a one-line script
+      - name:  To-To-To
         run: |
 
           source libs/aliyun.sh
           install_aliyun_ossutil
+          
+          initdir=`pwd`
 
           for project in `cat push.list`
           do
@@ -45,7 +47,7 @@ jobs:
 
               git clone $project $workdir
 
-              find ./webs -name toto.sh -exec bash -x {} $workdir \;
+              find ./webs -name toto.sh -exec bash -x {} $workdir $initdir \;
 
 
               #./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  ls
