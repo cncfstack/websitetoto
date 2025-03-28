@@ -1,7 +1,7 @@
 #!/bin/bash
 
-workdir=$1
-initdir=$2
+#workdir=$1
+#initdir=$2
 
 source ${initdir}/libs/common.sh
 
@@ -39,10 +39,13 @@ after_helm_website(){
     $OSSUTIL ls
 }
 
-cat .git/config
+
+cd $workdir
 
 if cat .git/config  |grep '/helm/helm-www.git' ;then
     before_helm_website
     find_and_sed
     after_helm_website
 fi
+
+cd -
