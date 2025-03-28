@@ -6,14 +6,7 @@ source ${initdir}/libs/common.sh
 
 before_opentelemetry(){
 
-    echo "/open-telemetry/opentelemetry.io.git"
-    # 可能是bug，而且应该是在替换前获取该模块
-
-    echo "install hugo"
     install_hugo
-
-    # 安装 postCSS
-    echo "install postCSS"
     install_postcss
 
     sudo cp -f hugo /usr/bin/
@@ -35,27 +28,24 @@ before_opentelemetry(){
 
 after_opentelemetry(){
 
-    echo "/open-telemetry/opentelemetry.io.git"
-    # 可能是bug，而且应该是在替换前获取该模块
-
-    # 先执行获取依赖
+    echo "=============================================> 构建静态资源"
     npm run build:production
-
-    $OSSUTIL sync public oss://cncfstack-opentelemetry --force --update  --job=10 --checkpoint-dir=/tmp/osscheck --exclude=.DS_Store 
 
 }
 
 
 save_return(){
-    echo "${workdir}/app&oss://cncfstack-opentelemetry" > ${workdir}/ret-data
+    echo "${workdir}/public&oss://cncfstack-opentelemetry" > ${workdir}/ret-data
 }
 
 
 cd $workdir
 
+
 if cat .git/config  |grep '/open-telemetry/opentelemetry.io.git' ;then
-   before_opentelemetry
-   find_and_sed
-   after_opentelemetry
-   save_return 
+    echo ""=============================================> 匹配到 opentelemetry"
+    before_opentelemetry
+    find_and_sed
+    after_opentelemetry
+    save_return 
 fi
