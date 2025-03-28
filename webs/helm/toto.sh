@@ -37,7 +37,7 @@ after_helm_website(){
 save_return(){
     echo "复制文件到OSS $workdir $initdir"
     touch ${workdir}/ret-data
-    echo 'app&oss://cncfstack-helm' > ${workdir}/ret-data
+    echo "${workdir}/app&oss://cncfstack-test" > ${workdir}/ret-data
 }
 
 
