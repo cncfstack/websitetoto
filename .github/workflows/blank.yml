@@ -36,10 +36,6 @@ jobs:
 
           for project in `cat push.list`
           do
-              # ret="build-output-dirpash&remote_oss_path"
-              #ret=`toto.sh $project`
-              #src=`echo $ret|awk -F'&' '{print $1}'`
-              #dest=`echo $ret|awk -F'&' '{print $2}'`
 
 
               uuid=`date  "+%s%N"`
@@ -51,7 +47,11 @@ jobs:
 
               find ./webs -name toto.sh -exec bash -x {} $workdir $initdir \;
 
+              # ret="build-output-dirpash&remote_oss_path"
+              #ret=`toto.sh $project`
+              src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
+              dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
 
-              #./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  ls
+              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
           done
 

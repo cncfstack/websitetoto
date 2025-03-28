@@ -33,10 +33,9 @@ after_helm_website(){
     --templateMetrics  \
     --templateMetricsHints \
     --baseURL https://helm.cncfstack.com
-
-    echo "复制文件到OSS"
-    $OSSUTIL ls
 }
+
+
 
 
 cd $workdir
@@ -46,6 +45,9 @@ if cat .git/config  |grep '/helm/helm-www.git' ;then
     before_helm_website
     find_and_sed
     after_helm_website
+    
+    echo "复制文件到OSS"
+    echo 'app&oss://cncfstack-helm' > ${workdir}/ret-data
 fi
 
 cd -
