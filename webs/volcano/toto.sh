@@ -18,7 +18,7 @@ before_volcano(){
 after_volcano(){
     mkdir website-site
 
-    $HUGO \
+    ./hugo \
     --destination ./website-site \
     --cleanDestinationDir \
     --buildFuture \

@@ -19,7 +19,7 @@ after_cloudevents(){
      # 构建
     mkdir website-site
 
-    $HUGO \
+    ./hugo \
     --destination ./website-site \
     --cleanDestinationDir \
     --buildFuture \

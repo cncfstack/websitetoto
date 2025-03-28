@@ -98,7 +98,7 @@ after_kubernetes_website(){
 
     mkdir website-site
     
-    $HUGO \
+    ./hugo \
     --destination ./website-site \
     --cleanDestinationDir \
     --buildFuture \

@@ -18,7 +18,7 @@ before_vitess(){
 after_vitess(){
     mkdir website-site
 
-    $HUGO \
+    ./hugo \
     --destination ./website-site \
     --cleanDestinationDir \
     --buildFuture \
