@@ -4,7 +4,6 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 
-
 before_openyurt(){
     npm install
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'bf711965-231e-4ff8-9620-75f4b7a6256e'}}]})}),|g" docusaurus.config.js
@@ -17,9 +16,6 @@ after_openyurt(){
     npm run build
 
     ls -lh
-
-    echo "复制文件到OSS"
-#    $OSSUTIL cp -fr build oss://cncfstack-openyurt
 }
 
 save_return(){
@@ -29,7 +25,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/openyurtio/openyurt.io.git' ;then
-    echo "/openyurtio/openyurt.io.git"
+    echo "=============================================> 匹配到 openyurt"
     before_openyurt
     find_and_sed
     after_openyurt
