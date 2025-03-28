@@ -16,6 +16,7 @@ before_volcano(){
 
     # 文件语法错误，无法编译
     rm -f content/zh/blog/*
+    rm -f content/en/blog/*
 }
 
 after_volcano(){
