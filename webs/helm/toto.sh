@@ -1,9 +1,8 @@
-#!/bin/bash
 
-workdir=$1
-initdir=$2
+#workdir=$1
+#initdir=$2
 
-source ${initdir}/libs/common.sh
+#source ${initdir}/libs/common.sh
 
 before_helm_website(){
     echo "install hugo"
@@ -50,4 +49,3 @@ if cat .git/config  |grep '/helm/helm-www.git' ;then
     after_helm_website
     save_return 
 fi
-cd -

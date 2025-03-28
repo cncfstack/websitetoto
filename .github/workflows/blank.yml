@@ -34,6 +34,8 @@ jobs:
           
           initdir=`pwd`
 
+          source ${initdir}/libs/common.sh
+
           for project in `cat push.list`
           do
 
@@ -45,10 +47,8 @@ jobs:
               git clone $project $workdir
                ls $workdir
 
-              find ./webs -name toto.sh -exec bash -x {} $workdir $initdir \;
+              find ./webs -name toto.sh -exec source {} \;
 
-              # ret="build-output-dirpash&remote_oss_path"
-              #ret=`toto.sh $project`
               src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
               dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
 
