@@ -14,6 +14,8 @@ before_volcano(){
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="8ccc7a7d-06b8-477d-9d25-eb27c0ac9bbc"></script>' >> layouts/partials/favicons.html
 
+
+    rm content/zh/blog/kube-batch-customers.md
 }
 after_volcano(){
     mkdir website-site
