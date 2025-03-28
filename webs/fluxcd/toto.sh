@@ -19,12 +19,15 @@ before_flux_website(){
 after_flux_website(){
 
 
-    ./hugo \
-    --destination ./output \
-    --minify \
-    --gc \
-    --enableGitInfo \
-    --baseURL https://flux.cncfstack.com
+    # ./hugo \
+    # --destination ./output \
+    # --minify \
+    # --gc \
+    # --enableGitInfo \
+    # --baseURL https://flux.cncfstack.com
+
+    sed -i 's|--baseURL $(URL)|--baseURL https://flux.cncfstack.com|g' Makefile
+    make production-build
 
 }
 
