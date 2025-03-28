@@ -35,19 +35,19 @@ after_helm_website(){
     --baseURL https://helm.cncfstack.com
 }
 
-
+save_return(){
+    echo "复制文件到OSS"
+    touch ${workdir}/ret-data
+    echo 'app&oss://cncfstack-helm' > ${workdir}/ret-data
+}
 
 
 cd $workdir
-
 if cat .git/config  |grep '/helm/helm-www.git' ;then
     echo "helmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
     before_helm_website
     find_and_sed
     after_helm_website
-    
-    echo "复制文件到OSS"
-    echo 'app&oss://cncfstack-helm' > ${workdir}/ret-data
+    save_return 
 fi
-
 cd -
