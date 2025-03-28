@@ -27,6 +27,7 @@ jobs:
       # Runs a single command using the runners shell
       - name:  To-To-To
         run: |
+          set -x
 
           source libs/aliyun.sh
           install_aliyun_ossutil
