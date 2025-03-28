@@ -43,7 +43,7 @@ cd $workdir
 
 
 if cat .git/config  |grep '/open-telemetry/opentelemetry.io.git' ;then
-    echo ""=============================================> 匹配到 opentelemetry"
+    echo "=============================================> 匹配到 opentelemetry"
     before_opentelemetry
     find_and_sed
     after_opentelemetry
