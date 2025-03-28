@@ -7,10 +7,7 @@ source ${initdir}/libs/common.sh
 
 before_vitess(){
 
-    echo "npm install"
     npm install
-    
-    echo "install hugo"
     install_hugo_v120
 
     # 添加网站访问统计
@@ -35,9 +32,6 @@ after_vitess(){
     --templateMetricsHints \
     --baseURL https://vitess.cncfstack.com
 
-    echo "复制文件到OSS"
-    # $OSSUTIL sync app oss://cncfstack-helm --force --update  --job=10 --checkpoint-dir=/tmp/osscheck --exclude=.DS_Store 
-    #$OSSUTIL cp -fr website-site oss://cncfstack-vitess
 }
 
 
@@ -50,7 +44,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/vitessio/website.git' ;then
-    echo "/vitessio/website.git"
+    echo "=============================================> 匹配到 vitessio"
     before_vitess
     find_and_sed
     after_vitess
