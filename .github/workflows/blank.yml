@@ -39,7 +39,7 @@ jobs:
 
 
               uuid=`date  "+%s%N"`
-              workdir= ${initdir}/tmp/${uuid}
+              workdir="${initdir}/tmp/${uuid}"
               mkdir -p $workdir
 
               git clone $project $workdir
