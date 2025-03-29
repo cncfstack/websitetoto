@@ -56,7 +56,7 @@ jobs:
               src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
               dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
 
-              if [ -d $src ];then
+              if [ -f "${src}/index.html" ];then
                 echo "=============================================>  上传文件到OSS"
                 ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
               else
