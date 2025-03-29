@@ -4,6 +4,8 @@ install_hugo(){
     echo "=============================================> 安装 Hugo V0.133.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.133.0/hugo_extended_0.133.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.133.0_linux-amd64.tar.gz
+    sudo cp ./hugo /usr/bin/
+    sudo chmod +x /usr/bin/hugo
 }
 
 
@@ -11,6 +13,8 @@ install_hugo_v120(){
     echo "=============================================> 安装 Hugo V0.120.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.120.0/hugo_extended_0.120.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.120.0_linux-amd64.tar.gz
+    sudo cp ./hugo /usr/bin/
+    sudo chmod +x /usr/bin/hugo
 }
 
 
