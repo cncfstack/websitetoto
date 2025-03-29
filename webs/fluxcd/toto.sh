@@ -4,11 +4,7 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 before_flux_website(){
-    echo "install hugo"
-    install_hugo
-
-    # 安装 postCSS
-    echo "install postCSS"
+    install_hugo_v122
     install_postcss
 
     # 添加网站访问统计
