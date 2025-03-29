@@ -9,11 +9,9 @@ before_grpc_website(){
     install_hugo_v99_1
     install_postcss
 
-
-
-
-    echo "该项目依赖 bluma，需要安装对应版本的依赖"
-    cd themes/grpc-docs && npm install && cd -
+    #To build and serve the site, you'll need the latest LTS release of Node. Install it using nvm, for example:
+    nvm install --lts
+    npm install 
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="553c6a72-641e-4b7c-9d82-d0bfaf213c0a"></script>' >>  layouts/partials/meta.html
