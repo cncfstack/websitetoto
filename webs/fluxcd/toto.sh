@@ -16,13 +16,12 @@ after_flux_website(){
 
     
     sed -i 's|PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|GITHUB_USER=cncfstack GITHUB_TOKEN=${{secret.CNCFSTACK_GITHUB_TOKEN}} PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|g' Makefile
-    cat Makefile
+    #cat Makefile
 
     make yq
     make prereqs
     make gen-content
     #make production-build
-
 
     mkdir output
     hugo \
@@ -31,7 +30,6 @@ after_flux_website(){
     --gc \
     --enableGitInfo \
     --baseURL https://flux.cncfstack.com
-
 
 }
 
@@ -46,6 +44,6 @@ if cat .git/config  |grep '/fluxcd/website.git' ;then
     echo "=============================================> 匹配到 flux"
     before_flux_website
     after_flux_website
-    find_and_sed_v2 "app"
+    find_and_sed_v2 "./output"
     save_return 
 fi
