@@ -67,7 +67,7 @@ install_postcss(){
 
 check_cdn_change(){
     echo "=============================================> 以下文件进行了 cdn 替换，请确认文件在 https://cdn.cncfstack.com 是否存在"
-    grep "cdn.cncfstack.com" ./* -R |grep -v "otocn\.sed"
+    grep "cdn.cncfstack.com" ./* -R |grep -v "otocn\.sed"|awk -F':' '{print $1}'
 }
 
 
@@ -75,7 +75,7 @@ check_not_change(){
     echo "=============================================> 以下可能的外部文件未被处理"
     # 有些图标表情使用 CDN 的 SVG，这类也可以代理。TODO：有些svg中会包含地址，这类是不需要处理的，但是会grep出来。不移除会有大量的无效信息，还是不显示svg内容，根据实际情况单独处理
     # raw.githubusercontent.com 是 github 的内容，太多输出了，有依赖单独处理吧
-    grep -iE "(maxcdn.bootstrapcdn.com|code.jquery.com|cdnjs.cloudflare.com|cdn-images.mailchimp.com|cdn.jsdelivr.net|fonts.googleapis.com|unpkg.com|www.googletagmanager.com)" ./* -R |grep -vE "(\.sh\:|\.md\:|\.toml|index\.rss\.xml|README\.txt\:|otocn\.sed\:|\.svg\:|node_modules)"
+    grep -iEo "(maxcdn.bootstrapcdn.com|code.jquery.com|cdnjs.cloudflare.com|cdn-images.mailchimp.com|cdn.jsdelivr.net|fonts.googleapis.com|unpkg.com|www.googletagmanager.com)" ./* -R |grep -vE "(\.sh\:|\.md\:|\.toml|index\.rss\.xml|README\.txt\:|otocn\.sed\:|\.svg\:|node_modules)" 
 }
 
 

@@ -8,8 +8,7 @@ before_jaeger_website(){
     install_postcss
 
     # 添加网站访问统计
-    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="ad128657-afe1-4074-aa5e-279f72db2a62"></script>' >>  layouts/partials/favicons.html
-
+    #echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="ad128657-afe1-4074-aa5e-279f72db2a62"></script>' >>  layouts/partials/favicons.html
 
 
 }
@@ -17,15 +16,16 @@ before_jaeger_website(){
 after_jaeger_website(){
 
     #command = "make netlify-production-build"
-
-    mkdir output
-    hugo \
-    --destination ./output \
-    --cleanDestinationDir \
-    --minify \
-    --gc \
-    --enableGitInfo \
-    --baseURL https://jaeger.cncfstack.com
+    make generate
+    make netlify-production-build
+    # mkdir output
+    # hugo \
+    # --destination ./output \
+    # --cleanDestinationDir \
+    # --minify \
+    # --gc \
+    # --enableGitInfo \
+    # --baseURL https://jaeger.cncfstack.com
 
 }
 
