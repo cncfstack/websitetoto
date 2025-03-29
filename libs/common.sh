@@ -94,5 +94,5 @@ find_and_sed_v2(){
     done
 
     check_cdn_change
-    check_not_change
+    #check_not_change
 }

@@ -35,7 +35,8 @@ after_flux_website(){
 }
 
 save_return(){
-    echo "${workdir}/output&oss://cncfstack-flux" > ${workdir}/ret-data
+    ls -lha
+    echo "${workdir}/app&oss://cncfstack-flux" > ${workdir}/ret-data
 }
 
 
@@ -44,6 +45,6 @@ if cat .git/config  |grep '/fluxcd/website.git' ;then
     echo "=============================================> 匹配到 flux"
     before_flux_website
     after_flux_website
-    find_and_sed_v2 "output"
+    find_and_sed_v2 "app"
     save_return 
 fi
