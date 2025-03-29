@@ -1,14 +1,14 @@
-name: Loggie To-To-To
+name: To-To-To OpenTelemetry
 on:
   schedule:
-    - cron: "47 2 * * *"
+    - cron: "15 3 * * *"
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name:  Loggie To-To-To
+      - name:  OpenTelemetry To-To-To
         run: |
           set -x
 
@@ -21,7 +21,7 @@ jobs:
 
           cat ${initdir}/sed/* > ${initdir}/toto.sed
 
-          for project in "https://github.com/loggie-io/docs.git"
+          for project in "https://github.com/open-telemetry/opentelemetry.io.git"
           do
 
               uuid=`date  "+%s%N"`
