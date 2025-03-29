@@ -25,6 +25,7 @@ after_jaeger_website(){
     hugo \
     --destination ./output \
     --cleanDestinationDir \
+    --ignoreCache \
     --minify \
     --gc \
     --enableGitInfo \
