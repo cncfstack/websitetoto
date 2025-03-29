@@ -1,3 +1,5 @@
+set -x
+
 workdir=$1
 initdir=$2
 
@@ -7,13 +9,11 @@ before_jaeger_website(){
     install_hugo_v143_1
     install_postcss
 
-    # 该项目依赖 bluma，需要安装对应版本的依赖
+    echo "该项目依赖 bluma，需要安装对应版本的依赖"
     cd themes/jaeger-docs && npm install && cd -
-
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="ad128657-afe1-4074-aa5e-279f72db2a62"></script>' >>  themes/jaeger-docs/layouts/partials/meta.html
-
 
 }
 
