@@ -23,7 +23,7 @@ after_flux_website(){
     # --baseURL https://flux.cncfstack.com
 
     mkdir output
-    sed -i 's|--baseURL $(URL) \|--baseURL https://flux.cncfstack.com --destination ./output \ |g' Makefile
+    sed -i 's|--baseURL $(URL) \\|--baseURL https://flux.cncfstack.com --destination ./output \\ |g' Makefile
     sed -i 's|PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|GITHUB_USER=cncfstack GITHUB_TOKEN=${{secret.CNCFSTACK_GITHUB_TOKEN}} PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|g' Makefile
     cat Makefile
 
