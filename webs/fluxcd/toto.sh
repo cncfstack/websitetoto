@@ -47,7 +47,7 @@ cd $workdir
 if cat .git/config  |grep '/fluxcd/website.git' ;then
     echo "=============================================> 匹配到 flux"
     before_flux_website
-    find_and_sed
     after_flux_website
+    find_and_sed_v2 "output"
     save_return 
 fi
