@@ -6,7 +6,9 @@ source ${initdir}/libs/common.sh
 before_jaeger_website(){
     install_hugo_v143_1
     install_postcss
-    install_bulma
+
+    # 该项目依赖 bluma，需要安装对应版本的依赖
+    cd themes/jaeger-docs && npm install && cd -
 
 
     # 添加网站访问统计

@@ -65,10 +65,6 @@ install_postcss(){
 }
 
 
-install_bulma(){
-    npm i -D  bulma
-}
-
 
 check_cdn_change(){
     echo "=============================================> 以下文件进行了 cdn 替换，请确认文件在 https://cdn.cncfstack.com 是否存在"
