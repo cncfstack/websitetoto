@@ -14,29 +14,30 @@ before_flux_website(){
 
 after_flux_website(){
 
-
-    # ./hugo \
-    # --destination ./output \
-    # --minify \
-    # --gc \
-    # --enableGitInfo \
-    # --baseURL https://flux.cncfstack.com
-
-    mkdir output
-    sed -i 's|--baseURL $(URL) \\|--baseURL https://flux.cncfstack.com --destination ./output \\ |g' Makefile
+    
     sed -i 's|PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|GITHUB_USER=cncfstack GITHUB_TOKEN=${{secret.CNCFSTACK_GITHUB_TOKEN}} PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|g' Makefile
     cat Makefile
 
     make yq
     make prereqs
     make gen-content
-    make production-build
+    #make production-build
+
+
+    mkdir output
+    hugo \
+    --destination ./output \
+    --minify \
+    --gc \
+    --enableGitInfo \
+    --baseURL https://flux.cncfstack.com
+
 
 }
 
 save_return(){
     ls -lha
-    echo "${workdir}/app&oss://cncfstack-flux" > ${workdir}/ret-data
+    echo "${workdir}/output&oss://cncfstack-flux" > ${workdir}/ret-data
 }
 
 
