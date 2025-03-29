@@ -1,0 +1,40 @@
+name: OpenTelemetry To-To-To
+on:
+  schedule:
+    - cron: "45 2 * * *"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name:  OpenTelemetry To-To-To
+        run: |
+          set -x
+
+          source libs/aliyun.sh
+          install_aliyun_ossutil
+          
+          initdir=`pwd`
+
+          source ${initdir}/libs/common.sh
+
+          cat ${initdir}/sed/* > ${initdir}/toto.sed
+
+          for project in "https://github.com/open-telemetry/opentelemetry.io.git"
+          do
+
+              uuid=`date  "+%s%N"`
+              workdir="${initdir}/tmp/${uuid}"
+              mkdir -p $workdir
+
+              git clone $project $workdir
+               ls $workdir
+
+              find ./webs -name toto.sh -exec /bin/bash {} $workdir $initdir \;
+
+              src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
+              dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
+
+              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
+          done
