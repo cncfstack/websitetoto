@@ -6,6 +6,7 @@ source ${initdir}/libs/common.sh
 before_spiffe_website(){
 
     install_hugo_v68_3
+    make setup
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="86f12ca0-83a8-470a-af6c-6ba96d72998e"></script>' >>  layouts/partials/meta.html
