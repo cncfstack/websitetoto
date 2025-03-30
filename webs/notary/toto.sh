@@ -4,8 +4,7 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 before_notary_website(){
-    install_huinstall_hugo_v83_1go_v114
-
+    install_hugo_v83_1
     install_postcss
 
     # 添加网站访问统计
