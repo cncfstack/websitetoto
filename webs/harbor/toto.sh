@@ -4,15 +4,15 @@ initdir=$2
 source ${initdir}/libs/common.sh
 
 before_harbor_website(){
-    install_hugo_v74
-    install_postcss
 
     make prepare
     npm i
 
+    install_hugo_v74
+    #install_postcss
 
     # 添加网站访问统计
-    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="fd31286b-b455-4b8c-8d83-549b2ab02cff"></script>' >>  layouts/partials/favicon.html
+    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="d2323b72-657c-4da2-9371-67f8383fc2c8"></script>' >>  layouts/partials/favicon.html
 
 }
 
