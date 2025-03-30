@@ -7,6 +7,7 @@ before_istio_website(){
 
     install_hugo_v136_5
     install_postcss
+    npm install
 
     # 添加网站访问统计
 
