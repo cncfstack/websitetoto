@@ -5,7 +5,8 @@ source ${initdir}/libs/common.sh
 
 before_spiffe_website(){
 
-    install_hugo_v68_3
+    # install_hugo_v68_3
+    install_hugo_v99_1
     npm install
     python pull_external.py
 
