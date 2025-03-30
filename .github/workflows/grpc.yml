@@ -21,7 +21,7 @@ jobs:
 
           cat ${initdir}/sed/* > ${initdir}/toto.sed
 
-          for project in "https://github.com/dapr/docs.git"
+          for project in "https://github.com/grpc/grpc.io.git"
           do
 
               uuid=`date  "+%s%N"`
