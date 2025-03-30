@@ -68,6 +68,14 @@ install_hugo_v122(){
     sudo chmod +x /usr/bin/hugo
 }
 
+install_hugo_v124_1(){
+    echo "=============================================> 安装 Hugo V0.124.1"
+    wget -q https://github.com/gohugoio/hugo/releases/download/v0.124.1/hugo_extended_0.124.1_linux-amd64.tar.gz
+    tar xf hugo_extended_0.124.1_linux-amd64.tar.gz
+    sudo cp ./hugo /usr/bin/
+    sudo chmod +x /usr/bin/hugo
+}
+
 install_hugo_v143_1(){
     echo "=============================================> 安装 Hugo V0.143.1"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.143.1/hugo_extended_0.143.1_linux-amd64.tar.gz
