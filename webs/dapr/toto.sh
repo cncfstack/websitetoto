@@ -39,7 +39,7 @@ save_return(){
 
 
 cd $workdir
-if cat .git/config  |grep '/dapr/dapr.io.git' ;then
+if cat .git/config  |grep '/dapr/docs.git' ;then
     echo "=============================================> 匹配到 dapr"
     before_dapr_website
     after_dapr_website
