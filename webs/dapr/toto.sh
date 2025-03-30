@@ -34,7 +34,8 @@ after_dapr_website(){
 
 save_return(){
     ls -lha
-    echo "${workdir}/output&oss://cncfstack-dapr" > ${workdir}/ret-data
+    pwd
+    echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
 }
 
 
