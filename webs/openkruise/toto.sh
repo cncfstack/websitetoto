@@ -6,7 +6,7 @@ source ${initdir}/libs/common.sh
 
 before_openkruise(){
     npm install
-    sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'bf711965-231e-4ff8-9620-75f4b7a6256e'}}]})}),|g" docusaurus.config.js
+    sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'66308564-be18-4fbd-9e48-9de74708242d'}}]})}),|g" docusaurus.config.js
     cat ./docusaurus.config.js
 }
 
