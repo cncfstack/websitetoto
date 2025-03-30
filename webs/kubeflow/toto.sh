@@ -35,7 +35,7 @@ save_return(){
 
 
 cd $workdir
-if cat .git/config  |grep '/kubeflow/docs.git' ;then
+if cat .git/config  |grep '/kubeflow/website.git' ;then
     echo "=============================================> 匹配到 kubeflow"
     before_kubeflow_website
     after_kubeflow_website
