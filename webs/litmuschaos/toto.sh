@@ -11,7 +11,6 @@ before_litmuschaos(){
     cd website
     npm install
 
-
 # [
 #     ()=>(
 #         {
@@ -38,23 +37,6 @@ before_litmuschaos(){
     
     log_info "=============================================> ./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
-# plugins: [
-#   // ...其他插件...
-#   () => ({ 
-#     name: 'umami-analytics',
-#     injectHtmlTags: () => ({
-#       headTags: [{
-#         tagName: 'script',
-#         attributes: {
-#           defer: true,
-#           src: 'https://umami.cncfstack.com/script.js',
-#           'data-website-id': 'ea260eb5-e4cc-4e4e-ad63-e1b227bd5feb'
-#         }
-#       }]
-#     })
-#   }),
-# ],
- 
 
 }
 
