@@ -8,7 +8,7 @@ source ${initdir}/libs/common.sh
 
 before_knative(){
     
-    ./hack/build.sh
+    bash -x ./hack/build.sh
 
 }
 
@@ -27,6 +27,7 @@ save_return(){
     echo "${workdir}/site&oss://cncfstack-knative" > ${workdir}/ret-data
 }
 
+cd $workdir
 
 if cat .git/config  |grep '/knative/docs.git' ;then
     log_info "=============================================> 匹配到 knative"
