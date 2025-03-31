@@ -51,7 +51,7 @@ after_wasmcloud(){
 
 
 save_return(){
-    echo "${workdir}/website/build&oss://cncfstack-wasmcloud" > ${workdir}/ret-data
+    echo "${workdir}/build&oss://cncfstack-wasmcloud" > ${workdir}/ret-data
 }
 
 cd $workdir
@@ -59,7 +59,7 @@ cd $workdir
 if cat .git/config  |grep '/wasmCloud/wasmcloud.com.git' ;then
     log_info "=============================================> 匹配到 wasmcloud"
     before_wasmcloud
-    find_and_sed_v2 "./website"
     after_wasmcloud
+    find_and_sed_v2 "./build"
     save_return 
 fi
