@@ -7,7 +7,8 @@ source ${initdir}/libs/common.sh
 
 
 before_knative(){
-    
+    pip install -r requirements.txt
+
     bash -x ./hack/build.sh
 
 }
