@@ -8,7 +8,7 @@ source ${initdir}/libs/common.sh
 
 before_openfeature(){
     
-    npm install
+    yarn install
     
     log_info "=============================================> 配置文件 docusaurus.config.js 添加 umami"
     #sed -ri "s|themeConfig:\s*\{|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})})],themeConfig: {|g" docusaurus.config.js
@@ -16,9 +16,8 @@ before_openfeature(){
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'2ef83157-07a7-4bff-a911-e05f83e8663b'}}]})}),|g" docusaurus.config.ts
 
 
-
-    log_info "=============================================> ./docusaurus.config.js 配置文件内容"
-    cat ./docusaurus.config.js
+    log_info "=============================================> ./docusaurus.config.ts 配置文件内容"
+    cat ./docusaurus.config.ts
 
 
 }
@@ -26,7 +25,7 @@ before_openfeature(){
 after_openfeature(){
 
     log_info "=============================================> 开始 npm run build 构建"
-    npm run build
+    yarn run build
 
     log_info "=============================================> 当前目录中文件列表"
     ls -lh
