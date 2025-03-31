@@ -56,7 +56,7 @@ save_return(){
 cd $workdir
 
 if cat .git/config  |grep '/litmuschaos/litmus-docs.git' ;then
-    log_info "=============================================> 匹配到 chaos-mesh"
+    log_info "=============================================> 匹配到 litmuschaos"
     before_litmuschaos
     find_and_sed_v2 "./website"
     after_litmuschaos
