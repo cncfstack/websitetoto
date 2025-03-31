@@ -14,7 +14,7 @@ before_litmuschaos(){
     #sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})}),|g" docusaurus.config.js
     
     log_info "=============================================> 配置文件中没有plugins的配置，单独添加，选择一个常用的KEY"
-    sed -i "s|themeConfig:\s*\{|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'494eb503-996b-4489-a5a6-66c557d98c65'}}]})})],themeConfig: {|g" docusaurus.config.js
+    sed -i "s|themeConfig:\s*\{|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'494eb503-996b-4489-a5a6-66c557d98c65'}}]})})],themeConfig:\ \{|g" docusaurus.config.js
     
     log_info "=============================================> ./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
