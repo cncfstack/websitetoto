@@ -1,6 +1,4 @@
 
-source ./commmon.sh
-
 install_aliyun_ossutil(){
   if [ ! -f ./ossutil ];then
     log_info "=============================================> 当前路径下无 ossutil，下载并安装到本地 ./ossutil 和 /usr/bin/ossutil"
