@@ -1,3 +1,32 @@
+# 定义颜色变量
+BLACK='\033[0;30m'
+RED='\033[0;31m'
+GREEN='\033[0;32m'
+YELLOW='\033[0;33m'
+BLUE='\033[0;34m'
+PURPLE='\033[0;35m'
+CYAN='\033[0;36m'
+WHITE='\033[0;37m'
+NC='\033[0m' # No Color
+
+############################################################
+# log output
+log_info(){
+    content="[INFO] $(date '+%Y-%m-%d %H:%M:%S') $@"
+    echo -e "${GREEN} ==> ${content} $NC"
+}
+
+log_warn(){
+    content="[WARN] $(date '+%Y-%m-%d %H:%M:%S') $@"
+    echo -e "${YELLOW} ==> ${content} $NC"
+}
+
+log_error(){
+    content="[ERROR] $(date '+%Y-%m-%d %H:%M:%S') $@"
+    echo -e "${RED} ==> ${content} $NC"
+    exit 1
+}
+
 
 install_hugo(){
 
