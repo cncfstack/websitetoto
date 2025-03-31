@@ -27,45 +27,65 @@ log_error(){
     exit 1
 }
 
+install_hugo_base(){
+    hugo_url=$1
+    pkg_name=`echo $hugo_url|awk -F'/' '{print $NF}'`
+
+    log_info "=============================================> 下载并安装 hugo: $pkg_name"
+    wget -q -O $hugo_url
+    tar xf $pkg_name
+
+    sudo cp ./hugo /usr/bin/
+    sudo chmod +x /usr/bin/hugo
+
+    #        -x FILE
+    #          FILE exists and execute (or search) permission is granted
+    if [ -x /usr/bin/hugo ];then
+        log_error "=============================================>  hugo 安装失败: /usr/bin/hugo 文件不存在或者没有成功设置可执行权限"
+    fi
+}
+
 
 install_hugo(){
 
-    echo "=============================================> 安装 Hugo V0.133.0"
+    log_info "=============================================> 安装 Hugo V0.133.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.133.0/hugo_extended_0.133.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.133.0_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
     sudo chmod +x /usr/bin/hugo
 }
+
 install_hugo_v65_3(){
-    echo "=============================================> 安装 Hugo V0.65.3"
-    wget -q https://github.com/gohugoio/hugo/releases/download/v0.65.3/hugo_extended_0.65.3_Linux-64bit.tar.gz
-    tar xf hugo_extended_0.65.3_Linux-64bit.tar.gz
-    sudo cp ./hugo /usr/bin/
-    sudo chmod +x /usr/bin/hugo
+    install_hugo_base https://github.com/gohugoio/hugo/releases/download/v0.65.3/hugo_extended_0.65.3_Linux-64bit.tar.gz
+    # log_info "=============================================> 安装 Hugo V0.65.3"
+    # wget -q https://github.com/gohugoio/hugo/releases/download/v0.65.3/hugo_extended_0.65.3_Linux-64bit.tar.gz
+    # tar xf hugo_extended_0.65.3_Linux-64bit.tar.gz
+    # sudo cp ./hugo /usr/bin/
+    # sudo chmod +x /usr/bin/hugo
 }
 install_hugo_v66(){
-    echo "=============================================> 安装 Hugo V0.66.0"
+    log_info "=============================================> 安装 Hugo V0.66.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.66.0/hugo_extended_0.66.0_Linux-64bit.tar.gz
     tar xf hugo_extended_0.66.0_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
     sudo chmod +x /usr/bin/hugo
 }
 install_hugo_v68_3(){
-    echo "=============================================> 安装 Hugo V0.68.3"
+    log_info "=============================================> 安装 Hugo V0.68.3"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.68.3/hugo_extended_0.68.3_Linux-64bit.tar.gz
     tar xf hugo_extended_0.68.3_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
     sudo chmod +x /usr/bin/hugo
 }
 install_hugo_v80(){
-    echo "=============================================> 安装 Hugo V0.80.0"
+    log_info "=============================================> 安装 Hugo V0.80.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.80.0/hugo_extended_0.80.0_Linux-64bit.tar.gz
     tar xf hugo_extended_0.80.0_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
     sudo chmod +x /usr/bin/hugo
 }
 install_hugo_v83_1(){
-    echo "=============================================> 安装 Hugo V0.83.1"
+    log_info "=============================================> 安装 Hugo V0.83.1"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.83.1/hugo_extended_0.83.1_Linux-64bit.tar.gz
     tar xf hugo_extended_0.83.1_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -73,7 +93,7 @@ install_hugo_v83_1(){
 }
 
 install_hugo_v93_2(){
-    echo "=============================================> 安装 Hugo V0.93.2"
+    log_info "=============================================> 安装 Hugo V0.93.2"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.93.2/hugo_extended_0.93.2_Linux-64bit.tar.gz
     tar xf hugo_extended_0.93.2_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -81,7 +101,7 @@ install_hugo_v93_2(){
 }
 
 install_hugo_v93_2(){
-    echo "=============================================> 安装 Hugo V0.93.2"
+    log_info "=============================================> 安装 Hugo V0.93.2"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.93.2/hugo_extended_0.93.2_Linux-64bit.tar.gz
     tar xf hugo_extended_0.93.2_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -90,7 +110,7 @@ install_hugo_v93_2(){
 
 
 install_hugo_v99_1(){
-    echo "=============================================> 安装 Hugo V0.99.1"
+    log_info "=============================================> 安装 Hugo V0.99.1"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.99.1/hugo_extended_0.99.1_Linux-64bit.tar.gz
     tar xf hugo_extended_0.99.1_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -98,7 +118,7 @@ install_hugo_v99_1(){
 }
 
 install_hugo_v100_2(){
-    echo "=============================================> 安装 Hugo V0.100.2"
+    log_info "=============================================> 安装 Hugo V0.100.2"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.100.2/hugo_extended_0.100.2_Linux-64bit.tar.gz
     tar xf hugo_extended_0.100.2_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -108,7 +128,7 @@ install_hugo_v100_2(){
 
 
 install_hugo_v102_3(){
-    echo "=============================================> 安装 Hugo V0.102.3"
+    log_info "=============================================> 安装 Hugo V0.102.3"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.102.3/hugo_extended_0.102.3_Linux-64bit.tar.gz
     tar xf hugo_extended_0.102.3_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -116,7 +136,7 @@ install_hugo_v102_3(){
 }
 
 install_hugo_v108(){
-    echo "=============================================> 安装 Hugo V0.108.0"
+    log_info "=============================================> 安装 Hugo V0.108.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.108.0/hugo_extended_0.108.0_Linux-64bit.tar.gz
     tar xf hugo_extended_0.108.0_Linux-64bit.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -124,7 +144,7 @@ install_hugo_v108(){
 }
 
 install_hugo_v111_3(){
-    echo "=============================================> 安装 Hugo V0.111.3"
+    log_info "=============================================> 安装 Hugo V0.111.3"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.111.3/hugo_extended_0.111.3_linux-amd64.tar.gz
     tar xf hugo_extended_0.111.3_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -132,7 +152,7 @@ install_hugo_v111_3(){
 }
 
 install_hugo_v114(){
-    echo "=============================================> 安装 Hugo V0.114.0"
+    log_info "=============================================> 安装 Hugo V0.114.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.114.0/hugo_extended_0.114.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.114.0_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -140,7 +160,7 @@ install_hugo_v114(){
 }
 
 install_hugo_v120(){
-    echo "=============================================> 安装 Hugo V0.120.0"
+    log_info "=============================================> 安装 Hugo V0.120.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.120.0/hugo_extended_0.120.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.120.0_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -148,7 +168,7 @@ install_hugo_v120(){
 }
 
 install_hugo_v122(){
-    echo "=============================================> 安装 Hugo V0.122.0"
+    log_info "=============================================> 安装 Hugo V0.122.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.122.0/hugo_extended_0.122.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.122.0_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -156,7 +176,7 @@ install_hugo_v122(){
 }
 
 install_hugo_v124_1(){
-    echo "=============================================> 安装 Hugo V0.124.1"
+    log_info "=============================================> 安装 Hugo V0.124.1"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.124.1/hugo_extended_0.124.1_linux-amd64.tar.gz
     tar xf hugo_extended_0.124.1_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -164,14 +184,14 @@ install_hugo_v124_1(){
 }
 
 install_hugo_v136_5(){
-    echo "=============================================> 安装 Hugo V0.136.5"
+    log_info "=============================================> 安装 Hugo V0.136.5"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.136.5/hugo_extended_0.136.5_linux-amd64.tar.gz
     tar xf hugo_extended_0.136.5_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
     sudo chmod +x /usr/bin/hugo
 }
 install_hugo_v139_3(){
-    echo "=============================================> 安装 Hugo V0.139.3"
+    log_info "=============================================> 安装 Hugo V0.139.3"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.139.3/hugo_extended_0.139.3_linux-amd64.tar.gz
     tar xf hugo_extended_0.139.3_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -179,7 +199,7 @@ install_hugo_v139_3(){
 }
 
 install_hugo_v143_1(){
-    echo "=============================================> 安装 Hugo V0.143.1"
+    log_info "=============================================> 安装 Hugo V0.143.1"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.143.1/hugo_extended_0.143.1_linux-amd64.tar.gz
     tar xf hugo_extended_0.143.1_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -187,7 +207,7 @@ install_hugo_v143_1(){
 }
 
 install_hugo_v145(){
-    echo "=============================================> 安装 Hugo V0.145.0"
+    log_info "=============================================> 安装 Hugo V0.145.0"
     wget -q https://github.com/gohugoio/hugo/releases/download/v0.145.0/hugo_extended_0.145.0_linux-amd64.tar.gz
     tar xf hugo_extended_0.145.0_linux-amd64.tar.gz
     sudo cp ./hugo /usr/bin/
@@ -198,20 +218,20 @@ install_hugo_v145(){
 
 
 install_postcss(){
-    echo "=============================================> 安装 postCSS"
+    log_info "=============================================> 安装 postCSS"
     npm i -D postcss postcss-cli autoprefixer
 }
 
 
 
 check_cdn_change(){
-    echo "=============================================> 以下文件进行了 cdn 替换，请确认文件在 https://cdn.cncfstack.com 是否存在"
+    log_info "=============================================> 以下文件进行了 cdn 替换，请确认文件在 https://cdn.cncfstack.com 是否存在"
     grep "cdn.cncfstack.com" ./* -R |grep -v "otocn\.sed"|awk -F':' '{print $1}'
 }
 
 
 check_not_change(){
-    echo "=============================================> 以下可能的外部文件未被处理"
+    log_info "=============================================> 以下可能的外部文件未被处理"
     # 有些图标表情使用 CDN 的 SVG，这类也可以代理。TODO：有些svg中会包含地址，这类是不需要处理的，但是会grep出来。不移除会有大量的无效信息，还是不显示svg内容，根据实际情况单独处理
     # raw.githubusercontent.com 是 github 的内容，太多输出了，有依赖单独处理吧
     grep -iEo "(maxcdn.bootstrapcdn.com|code.jquery.com|cdnjs.cloudflare.com|cdn-images.mailchimp.com|cdn.jsdelivr.net|fonts.googleapis.com|unpkg.com|www.googletagmanager.com)" ./* -R |grep -vE "(\.sh\:|\.md\:|\.toml|index\.rss\.xml|README\.txt\:|otocn\.sed\:|\.svg\:|node_modules)" 

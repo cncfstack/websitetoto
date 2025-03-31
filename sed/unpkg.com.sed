@@ -16,5 +16,4 @@ s|https://unpkg.com/@popperjs/core@2/dist/umd/popper.js|https://cdn.cncfstack.co
 s|https://unpkg.com/@popperjs/core@2|https://cdn.cncfstack.com/%40popperjs/core%402|g
 s|https://unpkg.com/@popperjs/core@^2.0.0|https://cdn.cncfstack.com/%40popperjs/core%40^2.0.0|g
 s|https://unpkg.com/yargs-parser@19.0.0/browser.js|https://unpkg.com/yargs-parser%4019.0.0/browser.js|g
-s|https://unpkg.com/|https://cdn.cncfstack.com/|g
 s|https://unpkg.com/lunr/lunr.js|https://cdn.cncfstack.com/lunr/lunr.js|g

@@ -21,7 +21,6 @@ s|https://cdn.jsdelivr.net/npm/@docsearch/css@3.8.2|https://cdn.cncfstack.com/np
 s|https://cdn.jsdelivr.net/npm/water.css@2/out/water.css|https://cdn.cncfstack.com/npm/water.css%402/out/water.css|g
 s|https://cdn.jsdelivr.net/gh/jshttp/mime-db@master/db.json|https://cdn.cncfstack.com/gh/jshttp/mime-db%40master/db.jso|g
 s|https://cdn.jsdelivr.net/npm/node-forge@1.0.0/dist/forge.min.js|https://cdn.cncfstack.com/npm/node-forge%401.0.0/dist/forge.min.js|g
-s|https://cdn.jsdelivr.net/|https://cdn.cncfstack.com/|g
 s|https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f386.svg|https://cdn.cncfstack.com/gh/jdecked/twemoji%4015.1.0/assets/svg/1f386.svg|g
 s|https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f9d1-200d-1f91d-200d-1f9d1.svg|https://cdn.cncfstack.com/gh/jdecked/twemoji%4015.1.0/assets/svg/1f9d1-200d-1f91d-200d-1f9d1.svg|g
 s|https://cdn.jsdelivr.net/gh/jdecked/twemoji@15.1.0/assets/svg/1f4d6.svg|https://cdn.cncfstack.com/gh/jdecked/twemoji%4015.1.0/assets/svg/1f4d6.svg|g
