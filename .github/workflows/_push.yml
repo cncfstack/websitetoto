@@ -29,7 +29,7 @@ jobs:
         run: |
           set -x
 
-          source libs/aliyun.sh
+          source libs/common.sh
           source libs/common.sh
 
           install_aliyun_ossutil
