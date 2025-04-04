@@ -1,7 +1,7 @@
 name: To-To-To Falco
 on:
   schedule:
-    - cron: "15 3 * * *"
+    - cron: "15 1 * * 4"
   workflow_dispatch:
 jobs:
   build:

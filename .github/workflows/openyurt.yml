@@ -1,7 +1,7 @@
 name: To-To-To OpenYurt
 on:
   schedule:
-    - cron: "15 3 * * *"
+    - cron: "15 1 * * 6"
   workflow_dispatch:
 jobs:
   build:

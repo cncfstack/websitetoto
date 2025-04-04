@@ -1,7 +1,7 @@
 name: To-To-To wasmCloud
 on:
   schedule:
-    - cron: "15 0 * * *"
+    - cron: "15 0 * * 4"
   workflow_dispatch:
 jobs:
   build:
