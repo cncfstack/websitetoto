@@ -3,7 +3,6 @@ workdir=$1
 source ${initdir}/libs/common.sh
 
 before_build(){
-
     # 添加网站访问统计
     cat > overrides/main.html <<EOF
 {% extends "base.html" %}
@@ -27,14 +26,17 @@ build(){
 
 save_return(){
 
-    tar czvf loggie.tgz site/*
-    
-    if [ ! -s loggie.tgz ];then
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="loggie.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czvf ${tarfile} -C site .
+
+    if [ ! -s ${tarfile} ];then
         log_error "Loggie 站点构建失败"
     fi
 
-    # 这行很重要，在其他关联项目中，文件名称必须要匹配
-    echo "${workdir}/loggie.tgz" > ${workdir}/ret-data
+    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
 }
 
 
