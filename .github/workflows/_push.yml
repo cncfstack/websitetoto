@@ -1,67 +1,12 @@
-# This is a basic workflow to help you get started with Actions
-
 name: Push CI
-
-# Controls when the workflow will run
 on:
-  # Triggers the workflow on push or pull request events but only for the "main" branch
   push:
     branches: [ "main" ]
-
-  # Allows you to run this workflow manually from the Actions tab
   workflow_dispatch:
-
-# A workflow run is made up of one or more jobs that can run sequentially or in parallel
 jobs:
-  # This workflow contains a single job called "build"
   build:
-    # The type of runner that the job will run on
     runs-on: ubuntu-latest
-
-    # Steps represent a sequence of tasks that will be executed as part of the job
     steps:
-
-      # Checks-out your repository under $GITHUB_WORKSPACE, so your job can access it
       - uses: actions/checkout@v4
-
-      # Runs a single command using the runners shell
       - name: Push To-To-To
-        run: |
-          set -x
-
-          source libs/common.sh
-          install_aliyun_ossutil
-          
-          initdir=`pwd`
-
-          cat ${initdir}/sed/* > ${initdir}/toto.sed
-
-          for project in `cat push.list`
-          do
-              repo_url=`echo $project|awk '{print $1}'`
-              repo_name=`echo $project|awk '{print $2}'`
-
-              uuid=`date  "+%s%N"`
-
-              workdir="${initdir}/tmp/${uuid}"
-              mkdir -p $workdir
-
-              git clone $project $workdir
-
-              log_info "=============================================>  clone的仓库内容："
-              ls $workdir
-
-
-              find ./webs -name toto.sh -exec /bin/bash {} $workdir \;
-
-              src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
-              
-
-              ls -lha $src
-
-
-              log_info "=============================================>  上传文件到OSS"
-              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-test/
-
-          done
-
+        run:  bash build.sh
