@@ -9,4 +9,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Push To-To-To
-        run:  bash build.sh
+        run:  |
+          initdir=`pwd`
+          bash build.sh

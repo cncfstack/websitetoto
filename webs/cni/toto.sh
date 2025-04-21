@@ -1,6 +1,5 @@
 workdir=$1
 
-
 source ${initdir}/libs/common.sh
 
 before_build(){

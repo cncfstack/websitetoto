@@ -4,7 +4,7 @@ set -x
 source libs/common.sh
 install_aliyun_ossutil
 
-initdir=`pwd`
+
 
 cat ${initdir}/sed/* > ${initdir}/toto.sed
 
