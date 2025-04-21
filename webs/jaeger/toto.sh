@@ -3,7 +3,7 @@ set -x
 workdir=$1
 initdir=$2
 
-source ${initdir}/libs/common.sh
+source libs/common.sh
 
 before_jaeger_website(){
     install_hugo_v143_1

@@ -1,7 +1,7 @@
 workdir=$1
 initdir=$2
 
-source ${initdir}/libs/common.sh
+source libs/common.sh
 
 before_kubeflow_website(){
     install_hugo_v124_1

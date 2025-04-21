@@ -1,6 +1,6 @@
 workdir=$1
 
-source ${initdir}/libs/common.sh
+source libs/common.sh
 
 before_build(){
     # 添加网站访问统计
@@ -20,12 +20,10 @@ build(){
 
     # 特殊情况，在构建完成后的文件中包含emoji表情svg文件，这这构建前是不可知道的，所以在构建完成后再替换一次。
     find_and_sed
-
 }
 
 
 save_return(){
-
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="loggie.tgz"
 

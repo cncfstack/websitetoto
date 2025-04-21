@@ -3,7 +3,7 @@ initdir=$2
 
 set -x
 
-source ${initdir}/libs/common.sh
+source libs/common.sh
 
 
 before_litmuschaos(){
