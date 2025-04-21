@@ -38,31 +38,30 @@ jobs:
 
           for project in `cat push.list`
           do
+              repo_url=`echo $project|awk '{print $1}'`
+              repo_name=`echo $project|awk '{print $2}'`
+
               uuid=`date  "+%s%N"`
+
               workdir="${initdir}/tmp/${uuid}"
               mkdir -p $workdir
 
               git clone $project $workdir
+
               log_info "=============================================>  clone的仓库内容："
               ls $workdir
 
-              find ./webs -name toto.sh -exec /bin/bash {} $workdir $initdir \;
+
+              find ./webs -name toto.sh -exec /bin/bash {} $workdir \;
 
               src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
-              dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
+              
 
               ls -lha $src
 
-              if [ -f "${src}/index.html" ];then
-                log_info "=============================================>  打包静态文件内容"
-                tar czvf ${src}.tar.gz ${src} 
-                log_info "=============================================>  上传文件到OSS"
-                #./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
-                ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr ${src} oss://cncfstack-test/
-              else
-                log_warn "=============================================>  没有构建出 index.html 文件"
-                continue
-              fi
+
+              log_info "=============================================>  上传文件到OSS"
+              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-test/
 
           done
 

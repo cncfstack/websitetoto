@@ -1,12 +1,10 @@
 workdir=$1
-initdir=$2
 
 source ${initdir}/libs/common.sh
 
-before_loggie(){
+before_build(){
 
     # 添加网站访问统计
-
     cat > overrides/main.html <<EOF
 {% extends "base.html" %}
 {% block htmltitle %}
@@ -14,10 +12,10 @@ before_loggie(){
   <title>Loggie</title>
 {% endblock %}
 EOF
-    
+
 }
 
-after_loggie(){
+build(){
     echo "after_loggie"
     sudo docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material  build
 
@@ -27,20 +25,26 @@ after_loggie(){
 }
 
 
-
 save_return(){
-    echo "${workdir}/site&oss://cncfstack-loggie" > ${workdir}/ret-data
+    tar czvf loggie.tgz site
+    if [ ! -s loggie.tgz ];then
+        log_error "Loggie 站点构建失败"
+    fi
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    echo "${workdir}/loggie.tgz" > ${workdir}/ret-data
 }
 
 
+
+
+
 cd $workdir
-
-
 if cat .git/config  |grep '/loggie-io/docs.git' ;then
     echo "=============================================> 匹配到 loggie"
-    before_loggie
+    before_build
     find_and_sed
-    after_loggie
+    build
     save_return 
 fi
 
