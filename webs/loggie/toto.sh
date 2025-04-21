@@ -26,7 +26,9 @@ build(){
 
 
 save_return(){
-    tar czvf loggie.tgz site
+
+    tar czvf loggie.tgz site/*
+    
     if [ ! -s loggie.tgz ];then
         log_error "Loggie 站点构建失败"
     fi
