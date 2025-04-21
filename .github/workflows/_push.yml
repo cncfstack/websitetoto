@@ -30,8 +30,6 @@ jobs:
           set -x
 
           source libs/common.sh
-          source libs/common.sh
-
           install_aliyun_ossutil
           
           initdir=`pwd`
@@ -40,8 +38,6 @@ jobs:
 
           for project in `cat push.list`
           do
-
-
               uuid=`date  "+%s%N"`
               workdir="${initdir}/tmp/${uuid}"
               mkdir -p $workdir
@@ -58,8 +54,11 @@ jobs:
               ls -lha $src
 
               if [ -f "${src}/index.html" ];then
+                log_info "=============================================>  打包静态文件内容"
+                tar czvf ${src}.tar.gz ${src} 
                 log_info "=============================================>  上传文件到OSS"
-                ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
+                #./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
+                ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr ${src} oss://cncfstack-test/
               else
                 log_warn "=============================================>  没有构建出 index.html 文件"
                 continue
