@@ -1,6 +1,7 @@
 workdir=$1
 
-source ${initdir}/libs/common.sh
+# source ${initdir}/libs/common.sh
+source libs/common.sh
 
 before_build(){
     install_hugo_v80

@@ -1,17 +1,17 @@
 #!/bin/bash
 set -x
 
+initdir=`pwd`
+
 source libs/common.sh
 install_aliyun_ossutil
-
-
 
 cat ${initdir}/sed/* > ${initdir}/toto.sed
 
 for project in `cat push.list`
 do
-    repo_url=`echo $project|awk '{print $1}'`
-    repo_name=`echo $project|awk '{print $2}'`
+    # repo_url=`echo $project|awk '{print $1}'`
+    # repo_name=`echo $project|awk '{print $2}'`
 
     uuid=`date  "+%s%N"`
 
@@ -26,7 +26,8 @@ do
 
     find ./webs -name toto.sh -exec /bin/bash {} $workdir \;
 
-    src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
+    # src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
+    src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1`
 
     ls -lha $src
 
