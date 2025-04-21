@@ -10,23 +10,13 @@ cat ${initdir}/sed/* > ${initdir}/toto.sed
 
 for project in `cat push.list`
 do
-    # repo_url=`echo $project|awk '{print $1}'`
-    # repo_name=`echo $project|awk '{print $2}'`
-
     uuid=`date  "+%s%N"`
-
     workdir="${initdir}/tmp/${uuid}"
     mkdir -p $workdir
-
     git clone $project $workdir
-
     log_info "=============================================>  clone的仓库内容："
     ls $workdir
-
-
     find ./webs -name toto.sh -exec /bin/bash {} $workdir \;
-
-    # src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
     src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1`
 
     ls -lha $src
