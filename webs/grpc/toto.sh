@@ -1,11 +1,6 @@
-set -x
-
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_grpc_website(){
+before_build(){
     install_hugo_v99_1
     install_postcss
 
@@ -18,7 +13,7 @@ before_grpc_website(){
 
 }
 
-after_grpc_website(){
+build(){
 
     #command = "npm run build:production"
 
@@ -30,21 +25,37 @@ after_grpc_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://grpc.cncfstack.com
+    --baseURL https://grpc.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-grpc" > ${workdir}/ret-data
+    # ls -lha
+    # echo "${workdir}/output&oss://cncfstack-grpc" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="grpc.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/grpc/grpc.io.git' ;then
     echo "=============================================> 匹配到 grpc"
-    before_grpc_website
-    after_grpc_website
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi

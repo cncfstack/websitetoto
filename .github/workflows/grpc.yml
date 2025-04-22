@@ -10,31 +10,6 @@ jobs:
       - uses: actions/checkout@v4
       - name:  gRPC To-To-To
         run: |
-          set -x
-
-          source libs/common.sh
-          install_aliyun_ossutil
-          
-          initdir=`pwd`
-
-          
-
-          cat ${initdir}/sed/* > ${initdir}/toto.sed
-
-          for project in "https://github.com/grpc/grpc.io.git"
-          do
-
-              uuid=`date  "+%s%N"`
-              workdir="${initdir}/tmp/${uuid}"
-              mkdir -p $workdir
-
-              git clone $project $workdir
-               ls $workdir
-
-              find ./webs -name toto.sh -exec /bin/bash {} $workdir $initdir \;
-
-              src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $1}'`
-              dest=`cat ${workdir}/ret-data|grep -v ^$|head -n 1|awk -F'&' '{print $2}'`
-
-              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -fr $src $dest
-          done
+          /bin/bash build.sh https://github.com/grpc/grpc.io.git
+          src=`cat project_dir/ret-data|grep -v ^$|head -n 1`
+          ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-website/
