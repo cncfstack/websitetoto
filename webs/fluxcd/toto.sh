@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_flux_website(){
+before_build(){
     install_hugo_v122
     install_postcss
 
@@ -12,7 +9,7 @@ before_flux_website(){
 
 }
 
-after_flux_website(){
+build(){
 
     
     sed -i 's|PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|GITHUB_USER=cncfstack GITHUB_TOKEN=${{secret.CNCFSTACK_GITHUB_TOKEN}} PATH=$(BIN_DIR):$(PATH) BRANCH=$(BRANCH) hack/import-flux2-assets.sh|g' Makefile
@@ -29,21 +26,36 @@ after_flux_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://flux.cncfstack.com
+    --baseURL https://flux.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-flux" > ${workdir}/ret-data
+
+    #echo "${workdir}/output&oss://cncfstack-flux" > ${workdir}/ret-data
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="fluxcd.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/fluxcd/website.git' ;then
-    echo "=============================================> 匹配到 flux"
-    before_flux_website
-    after_flux_website
+    echo "匹配到 flux"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
