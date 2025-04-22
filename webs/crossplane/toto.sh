@@ -1,12 +1,8 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_crossplane_website(){
+before_build(){
     install_hugo_v145
     npm install 
-
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="9b8051a7-fd5d-4cec-b8fe-3e9ec82cfad1"></script>' >>  ./themes/geekboot/layouts/partials/favicons.html
@@ -22,7 +18,7 @@ after_crossplane_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://crossplane.websiste.cncfstack.com
+    --baseURL https://crossplane.website.cncfstack.com
 
 }
 
@@ -33,7 +29,7 @@ save_return(){
     tarfile="crossplane.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C ${workdir}/output .
+    tar -czf ${tarfile} -C output .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -43,15 +39,15 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/crossplane/docs.git' ;then
-    echo "=============================================> 匹配到 crossplane"
-    before_crossplane_website
-    after_crossplane_website
+    echo "匹配到 crossplane"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
