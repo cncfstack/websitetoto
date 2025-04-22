@@ -32,7 +32,7 @@ save_return(){
     tarfile="coredns.tgz"
 
     log_info "进入到site目录后进行打包，这样是为了便于部署时解压"
-    tar -czf ${tarfile} -C project_dir/output .
+    tar -czf ${tarfile} -C output .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -42,11 +42,13 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "project_dir/${tarfile}" > project_dir/ret-data
+    echo "${tarfile}" > ret-data
 }
 
 
-cd project_dir
+
+cd project_dir && log_info "进入到项目代码的目录中，后续的所有动作都是在项目的代码根目录下执行"
+
 if cat .git/config  |grep '/coredns/coredns.io.git' ;then
     echo "=============================================> 匹配到 coredns"
     before_build
@@ -54,4 +56,3 @@ if cat .git/config  |grep '/coredns/coredns.io.git' ;then
     find_and_sed_v2 "./output"
     save_return 
 fi 
-cd -
