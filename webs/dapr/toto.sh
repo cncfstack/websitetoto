@@ -32,13 +32,12 @@ build(){
 
 save_return(){
 
-
     #echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="dapr.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C daprdocs/output .
+    tar -czf ${tarfile} -C ${workdir}/daprdocs/output .
 
     if [ ! -s ${tarfile} ];then
         log_error "Loggie 站点构建失败"
