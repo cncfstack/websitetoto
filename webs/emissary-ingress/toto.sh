@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_emissary-ingress_website(){
+before_build(){
     install_hugo_v145
 
     npm install
@@ -17,7 +14,7 @@ before_emissary-ingress_website(){
 
 }
 
-after_emissary-ingress_website(){
+build(){
 
     mkdir output
     hugo \
@@ -31,17 +28,33 @@ after_emissary-ingress_website(){
 }
 
 save_return(){
-    ls -lha
-    pwd
-    echo "${workdir}/output&oss://cncfstack-emissary-ingress" > ${workdir}/ret-data
+    # ls -lha
+    # pwd
+    # echo "${workdir}/output&oss://cncfstack-emissary-ingress" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="emissary-ingress.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/emissary-ingress/emissary-ingress.dev.git' ;then
-    echo "=============================================> 匹配到 emissary-ingress"
-    before_emissary-ingress_website
-    after_emissary-ingress_website
+    echo "匹配到 emissary-ingress"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
