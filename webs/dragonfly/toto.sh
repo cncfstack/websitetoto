@@ -1,15 +1,9 @@
-workdir=$1
-initdir=$2
-
-set -x
-
 source libs/common.sh
 
-
-before_dragonfly(){
+before_build(){
     
+    log_info "yarn install 安装依赖"
     yarn install
-
 
 # [
 #     ()=>(
@@ -32,34 +26,51 @@ before_dragonfly(){
 # ]
 #sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})}),|g" docusaurus.config.js
     
-    log_info "=============================================> 配置文件中添加 umami"
+    log_info "配置文件中添加 umami"
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'c2f7c701-67da-49ac-9baa-f0daad6b1902'}}]})}),|g" docusaurus.config.js
     
-    log_info "=============================================> ./docusaurus.config.js 配置文件内容"
+    log_info "./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
 
 }
 
-after_dragonfly(){
+build(){
 
-    log_info "=============================================> 开始 build 构建"
+    log_info "开始 build 构建"
     yarn build
 
-    log_info "=============================================> 当前目录中文件列表"
+    log_info "当前目录中文件列表"
     ls -lh
 }
 
 
 save_return(){
-    echo "${workdir}/build&oss://cncfstack-dragonfly" > ${workdir}/ret-data
+    #echo "${workdir}/build&oss://cncfstack-dragonfly" > ${workdir}/ret-data
+
+        #echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="dragonfly.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C build .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    # 注意这里，由于在before_build中进入了 daprdocs 目录了
+    echo "project_dir/${tarfile}" > ret-data
 }
 
-cd $workdir
-
+cd project_dir
 if cat .git/config  |grep '/dragonflyoss/d7y.io.git' ;then
-    log_info "=============================================> 匹配到 dragonfly"
-    before_dragonfly
-    after_dragonfly
+    log_info "匹配到 dragonfly"
+    before_build
+    build
     find_and_sed_v2 "./build"
     save_return 
 fi
