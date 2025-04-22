@@ -1,10 +1,10 @@
 workdir=$1
-initdir=$2
+
 
 source libs/common.sh
 
 
-before_chaosmesh(){
+before_build(){
     
     npm install
 
@@ -31,7 +31,7 @@ before_chaosmesh(){
 
 }
 
-after_chaosmesh(){
+build(){
 
     echo "开始镜像 npm run build 构建"
     npm run build
@@ -43,15 +43,32 @@ after_chaosmesh(){
 
 
 save_return(){
-    echo "${workdir}/build&oss://cncfstack-chaosmesh" > ${workdir}/ret-data
+    #echo "${workdir}/build&oss://cncfstack-chaosmesh" > ${workdir}/ret-data
+        
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="chaosmesh.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C ${workdir}/build .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "Loggie 站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+
+    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
 }
 
 cd $workdir
 
 if cat .git/config  |grep '/chaos-mesh/website.git' ;then
     echo "=============================================> 匹配到 chaos-mesh"
-    before_chaosmesh
+    before_build
     find_and_sed
-    after_chaosmesh
+    build
     save_return 
 fi
