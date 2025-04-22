@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_harbor_website(){
+before_build(){
 
     make prepare
     npm i
@@ -16,7 +13,7 @@ before_harbor_website(){
 
 }
 
-after_harbor_website(){
+build(){
 
     #npm run build:production
 
@@ -29,21 +26,35 @@ after_harbor_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://harbor.cncfstack.com
+    --baseURL https://harbor.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-harbor" > ${workdir}/ret-data
+    #echo "${workdir}/output&oss://cncfstack-harbor" > ${workdir}/ret-data
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="harbor.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/goharbor/website.git' ;then
-    echo "=============================================> 匹配到 harbor"
-    before_harbor_website
-    after_harbor_website
+    echo "匹配到 harbor"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
