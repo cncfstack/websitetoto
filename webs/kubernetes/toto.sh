@@ -23,7 +23,6 @@ before_build(){
     echo "install hugo"
     install_hugo
 
-
     # 拉取 downloadkubernetes 仓库获取release_binaries.json文件
     # 这一步是因为原始的文档是从 raw.githubusercontent.com 获取的，但是这个地址被墙了，所以需要从 downloadkubernetes 仓库获取release_binaries.json文件，然后替换原始的文档中的release_binaries.json文件。
     git clone https://github.com/kubernetes-sigs/downloadkubernetes.git
@@ -141,7 +140,6 @@ save_return(){
     log_info "站点构建完成"
 
     echo "project_dir/${tarfile}" > ret-data
-}
 }
 
 
