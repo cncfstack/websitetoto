@@ -54,4 +54,4 @@ if cat .git/config  |grep '/coredns/coredns.io.git' ;then
     build
     find_and_sed_v2 "./output"
     save_return 
-fi
+fi 
