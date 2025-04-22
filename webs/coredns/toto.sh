@@ -42,7 +42,8 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "${tarfile}" > ret-data
+    # 这里传递数据给上层的调用，但是由于执行了 cd project_dir ，所以上层在获取文件时需要添加一层目录
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
