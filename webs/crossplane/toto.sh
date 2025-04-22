@@ -9,8 +9,9 @@ before_build(){
 
 }
 
-after_crossplane_website(){
+build(){
 
+    log_info "开始进行站点构建"
     mkdir output
     hugo \
     --destination ./output \
