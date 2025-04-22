@@ -193,3 +193,10 @@ install_aliyun_ossutil(){
     sudo cp ./ossutil /usr/bin/
   fi
 }
+
+debug_tools(){
+    log_info "===debug info"
+    ls -lha
+    pwd
+    log_info "===debug info"
+}
