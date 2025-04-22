@@ -28,7 +28,7 @@ save_return(){
     tarfile="loggie.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czvf ${tarfile} -C site .
+    tar -czf ${tarfile} -C site .
 
     if [ ! -s ${tarfile} ];then
         log_error "Loggie 站点构建失败"
@@ -36,8 +36,6 @@ save_return(){
 
     echo "${workdir}/${tarfile}" > ${workdir}/ret-data
 }
-
-
 
 
 

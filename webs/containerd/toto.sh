@@ -25,7 +25,7 @@ after_containerd_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://containerd.cncfstack.com
+    --baseURL https://containerd.website.cncfstack.com
 
 }
 
@@ -37,7 +37,7 @@ save_return(){
     tarfile="containerd.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czvf ${tarfile} -C output .
+    tar -czf ${tarfile} -C output .
 
     if [ ! -s ${tarfile} ];then
         log_error "Loggie 站点构建失败"

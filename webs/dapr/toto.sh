@@ -1,12 +1,10 @@
 workdir=$1
-initdir=$2
 
 source libs/common.sh
 
-before_dapr_website(){
+before_build(){
     install_hugo_v102_3
     #install_postcss
-
 
     cd daprdocs
     git submodule update --init --recursive
@@ -28,21 +26,32 @@ after_dapr_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://dapr.cncfstack.com
+    --baseURL https://dapr.website.cncfstack.com
 
 }
 
 save_return(){
     ls -lha
     pwd
-    echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
+    #echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="dapr.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C daprdocs/output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "Loggie 站点构建失败"
+    fi
+
+    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
 }
 
 
 cd $workdir
 if cat .git/config  |grep '/dapr/docs.git' ;then
     echo "=============================================> 匹配到 dapr"
-    before_dapr_website
+    before_build
     after_dapr_website
     find_and_sed_v2 "./output"
     save_return 
