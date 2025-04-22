@@ -26,7 +26,7 @@ build(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://flux.website.cncfstack.com
+    --baseURL https://fluxcd.website.cncfstack.com
 
 }
 
