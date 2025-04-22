@@ -38,7 +38,7 @@ save_return(){
     tarfile="dapr.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C daprdocs/output .
+    tar -czf ${tarfile} -C output .
 
     if [ ! -s ${tarfile} ];then
         log_error "Loggie 站点构建失败"
