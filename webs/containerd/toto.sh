@@ -40,7 +40,7 @@ save_return(){
         log_error "站点构建失败"
     fi
     log_info "站点构建完成"
-    echo "project_dir/${tarfile}" > project_dir/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 
 }
 
