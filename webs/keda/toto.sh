@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_keda_website(){
+before_build(){
     #"npm run build:production"
     # "0.93.2",
     install_hugo_v93_2
@@ -15,7 +12,7 @@ before_keda_website(){
 
 }
 
-after_keda_website(){
+build(){
 
     mkdir output
     hugo \
@@ -24,22 +21,38 @@ after_keda_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://keda.cncfstack.com
+    --baseURL https://keda.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    pwd
-    echo "${workdir}/output&oss://cncfstack-keda" > ${workdir}/ret-data
+    # ls -lha
+    # pwd
+    # echo "${workdir}/output&oss://cncfstack-keda" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="keda.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/kedacore/keda-docs.git' ;then
-    echo "=============================================> 匹配到 keda"
-    before_keda_website
-    after_keda_website
+    echo "匹配到 keda"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
