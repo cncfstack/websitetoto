@@ -1,5 +1,3 @@
-workdir=$1
-
 source libs/common.sh
 
 before_build(){
@@ -40,11 +38,11 @@ save_return(){
         log_error "站点构建失败"
     fi
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/containernetworking/cni.dev.git' ;then
     echo "=============================================> 匹配到 cni"
     before_build
