@@ -172,14 +172,14 @@ find_and_sed_v2(){
         -o -iname "*.sass" \
         -o -iname "*.scss" \
         -o -iname "*.tpl" \
-        -o -iname "*.rst" > ${workdir}/filelist
+        -o -iname "*.rst" > wil-sed-file-list
 
-    cat ${workdir}/../sed/* > ${workdir}/../toto.sed
+    cat ../sed/* > toto.sed
 
     # 循环依次处理可能包含外部链接的文件，并进行替换
-    for file in `cat ${workdir}/filelist`
+    for file in `cat wil-sed-file-list`
     do
-        sudo sed -i -f ${workdir}/../toto.sed $file
+        sudo sed -i -f toto.sed $file
     done
 
     check_cdn_change
