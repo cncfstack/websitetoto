@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_in-toto_website(){
+before_build(){
     install_hugo_v139_3
     install_postcss
     npm install
@@ -15,7 +12,7 @@ before_in-toto_website(){
 
 }
 
-after_in-toto_website(){
+build(){
 
     #npm run build:production
 
@@ -26,21 +23,37 @@ after_in-toto_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://in-toto.cncfstack.com
+    --baseURL https://in-toto.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-in-toto" > ${workdir}/ret-data
+    # ls -lha
+    # echo "${workdir}/output&oss://cncfstack-in-toto" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="in-toto.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/in-toto/in-toto.io.git' ;then
-    echo "=============================================> 匹配到 in-toto"
-    before_in-toto_website
-    after_in-toto_website
+    echo "匹配到 in-toto"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
