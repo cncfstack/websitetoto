@@ -1,5 +1,3 @@
-workdir=$1
-
 source libs/common.sh
 
 before_build(){
@@ -8,16 +6,15 @@ before_build(){
     install_postcss
     npm install .
 
-
-    # 添加网站访问统计
+    log_info "添加网站访问统计"
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="a93d1af2-4dc1-4b93-b844-141af6812cf5"></script>' >>  ./themes/containerd/layouts/partials/meta.html
-
 }
 
-after_containerd_website(){
+
+build(){
 
     #npm run build:production
-
+    log_info "开始构建站点"
     mkdir output
     hugo \
     --destination ./output \
@@ -42,16 +39,17 @@ save_return(){
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
     fi
+    log_info "站点构建完成"
+    echo "project_dir/${tarfile}" > project_dir/ret-data
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/containerd/containerd.io.git' ;then
     echo "=============================================> 匹配到 containerd"
     before_build
-    after_containerd_website
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi

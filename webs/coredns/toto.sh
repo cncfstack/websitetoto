@@ -13,7 +13,7 @@ build(){
 
     #npm run build:production
 
-    log_info "开售构建站点"
+    log_info "开始构建站点"
     mkdir output
     hugo \
     --destination ./output \
