@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_kubeflow_website(){
+before_build(){
     install_hugo_v124_1
     npm install 
     git submodule update --init --recursive
@@ -14,7 +11,7 @@ before_kubeflow_website(){
 
 }
 
-after_kubeflow_website(){
+build(){
 
     mkdir output
     hugo \
@@ -23,22 +20,38 @@ after_kubeflow_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://kubeflow.cncfstack.com
+    --baseURL https://kubeflow.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    pwd
-    echo "${workdir}/output&oss://cncfstack-kubeflow" > ${workdir}/ret-data
+    # ls -lha
+    # pwd
+    # echo "${workdir}/output&oss://cncfstack-kubeflow" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="kubeflow.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/kubeflow/website.git' ;then
-    echo "=============================================> 匹配到 kubeflow"
-    before_kubeflow_website
-    after_kubeflow_website
+    echo "匹配到 kubeflow"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
