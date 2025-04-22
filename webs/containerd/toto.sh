@@ -1,9 +1,8 @@
 workdir=$1
-initdir=$2
 
 source libs/common.sh
 
-before_containerd_website(){
+before_build(){
     install_hugo_v111_3
 
     install_postcss
@@ -32,14 +31,28 @@ after_containerd_website(){
 
 save_return(){
     ls -lha
-    echo "${workdir}/output&oss://cncfstack-containerd" > ${workdir}/ret-data
+    #echo "${workdir}/output&oss://cncfstack-containerd" > ${workdir}/ret-data
+
+    
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="containerd.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czvf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "Loggie 站点构建失败"
+    fi
+
+    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+}
 }
 
 
 cd $workdir
 if cat .git/config  |grep '/containerd/containerd.io.git' ;then
     echo "=============================================> 匹配到 containerd"
-    before_containerd_website
+    before_build
     after_containerd_website
     find_and_sed_v2 "./output"
     save_return 

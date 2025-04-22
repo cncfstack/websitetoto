@@ -2,7 +2,6 @@ https://github.com/open-telemetry/opentelemetry.io.git
 https://github.com/helm/helm-www.git
 https://github.com/kubernetes/website.git
 https://github.com/cloudevents/cloudevents-web.git
-https://github.com/loggie-io/docs.git
 https://github.com/vitessio/website.git
 https://github.com/chaos-mesh/website.git
 https://github.com/kubeedge/website.git
@@ -29,12 +28,13 @@ https://github.com/falcosecurity/falco-website.git
 https://github.com/in-toto/in-toto.io.git
 https://github.com/kyverno/website.git
 https://github.com/notaryproject/notaryproject.dev.git
-https://github.com/containernetworking/cni.dev.git
 https://github.com/longhorn/website.git
-https://github.com/containerd/containerd.io.git
 https://github.com/litmuschaos/litmus-docs.git
 https://github.com/opencost/opencost-website.git
 https://github.com/open-feature/openfeature.dev.git
 https://github.com/wasmCloud/wasmcloud.com.git
 https://github.com/dragonflyoss/d7y.io.git
 https://github.com/knative/docs.git
+https://github.com/loggie-io/docs.git
+https://github.com/containernetworking/cni.dev.git
+https://github.com/containerd/containerd.io.git
