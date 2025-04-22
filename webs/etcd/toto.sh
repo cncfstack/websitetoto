@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_etcd_website(){
+before_build(){
     install_hugo_v145
     install_postcss
 
@@ -12,10 +9,11 @@ before_etcd_website(){
 
 }
 
-after_etcd_website(){
+build(){
 
     #npm run build:production
 
+    log_info "开始进行站点构建"
     mkdir output
     hugo \
     --destination ./output \
@@ -23,21 +21,37 @@ after_etcd_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://etcd.cncfstack.com
+    --baseURL https://etcd.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-etcd" > ${workdir}/ret-data
+
+    #echo "${workdir}/output&oss://cncfstack-etcd" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="etcd.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/etcd-io/website.git' ;then
-    echo "=============================================> 匹配到 etcd"
-    before_etcd_website
-    after_etcd_website
+    echo "匹配到 etcd"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
