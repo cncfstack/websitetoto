@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_istio_website(){
+before_build(){
 
     install_hugo_v139_3
     install_postcss
@@ -14,7 +11,7 @@ before_istio_website(){
 
 }
 
-after_istio_website(){
+build(){
 
     mkdir output
     hugo \
@@ -23,22 +20,38 @@ after_istio_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://istio.cncfstack.com
+    --baseURL https://istio.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    pwd
-    echo "${workdir}/output&oss://cncfstack-istio" > ${workdir}/ret-data
+    # ls -lha
+    # pwd
+    # echo "${workdir}/output&oss://cncfstack-istio" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="in-toto.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/istio/istio.io.git' ;then
-    echo "=============================================> 匹配到 istio"
-    before_istio_website
-    after_istio_website
+    echo "匹配到 istio"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
