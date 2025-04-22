@@ -15,6 +15,7 @@ before_build(){
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="f376f6f7-74a6-41b4-9455-d7722b3f4af5"></script>' >>  ./layouts/partials/hooks/head-end.html
 
+
 }
 
 build(){
@@ -44,12 +45,11 @@ save_return(){
     fi
 
     debug_tools
-    find . -name dapr.tgz
     
     log_info "站点构建完成"
 
-
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    # 注意这里，由于在before_build中进入了 daprdocs 目录了
+    echo "${workdir}/daprdocs/${tarfile}" > ${workdir}/ret-data
 }
 
 
