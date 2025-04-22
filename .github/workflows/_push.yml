@@ -9,26 +9,4 @@ jobs:
     steps:
       - uses: actions/checkout@v4
       - name: Push To-To-To
-        run:  |
-          initdir=`pwd`
-          export initdir
-          
-          source libs/common.sh
-          
-          cat ${initdir}/sed/* > ${initdir}/toto.sed
-          for project in `cat push.list`
-          do
-              uuid=`date  "+%s%N"`
-              workdir="${initdir}/tmp/${uuid}"
-              mkdir -p $workdir
-              git clone $project $workdir
-              log_info "=============================================>  clone的仓库内容："
-              ls $workdir
-              find ./webs -name toto.sh -exec /bin/bash {} $workdir \;
-              src=`cat ${workdir}/ret-data|grep -v ^$|head -n 1`
-              ls -lha $src
-
-              log_info "检查或安装OSSUTIL，然后将文件上传文件到OSS"
-              install_aliyun_ossutil
-              ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-website/
-          done
+        run:  /bin/bash build.sh https://github.com/coredns/coredns.io.git
