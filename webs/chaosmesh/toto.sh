@@ -1,8 +1,4 @@
-workdir=$1
-
-
 source libs/common.sh
-
 
 before_build(){
     
@@ -28,15 +24,14 @@ before_build(){
 #   }),
 # ],
  
-
 }
 
 build(){
 
-    echo "开始镜像 npm run build 构建"
+    logo_info "开始镜像 npm run build 构建"
     npm run build
 
-    echo "当前目录中文件列表"
+    log_info "当前目录中文件列表"
     ls -lh
 
 }
@@ -49,7 +44,7 @@ save_return(){
     tarfile="chaosmesh.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C ${workdir}/build .
+    tar -czf ${tarfile} -C build .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -59,15 +54,14 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
-cd $workdir
-
+cd project_dir
 if cat .git/config  |grep '/chaos-mesh/website.git' ;then
-    echo "=============================================> 匹配到 chaos-mesh"
+    echo "匹配到 chaos-mesh"
     before_build
-    find_and_sed
+    find_and_sed_v2 build
     build
     save_return 
 fi
