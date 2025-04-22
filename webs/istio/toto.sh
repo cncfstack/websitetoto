@@ -30,7 +30,7 @@ save_return(){
     # echo "${workdir}/output&oss://cncfstack-istio" > ${workdir}/ret-data
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
-    tarfile="in-toto.tgz"
+    tarfile="istio.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
     tar -czf ${tarfile} -C output .
