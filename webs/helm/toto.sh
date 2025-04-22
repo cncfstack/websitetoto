@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_helm_website(){
+before_build(){
     echo "install hugo"
     install_hugo
 
@@ -16,7 +13,7 @@ before_helm_website(){
 
 }
 
-after_helm_website(){
+build(){
 
     # 构建
     ./hugo \
@@ -30,19 +27,35 @@ after_helm_website(){
     --printUnusedTemplates \
     --templateMetrics  \
     --templateMetricsHints \
-    --baseURL https://helm.cncfstack.com
+    --baseURL https://helm.website.cncfstack.com
 }
 
 save_return(){
-    echo "${workdir}/app&oss://cncfstack-helm" > ${workdir}/ret-data
+    #echo "${workdir}/app&oss://cncfstack-helm" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="helm.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C app .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/helm/helm-www.git' ;then
-    echo "helmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmmm"
-    before_helm_website
+    echo "匹配到 Helm"
+    before_build
     find_and_sed
-    after_helm_website
+    build
     save_return 
 fi
