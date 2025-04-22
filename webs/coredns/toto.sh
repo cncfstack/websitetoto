@@ -1,5 +1,4 @@
 workdir=$1
-initdir=$2
 
 source libs/common.sh
 
@@ -23,7 +22,7 @@ build(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://coredns.cncfstack.com
+    --baseURL https://coredns.website.cncfstack.com
 
 }
 
@@ -37,7 +36,7 @@ save_return(){
     tar -czf ${tarfile} -C ${workdir}/output .
 
     if [ ! -s ${tarfile} ];then
-        log_error "Loggie 站点构建失败"
+        log_error "站点构建失败"
     fi
 
     debug_tools

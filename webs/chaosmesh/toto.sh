@@ -52,7 +52,7 @@ save_return(){
     tar -czf ${tarfile} -C ${workdir}/build .
 
     if [ ! -s ${tarfile} ];then
-        log_error "Loggie 站点构建失败"
+        log_error "站点构建失败"
     fi
 
     debug_tools

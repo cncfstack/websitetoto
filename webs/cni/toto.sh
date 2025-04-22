@@ -37,7 +37,7 @@ save_return(){
     tar -czf ${tarfile} -C output .
 
     if [ ! -s ${tarfile} ];then
-        log_error "Loggie 站点构建失败"
+        log_error "站点构建失败"
     fi
 
     echo "${workdir}/${tarfile}" > ${workdir}/ret-data
