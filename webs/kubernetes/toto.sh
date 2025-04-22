@@ -1,10 +1,7 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
 
-before_kubernetes_website(){
+before_build(){
     # Kubernetes
     ########################################
     
@@ -16,7 +13,7 @@ before_kubernetes_website(){
     # git pull --rebase
 
     # echo "K8s 使用扩展的docsy主题，使用特有的镜像吗？"
-    sudo mkdir  ${workdir}/docsy
+    sudo mkdir  project_dir/docsy
     sudo docker run -itd --name docsy-tmp gcr.io/k8s-staging-sig-docs/k8s-website-hugo:v0.133.0-1b9242684415 /bin/sh
     sudo docker cp docsy-tmp:/src/node_modules node_modules
     sudo docker stop docsy-tmp
@@ -31,7 +28,7 @@ before_kubernetes_website(){
     # 这一步是因为原始的文档是从 raw.githubusercontent.com 获取的，但是这个地址被墙了，所以需要从 downloadkubernetes 仓库获取release_binaries.json文件，然后替换原始的文档中的release_binaries.json文件。
     git clone https://github.com/kubernetes-sigs/downloadkubernetes.git
     cd downloadkubernetes && git pull --rebase && cd -
-    $OSSUTIL cp -f downloadkubernetes/dist/release_binaries.json oss://cncfstack-www/project/kubernetes-doc/release_binaries.json
+    ./ossutil cp -f downloadkubernetes/dist/release_binaries.json oss://cncfstack-www/project/kubernetes-doc/release_binaries.json
 
     # step2
     # 1、替换kubernetes文档原始的文档中的release_binaries.json文件链接
@@ -56,7 +53,7 @@ before_kubernetes_website(){
 
 }
 
-after_kubernetes_website(){
+build(){
     # Kubernetes build
     ########################################
 
@@ -110,7 +107,7 @@ after_kubernetes_website(){
     --printUnusedTemplates \
     --templateMetrics  \
     --templateMetricsHints \
-    --baseURL https://k8.cncfstack.com
+    --baseURL https://kubernetes.website.cncfstack.com
 
 
 
@@ -122,23 +119,37 @@ after_kubernetes_website(){
     wget https://kubernetes.io/pagefind/pagefind-entry.json -O  website-site/pagefind/pagefind-entry.json
     wget https://kubernetes.io/pagefind/pagefind.zh-cn_9145a968ac6ff.pf_meta -O website-site/pagefind/pagefind.zh-cn_9145a968ac6ff.pf_meta
     
-
 }
 
 
 
 save_return(){
-    echo "${workdir}/website-site&oss://cncfstack-k8s" > ${workdir}/ret-data
+    # echo "${workdir}/website-site&oss://cncfstack-k8s" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="kubernetes.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C website-site .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
+}
 }
 
 
-cd $workdir
-
-
+cd project_dir
 if cat .git/config  |grep '/kubernetes/website.git' ;then
-echo "=============================================> 匹配到 kubernetes"
-    before_kubernetes_website
+echo "匹配到 kubernetes"
+    before_build
     find_and_sed
-    after_kubernetes_website
+    build
     save_return 
 fi
