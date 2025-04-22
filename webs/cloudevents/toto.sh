@@ -1,8 +1,4 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
-
 
 before_build(){
  
@@ -42,7 +38,7 @@ save_return(){
     tarfile="cloudevents.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C ${workdir}/website-site .
+    tar -czf ${tarfile} -C website-site .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -52,16 +48,15 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
-
+cd project_dir
 if cat .git/config  |grep '/cloudevents/cloudevents-web.git' ;then
-    echo "=============================================> 匹配到 cloudevents"
+    echo "匹配到 cloudevents"
     before_build
-    find_and_sed
+    find_and_sed_v2 website-site
     build
     save_return 
 fi
