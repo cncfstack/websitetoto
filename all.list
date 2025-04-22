@@ -1,7 +1,7 @@
 https://github.com/open-telemetry/opentelemetry.io.git
 https://github.com/helm/helm-www.git
 https://github.com/kubernetes/website.git
-https://github.com/cloudevents/cloudevents-web.git
+
 https://github.com/vitessio/website.git
 
 https://github.com/kubeedge/website.git
@@ -39,3 +39,4 @@ https://github.com/containernetworking/cni.dev.git
 https://github.com/containerd/containerd.io.git
 https://github.com/dapr/docs.git
 https://github.com/chaos-mesh/website.git
+https://github.com/cloudevents/cloudevents-web.git
