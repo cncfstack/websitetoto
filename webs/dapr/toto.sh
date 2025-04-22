@@ -17,7 +17,7 @@ before_build(){
 
 }
 
-after_dapr_website(){
+build(){
 
     mkdir output
     hugo \
@@ -45,6 +45,8 @@ save_return(){
     fi
 
     debug_tools
+    find . -name dapr.tgz
+    
     log_info "站点构建完成"
 
 
@@ -56,7 +58,7 @@ cd $workdir
 if cat .git/config  |grep '/dapr/docs.git' ;then
     echo "=============================================> 匹配到 dapr"
     before_build
-    after_dapr_website
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi
