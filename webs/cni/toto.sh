@@ -25,9 +25,6 @@ after_cni_website(){
 }
 
 save_return(){
-    ls -lha
-    #echo "${workdir}/output&oss://cncfstack-cni" > ${workdir}/ret-data
-
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="cni.tgz"
 

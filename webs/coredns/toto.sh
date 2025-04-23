@@ -26,8 +26,6 @@ build(){
 }
 
 save_return(){
-
-    #echo "${workdir}/output&oss://cncfstack-coredns" > ${workdir}/ret-data
     log_info "这行很重要，在其他关联项目中，文件名称必须要匹配"
     tarfile="coredns.tgz"
 

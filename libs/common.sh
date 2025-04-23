@@ -130,32 +130,32 @@ check_not_change(){
 }
 
 
-find_and_sed(){
-    # 查找可能存在外部地址的文件，
-    # 对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址
-    find  . -type f \( -iname "*.txt" \
-        -o -iname "*.md" \
-        -o -iname "*.toml" \
-        -o -iname "*.js" \
-        -o -iname "*.mjs" \
-        -o -iname "*.html" \
-        -o -iname "*.css" \
-        -o -iname "*.sass" \
-        -o -iname "*.scss" \
-        -o -iname "*.tpl" \
-        -o -iname "*.rst" \) > ${workdir}/filelist
+# find_and_sed(){
+#     # 查找可能存在外部地址的文件，
+#     # 对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址
+#     find  . -type f \( -iname "*.txt" \
+#         -o -iname "*.md" \
+#         -o -iname "*.toml" \
+#         -o -iname "*.js" \
+#         -o -iname "*.mjs" \
+#         -o -iname "*.html" \
+#         -o -iname "*.css" \
+#         -o -iname "*.sass" \
+#         -o -iname "*.scss" \
+#         -o -iname "*.tpl" \
+#         -o -iname "*.rst" \) > ${workdir}/filelist
 
-    cat ${workdir}/../sed/* > ${workdir}/../toto.sed
+#     cat ${workdir}/../sed/* > ${workdir}/../toto.sed
 
-    # 循环依次处理可能包含外部链接的文件，并进行替换
-    for file in `cat ${workdir}/filelist`
-    do
-        sudo sed -i -f toto.sed $file
-    done
+#     # 循环依次处理可能包含外部链接的文件，并进行替换
+#     for file in `cat ${workdir}/filelist`
+#     do
+#         sudo sed -i -f toto.sed $file
+#     done
 
-    check_cdn_change
-    check_not_change
-}
+#     check_cdn_change
+#     check_not_change
+# }
 
 # 可以指定处理的路径，这在构建完成后再进行替换时很有用
 find_and_sed_v2(){

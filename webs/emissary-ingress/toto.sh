@@ -23,14 +23,11 @@ build(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://emissary-ingress.cncfstack.com
+    --baseURL https://emissary-ingress.website.cncfstack.com
 
 }
 
 save_return(){
-    # ls -lha
-    # pwd
-    # echo "${workdir}/output&oss://cncfstack-emissary-ingress" > ${workdir}/ret-data
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="emissary-ingress.tgz"

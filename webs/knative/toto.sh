@@ -9,19 +9,18 @@ before_build(){
 
 build(){
 
-    log_info "=============================================> 当前目录中文件列表"
+    log_info "当前目录中文件列表"
     ls -lh
 
-    log_info "=============================================> development"
+    log_info "development"
     ls -lh ./site/development
-    log_info "=============================================> docs"
+    log_info "docs"
     ls -lh ./site/docs
 
 }
 
 
 save_return(){
-    #echo "${workdir}/site&oss://cncfstack-knative" > ${workdir}/ret-data
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="knative.tgz"
 

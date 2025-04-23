@@ -1,10 +1,7 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
 
-before_opentelemetry(){
+before_build(){
 
     install_hugo
     install_postcss
@@ -26,26 +23,39 @@ before_opentelemetry(){
 }
 
 
-after_opentelemetry(){
+build(){
 
-    echo "=============================================> 构建静态资源"
+    echo " 构建静态资源"
     npm run build:production
 
 }
 
 
 save_return(){
-    echo "${workdir}/public&oss://cncfstack-opentelemetry" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="opentelemetry.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C public .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
-
-
+cd project_dir
 if cat .git/config  |grep '/open-telemetry/opentelemetry.io.git' ;then
-    echo "=============================================> 匹配到 opentelemetry"
-    before_opentelemetry
+    echo " 匹配到 opentelemetry"
+    before_build
     find_and_sed
-    after_opentelemetry
+    build
     save_return 
 fi

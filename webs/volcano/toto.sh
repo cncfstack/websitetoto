@@ -1,10 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-
-before_volcano(){
+before_build(){
     echo "npm install"
     npm install
     
@@ -19,7 +15,7 @@ before_volcano(){
     rm -f content/en/blog/*
 }
 
-after_volcano(){
+build(){
     mkdir website-site
 
     ./hugo \
@@ -34,23 +30,36 @@ after_volcano(){
     --printUnusedTemplates \
     --templateMetrics  \
     --templateMetricsHints \
-    --baseURL https://volcano.cncfstack.com
+    --baseURL https://volcano.website.cncfstack.com
 }
 
 
 
 save_return(){
-    echo "${workdir}/website-site&oss://cncfstack-volcano" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="volcano.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C website-site .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
-
-
+cd project_dir
 if cat .git/config  |grep '/volcano-sh/website.git' ;then
-    echo "=============================================> 匹配到 volcano"
-    before_volcano
+    echo "匹配到 volcano"
+    before_build
     find_and_sed
-    after_volcano
+    build
     save_return 
 fi

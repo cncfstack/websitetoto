@@ -1,9 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-before_longhorn_website(){
+before_build(){
     install_hugo_v65_3
     install_postcss
     yarn install
@@ -13,7 +10,7 @@ before_longhorn_website(){
 
 }
 
-after_longhorn_website(){
+build(){
 
     #npm run build:production
 
@@ -24,21 +21,35 @@ after_longhorn_website(){
     --minify \
     --gc \
     --enableGitInfo \
-    --baseURL https://longhorn.cncfstack.com
+    --baseURL https://longhorn.website.cncfstack.com
 
 }
 
 save_return(){
-    ls -lha
-    echo "${workdir}/output&oss://cncfstack-longhorn" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="longhorn.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C output .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/longhorn/website.git' ;then
-    echo "=============================================> 匹配到 longhorn"
-    before_longhorn_website
-    after_longhorn_website
+    echo "匹配到 longhorn"
+    before_build
+    build
     find_and_sed_v2 "./output"
     save_return 
 fi

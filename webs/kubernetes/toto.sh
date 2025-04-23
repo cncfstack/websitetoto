@@ -1,6 +1,5 @@
 source libs/common.sh
 
-
 before_build(){
     # Kubernetes
     ########################################
@@ -90,7 +89,7 @@ build(){
     # --printUnusedTemplates \
     # --templateMetrics  \
     # --templateMetricsHints \
-    # --baseURL http://k8.cncfstack.com
+    # --baseURL https://kubernetes.website.cncfstack.com
 
     mkdir website-site
     
@@ -123,7 +122,6 @@ build(){
 
 
 save_return(){
-    # echo "${workdir}/website-site&oss://cncfstack-k8s" > ${workdir}/ret-data
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="kubernetes.tgz"

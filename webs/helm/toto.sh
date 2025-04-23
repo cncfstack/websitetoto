@@ -31,7 +31,6 @@ build(){
 }
 
 save_return(){
-    #echo "${workdir}/app&oss://cncfstack-helm" > ${workdir}/ret-data
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="helm.tgz"

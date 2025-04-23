@@ -1,11 +1,6 @@
-workdir=$1
-initdir=$2
-
 source libs/common.sh
 
-
-
-before_vitess(){
+before_build(){
 
     npm install
     install_hugo_v120
@@ -15,7 +10,7 @@ before_vitess(){
 
 }
 
-after_vitess(){
+build(){
     mkdir website-site
 
     ./hugo \
@@ -30,24 +25,38 @@ after_vitess(){
     --printUnusedTemplates \
     --templateMetrics  \
     --templateMetricsHints \
-    --baseURL https://vitess.cncfstack.com
+    --baseURL https://vitess.website.cncfstack.com
 
 }
 
 
 
 save_return(){
-    echo "${workdir}/website-site&oss://cncfstack-vitess" > ${workdir}/ret-data
+
+    # 这行很重要，在其他关联项目中，文件名称必须要匹配
+    tarfile="vitess.tgz"
+
+    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    tar -czf ${tarfile} -C website-site .
+
+    if [ ! -s ${tarfile} ];then
+        log_error "站点构建失败"
+    fi
+
+    debug_tools
+    
+    log_info "站点构建完成"
+
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
-cd $workdir
-
+cd project_dir
 if cat .git/config  |grep '/vitessio/website.git' ;then
-    echo "=============================================> 匹配到 vitessio"
-    before_vitess
-    find_and_sed
-    after_vitess
+    echo "匹配到 vitessio"
+    before_build
+    find_and_sed_v2 "./website-site"
+    build
     save_return 
 fi
 

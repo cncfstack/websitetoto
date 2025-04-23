@@ -30,7 +30,7 @@ build(){
 
 save_return(){
 
-    #echo "${workdir}/daprdocs/output&oss://cncfstack-dapr" > ${workdir}/ret-data
+    #echo "project_dir/daprdocs/output&oss://cncfstack-dapr" > project_dir/ret-data
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="dapr.tgz"
 

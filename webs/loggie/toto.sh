@@ -1,5 +1,3 @@
-workdir=$1
-
 source libs/common.sh
 
 before_build(){
@@ -34,14 +32,14 @@ save_return(){
         log_error "Loggie 站点构建失败"
     fi
 
-    echo "${workdir}/${tarfile}" > ${workdir}/ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
 
-cd $workdir
+cd project_dir
 if cat .git/config  |grep '/loggie-io/docs.git' ;then
-    echo "=============================================> 匹配到 loggie"
+    echo "匹配到 loggie"
     before_build
     find_and_sed
     build

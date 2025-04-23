@@ -37,9 +37,7 @@ build(){
 }
 
 
-save_return(){
-    #echo "${workdir}/build&oss://cncfstack-chaosmesh" > ${workdir}/ret-data
-        
+save_return(){        
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="chaosmesh.tgz"
 
