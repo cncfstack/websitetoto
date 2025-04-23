@@ -118,7 +118,7 @@ install_postcss(){
 
 check_cdn_change(){
     log_info "=============================================> 以下文件进行了 cdn 替换，请确认文件在 https://cdn.cncfstack.com 是否存在"
-    grep "cdn.cncfstack.com" ./* -R |grep -v "otocn\.sed"|awk -F':' '{print $1}'
+    grep "filetoto.cncfstack.com" ./* -R |grep -v "otocn\.sed"|awk -F':' '{print $1}'
 }
 
 
@@ -189,6 +189,9 @@ find_and_sed_v2(){
 get_sed(){
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
     cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
+    cat toto.sed
+    check_cdn_change
+    #check_not_change
 }
 
 find_and_sed_v3(){
@@ -216,8 +219,7 @@ find_and_sed_v3(){
         sudo sed -i -f toto.sed $file
     done
 
-    check_cdn_change
-    #check_not_change
+
 }
 
 install_aliyun_ossutil(){
