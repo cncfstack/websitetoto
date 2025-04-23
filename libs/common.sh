@@ -186,6 +186,39 @@ find_and_sed_v2(){
     #check_not_change
 }
 
+get_sed(){
+    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
+    cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
+}
+
+find_and_sed_v3(){
+    path=$1
+    # 查找可能存在外部地址的文件，
+    # 对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址
+    find  $path -type f -iname "*.txt" \
+        -o -iname "*.md" \
+        -o -iname "*.toml" \
+        -o -iname "*.js" \
+        -o -iname "*.mjs" \
+        -o -iname "*.html" \
+        -o -iname "*.css" \
+        -o -iname "*.sass" \
+        -o -iname "*.scss" \
+        -o -iname "*.tpl" \
+        -o -iname "*.rst" > wil-sed-file-list
+
+    get_sed
+    # cat ../sed/* > toto.sed
+
+    # 循环依次处理可能包含外部链接的文件，并进行替换
+    for file in `cat wil-sed-file-list`
+    do
+        sudo sed -i -f toto.sed $file
+    done
+
+    check_cdn_change
+    #check_not_change
+}
 
 install_aliyun_ossutil(){
   if [ ! -f ./ossutil ];then
