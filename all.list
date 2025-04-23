@@ -1,9 +1,7 @@
 https://github.com/open-telemetry/opentelemetry.io.git
 https://github.com/helm/helm-www.git
 https://github.com/kubernetes/website.git
-
 https://github.com/vitessio/website.git
-
 https://github.com/kubeedge/website.git
 https://github.com/openyurtio/openyurt.io.git
 https://github.com/karmada-io/website.git
@@ -13,11 +11,9 @@ https://github.com/volcano-sh/website.git
 https://github.com/fluxcd/website.git
 https://github.com/tikv/website.git
 https://github.com/etcd-io/website.git
-
 https://github.com/jaegertracing/documentation.git
 https://github.com/grpc/grpc.io.git
 https://github.com/emissary-ingress/emissary-ingress.dev.git
-
 https://github.com/kedacore/keda-docs.git
 https://github.com/kubeflow/website.git
 https://github.com/istio/istio.io.git

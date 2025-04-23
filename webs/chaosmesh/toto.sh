@@ -4,7 +4,12 @@ before_build(){
     
     npm install
 
+    # 添加网站访问统计JS
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})}),|g" docusaurus.config.js
+    
+    # URL 配置影响站点的 sitemap.xml 文件的生成
+    sed -i "s|url: 'https://chaos-mesh.org',|url: 'https://chaosmesh.website.cncfstack.com',|g" docusaurus.config.js
+    
     cat ./docusaurus.config.js
 
 # plugins: [
