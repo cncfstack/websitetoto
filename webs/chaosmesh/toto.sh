@@ -33,7 +33,7 @@ before_build(){
 
 build(){
 
-    logo_info "开始镜像 npm run build 构建"
+    log_info "开始镜像 npm run build 构建"
     npm run build
 
     log_info "当前目录中文件列表"

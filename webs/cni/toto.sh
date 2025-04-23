@@ -41,7 +41,7 @@ save_return(){
 
 cd project_dir
 if cat .git/config  |grep '/containernetworking/cni.dev.git' ;then
-    echo "=============================================> 匹配到 cni"
+    echo "匹配到 cni"
     before_build
     after_cni_website
     find_and_sed_v2 "./output"
