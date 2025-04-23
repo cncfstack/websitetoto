@@ -38,7 +38,7 @@ install_hugo(){
     
     pkg_name=`echo $hugo_url|awk -F'/' '{print $NF}'`
 
-    log_info "=============================================> 下载并安装 hugo: $pkg_name"
+    log_info "下载并安装 hugo: $pkg_name"
     wget -q  $hugo_url -O $pkg_name
     tar xf $pkg_name
 
@@ -46,7 +46,7 @@ install_hugo(){
     sudo chmod +x /usr/bin/hugo
 
     if [ ! -x "/usr/bin/hugo" ];then
-        log_error "=============================================>  hugo 安装失败: /usr/bin/hugo 文件不存在或者没有成功设置可执行权限"
+        log_error " hugo 安装失败: /usr/bin/hugo 文件不存在或者没有成功设置可执行权限"
     fi
 }
 
@@ -110,7 +110,7 @@ install_hugo_v145(){
 
 
 install_postcss(){
-    log_info "=============================================> 安装 postCSS"
+    log_info "安装 postCSS"
     npm i -D postcss postcss-cli autoprefixer
 }
 
@@ -187,6 +187,7 @@ find_and_sed_v2(){
 }
 
 get_sed(){
+    log_info "获取替换的 sed 文件："
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
     cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
     cat toto.sed
@@ -195,8 +196,8 @@ get_sed(){
 
 find_and_sed_v3(){
     path=$1
-    # 查找可能存在外部地址的文件，
-    # 对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址
+
+    log_info “查找可能存在外部地址的文件，对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址”
     find  $path -type f -iname "*.txt" \
         -o -iname "*.md" \
         -o -iname "*.toml" \
@@ -209,6 +210,9 @@ find_and_sed_v3(){
         -o -iname "*.tpl" \
         -o -iname "*.rst" > wil-sed-file-list
 
+    log_info "通过find查找到需要进行替换的文件列表："
+    cat wil-sed-file-list
+
     get_sed
     # cat ../sed/* > toto.sed
 
@@ -218,13 +222,14 @@ find_and_sed_v3(){
         sudo sed -i -f toto.sed $file
     done
 
-    grep "filetoto.cncfstack.com" ./* -R |grep -v "toto.sed"|awk -F':' '{print $1}'
+    log_info "以下文件内容进行了替换"
+    grep "filetoto.cncfstack.com"  $path  -R 
 
 }
 
 install_aliyun_ossutil(){
   if [ ! -f ./ossutil ];then
-    log_info "=============================================> 当前路径下无 ossutil，下载并安装到本地 ./ossutil 和 /usr/bin/ossutil"
+    log_info "当前路径下无 ossutil，下载并安装到本地 ./ossutil 和 /usr/bin/ossutil"
     wget -q -O ossutil-2.0.6-beta.01091200-linux-amd64.zip  https://gosspublic.alicdn.com/ossutil/v2-beta/2.0.6-beta.01091200/ossutil-2.0.6-beta.01091200-linux-amd64.zip
     unzip ossutil-2.0.6-beta.01091200-linux-amd64.zip
     cp ossutil-2.0.6-beta.01091200-linux-amd64/ossutil ./ossutil
