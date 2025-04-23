@@ -45,7 +45,7 @@ save_return(){
 
 cd project_dir
 if cat .git/config  |grep '/containerd/containerd.io.git' ;then
-    echo "=============================================> 匹配到 containerd"
+    echo "匹配到 containerd"
     before_build
     build
     find_and_sed_v2 "./output"
