@@ -190,8 +190,8 @@ get_sed(){
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
     cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
     cat toto.sed
-    check_cdn_change
-    #check_not_change
+    grep "filetoto.cncfstack.com" ./* -R |grep -v "toto.sed"|awk -F':' '{print $1}'
+
 }
 
 find_and_sed_v3(){
