@@ -186,13 +186,7 @@ find_and_sed_v2(){
     #check_not_change
 }
 
-get_sed(){
-    log_info "获取替换的 sed 文件："
-    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
-    cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
-    cat toto.sed
 
-}
 
 find_and_sed_v3(){
     path=$1
@@ -213,7 +207,10 @@ find_and_sed_v3(){
     log_info "通过find查找到需要进行替换的文件列表："
     cat wil-sed-file-list
 
-    get_sed
+    log_info "获取替换的 sed 文件："
+    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
+    cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
+    cat toto.sed
     # cat ../sed/* > toto.sed
 
     # 循环依次处理可能包含外部链接的文件，并进行替换
