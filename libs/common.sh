@@ -215,7 +215,6 @@ find_and_sed_v3(){
     cat alldomains|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' >> toto.sed
 
     cat toto.sed
-    # cat ../sed/* > toto.sed
 
     # 循环依次处理可能包含外部链接的文件，并进行替换
     for file in `cat wil-sed-file-list`
