@@ -44,12 +44,26 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+
+    mkdir -p output/docs/latest/install
+    latest_docs_dst=`cat output/_redirects |grep -w '/docs/latest'|grep -v splat|awk '{print $2}'
+    echo '<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.145.0"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>map[dest:'${latest_docs_dst}']</title><link rel=canonical href='$latest_docs_dst'><meta name=robots content="noindex"><meta http-equiv=refresh content="0; url='$latest_docs_dst'"></head></html>' > output/docs/latest/index.html
+    echo '<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.145.0"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>map[dest:'${latest_docs_dst}']</title><link rel=canonical href='$latest_docs_dst'><meta name=robots content="noindex"><meta http-equiv=refresh content="0; url='$latest_docs_dst'"></head></html>' > output/docs/latest/install/index.html
+
+    log_info "output/docs/latest/index.html"
+    cat output/docs/latest/index.html
+
+    log_info "output/docs/latest/install/index.html"
+    cat output/docs/latest/install/index.html
+}
 
 cd project_dir
 if cat .git/config  |grep '/etcd-io/website.git' ;then
     echo "匹配到 etcd"
     before_build
     build
+    after_build
     cycle_sed "./output"
     save_return 
 fi
