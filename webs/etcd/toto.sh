@@ -50,6 +50,6 @@ if cat .git/config  |grep '/etcd-io/website.git' ;then
     echo "匹配到 etcd"
     before_build
     build
-    find_and_sed_v2 "./output"
+    cycle_sed "./output"
     save_return 
 fi

@@ -276,6 +276,10 @@ cycle_sed(){
             continue
         fi
         sudo sed -i -f /tmp/toto.sed $file
+
+        # 部分CSS引用时会添加完整性校验，修改了文件后不删除校验会导致浏览器拒绝处理
+        sed -i 's/integrity="[^"]*"//g' $file
+
         log_info "$file 文件被替换"
         cat $file
     done
