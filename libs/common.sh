@@ -221,11 +221,12 @@ find_and_sed_v3(){
     # 循环依次处理可能包含外部链接的文件，并进行替换
     for file in `cat wil-sed-file-list`
     do
+        log_info "正在 sed 处理文件：$file"
         sudo sed -i -f toto.sed $file
     done
 
-    log_info "以下文件内容进行了替换"
-    grep "filetoto.cncfstack.com"  $path  -R 
+    ##log_info "以下文件内容进行了替换"
+    #grep "filetoto.cncfstack.com"  $path  -R 
 
 }
 
