@@ -4,7 +4,9 @@ before_build(){
 
     pip install -r requirements.txt
     bash -x ./hack/build.sh
-    
+
+    sed -i "s|site_url: https://knative.dev/docs|site_url: https://knative.website.cncfstack.com/docs|g" mkdocs.yml
+
 }
 
 build(){
