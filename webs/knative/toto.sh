@@ -11,6 +11,9 @@ before_build(){
 
 build(){
 
+    BUILD_VERSIONS="no"
+    export BUILD_VERSIONS="no"
+
     # 构建脚本
     bash -x ./hack/build.sh
 
