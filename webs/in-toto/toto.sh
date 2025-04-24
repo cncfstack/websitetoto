@@ -52,6 +52,6 @@ if cat .git/config  |grep '/in-toto/in-toto.io.git' ;then
     echo "匹配到 in-toto"
     before_build
     build
-    find_and_sed_v2 "./output"
+    cycle_sed  "./output"
     save_return 
 fi
