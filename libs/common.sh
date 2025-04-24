@@ -253,6 +253,7 @@ cycle_sed(){
 
     find $path  -type f > /tmp/sed-file-list
 
+    log_info "/tmp/sed-file-list 文件内容"
     cat /tmp/sed-file-list
 
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o /tmp/allfile.list
@@ -263,6 +264,9 @@ cycle_sed(){
     cat /tmp/alldomains|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' >> /tmp/toto.sed
     cat /tmp/special.list >> /tmp/toto.sed
 
+    log_info "/tmp/toto.sed 文件内容"
+    cat /tmp/toto.sed
+
     # 循环依次处理可能包含外部链接的文件，并进行替换
     for file in `cat /tmp/sed-file-list`
     do
@@ -272,5 +276,7 @@ cycle_sed(){
             continue
         fi
         sudo sed -i -f /tmp/toto.sed $file
+        log_info "$file 文件被替换"
+        cat $file
     done
 }
