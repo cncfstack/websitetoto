@@ -2,7 +2,6 @@ source libs/common.sh
 
 before_build(){
 
-    
     install_hugo_v145
     install_postcss
 
