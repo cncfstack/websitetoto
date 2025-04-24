@@ -3,20 +3,23 @@ source libs/common.sh
 before_build(){
 
     pip install -r requirements.txt
-    bash -x ./hack/build.sh
 
     sed -i "s|site_url: https://knative.dev/docs|site_url: https://knative.website.cncfstack.com/docs|g" mkdocs.yml
 
+    cat mkdocs.yml
 }
 
 build(){
 
+    # 构建脚本
+    bash -x ./hack/build.sh
+
     log_info "当前目录中文件列表"
     ls -lh
 
-    log_info "development"
+    log_info "./site/development 目录中文件"
     ls -lh ./site/development
-    log_info "docs"
+    log_info "./site/docs 目录中的文件"
     ls -lh ./site/docs
 
 }
