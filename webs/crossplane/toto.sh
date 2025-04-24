@@ -49,7 +49,7 @@ save_return(){
 
 cd project_dir
 if cat .git/config  |grep '/crossplane/docs.git' ;then
-    echo "匹配到 crossplane"
+    log_info "匹配到 crossplane"
     before_build
     build
     cycle_sed "./output"

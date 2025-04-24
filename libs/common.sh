@@ -266,7 +266,7 @@ cycle_sed(){
     # 循环依次处理可能包含外部链接的文件，并进行替换
     for file in `cat /tmp/sed-file-list`
     do
-        file -b $file |grep "ASCII text"
+        file -b $file |grep "text"
         if [ $? -ne 0 ];then
             echo "not ASCII text, Just Skip: $file"
             continue
