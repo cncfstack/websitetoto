@@ -53,6 +53,6 @@ if cat .git/config  |grep '/crossplane/docs.git' ;then
     echo "匹配到 crossplane"
     before_build
     build
-    find_and_sed_v3 "./output"
+    cycle_sed "./output"
     save_return 
 fi

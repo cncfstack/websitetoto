@@ -205,7 +205,7 @@ find_and_sed_v3(){
     #     -o -iname "*.rst" > wil-sed-file-list
 
     find  $path -type f > wil-sed-file-list
-    
+
     log_info "通过find查找到需要进行替换的文件列表："
     cat wil-sed-file-list
 
