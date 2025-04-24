@@ -145,7 +145,7 @@ cd project_dir
 if cat .git/config  |grep '/kubernetes/website.git' ;then
 echo "匹配到 kubernetes"
     before_build
-    find_and_sed
+    cycle_sed "./website-site"
     build
     save_return 
 fi
