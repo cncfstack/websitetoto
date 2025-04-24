@@ -209,7 +209,11 @@ find_and_sed_v3(){
 
     log_info "获取替换的 sed 文件："
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/allfile.list -o allfile.list
+    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/alldomains -o alldomains
+
     cat allfile.list|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > toto.sed
+    cat alldomains|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' >> toto.sed
+
     cat toto.sed
     # cat ../sed/* > toto.sed
 
