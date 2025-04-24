@@ -53,6 +53,6 @@ if cat .git/config  |grep '/jaegertracing/documentation.git' ;then
     echo "=============================================> 匹配到 jaeger"
     before_build
     build
-    find_and_sed_v2 "./output"
+    cycle_sed "./output"
     save_return 
 fi
