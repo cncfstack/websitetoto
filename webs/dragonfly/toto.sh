@@ -29,6 +29,9 @@ before_build(){
     log_info "配置文件中添加 umami"
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'c2f7c701-67da-49ac-9baa-f0daad6b1902'}}]})}),|g" docusaurus.config.js
     
+    # URL 配置影响站点的 sitemap.xml 文件的生成
+    sed -i "s|url: 'https://d7y.io',|url: 'https://dragonfly.website.cncfstack.com',|g" docusaurus.config.js
+
     log_info "./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
 
