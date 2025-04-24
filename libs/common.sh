@@ -192,18 +192,20 @@ find_and_sed_v3(){
     path=$1
 
     log_info “查找可能存在外部地址的文件，对于其他文件即使包含外部地址也不需要处理，比如 svg 图片中的google字体地址”
-    find  $path -type f -iname "*.txt" \
-        -o -iname "*.md" \
-        -o -iname "*.toml" \
-        -o -iname "*.js" \
-        -o -iname "*.mjs" \
-        -o -iname "*.html" \
-        -o -iname "*.css" \
-        -o -iname "*.sass" \
-        -o -iname "*.scss" \
-        -o -iname "*.tpl" \
-        -o -iname "*.rst" > wil-sed-file-list
+    # find  $path -type f -iname "*.txt" \
+    #     -o -iname "*.md" \
+    #     -o -iname "*.toml" \
+    #     -o -iname "*.js" \
+    #     -o -iname "*.mjs" \
+    #     -o -iname "*.html" \
+    #     -o -iname "*.css" \
+    #     -o -iname "*.sass" \
+    #     -o -iname "*.scss" \
+    #     -o -iname "*.tpl" \
+    #     -o -iname "*.rst" > wil-sed-file-list
 
+    find  $path -type f > wil-sed-file-list
+    
     log_info "通过find查找到需要进行替换的文件列表："
     cat wil-sed-file-list
 
