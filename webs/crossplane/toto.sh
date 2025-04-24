@@ -14,7 +14,6 @@ before_build(){
 }
 
 build(){
-
     log_info "开始进行站点构建"
     mkdir output
     hugo \
@@ -24,7 +23,6 @@ build(){
     --gc \
     --enableGitInfo \
     --baseURL https://crossplane.website.cncfstack.com
-
 }
 
 save_return(){
