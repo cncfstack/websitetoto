@@ -47,7 +47,7 @@ save_return(){
 after_build(){
 
     mkdir -p output/docs/latest/install
-    latest_docs_dst=`cat output/_redirects |grep -w '/docs/latest'|grep -v splat|awk '{print $2}'
+    latest_docs_dst=`cat output/_redirects |grep -w '/docs/latest'|grep -v splat|awk '{print $2}'`
     echo '<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.145.0"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>map[dest:'${latest_docs_dst}']</title><link rel=canonical href='$latest_docs_dst'><meta name=robots content="noindex"><meta http-equiv=refresh content="0; url='$latest_docs_dst'"></head></html>' > output/docs/latest/index.html
     echo '<!doctype html><html lang=en><head><meta name=generator content="Hugo 0.145.0"><meta charset=utf-8><meta name=viewport content="width=device-width,initial-scale=1"><title>map[dest:'${latest_docs_dst}']</title><link rel=canonical href='$latest_docs_dst'><meta name=robots content="noindex"><meta http-equiv=refresh content="0; url='$latest_docs_dst'"></head></html>' > output/docs/latest/install/index.html
 
