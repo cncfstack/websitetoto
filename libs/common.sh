@@ -285,3 +285,42 @@ cycle_sed(){
         cat $file
     done
 }
+
+
+filetoto(){
+
+    path=$1
+
+    find $path  -type f > /tmp/sed-file-list
+
+    log_info "/tmp/sed-file-list 文件内容"
+    cat /tmp/sed-file-list
+
+    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/static.file -o /tmp/static.file
+    curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/special.file-and-sed -o /tmp/special.file-and-sed
+
+
+
+    cat /tmp/static.file|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > /tmp/toto.sed
+    cat /tmp/special.file-and-sed >> /tmp/toto.sed
+
+
+    log_info "/tmp/toto.sed 文件内容"
+    cat /tmp/toto.sed
+
+    # 循环依次处理可能包含外部链接的文件，并进行替换
+    for file in `cat /tmp/sed-file-list`
+    do
+        file -b $file |grep "text"
+        if [ $? -ne 0 ];then
+            log_info "NOT ASCII text, Just Skip: $file"
+            continue
+        fi
+        sudo sed -i -f /tmp/toto.sed $file
+
+        # 部分CSS引用时会添加完整性校验，修改了文件后不删除校验会导致浏览器拒绝处理
+        sed -i 's/integrity="[^"]*"//g' $file
+
+        log_info "$file 文件被替换"
+    done
+}

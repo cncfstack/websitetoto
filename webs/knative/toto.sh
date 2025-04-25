@@ -51,6 +51,6 @@ if cat .git/config  |grep '/knative/docs.git' ;then
     log_info "匹配到 knative"
     before_build
     build
-    find_and_sed_v2 "./build"
+    filetoto "./build"
     save_return 
 fi
