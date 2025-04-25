@@ -49,17 +49,26 @@ save_return(){
 
 after_build(){
 
+    # 先进行文件替换
+    filetoto "./output"
+
 
     # Jaeger在构建完成后，并不能生成sass的css文件，页面局部强依赖，所以从原来的官网进行同步
     # 但是，这个文件可能会变化，需要定期关注
+    curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/css/style.css
+    for file in `cat /tmp/sed-file-list`
+    do
+        file -b $file |grep "text"
+        if [ $? -ne 0 ];then
+            log_info "NOT ASCII text, Just Skip: $file"
+            continue
+        fi
 
-    mkdir output/sass
-    curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/sass/style.sass
+        sudo sed -i 's|https://jaeger.website.cncfstack.com/sass/style.sass|https://jaeger.website.cncfstack.com/css/style.css|g' $file
+        log_info "$file 文件被替换"
+    done
 
-    filetoto "./output"
-    
-    curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css
-
+    # 处理完成后，进行推送
     save_return
 }
 
