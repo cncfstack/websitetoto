@@ -45,11 +45,21 @@ save_return(){
 }
 
 
+after_build(){
+
+    # 先进行文件替换
+    filetoto "./output"
+
+    # 处理完成后，进行推送
+    save_return
+}
+
+
+
 cd project_dir
 if cat .git/config  |grep '/crossplane/docs.git' ;then
     log_info "匹配到 crossplane"
     before_build
     build
-    cycle_sed "./output"
-    save_return 
+    after_build
 fi
