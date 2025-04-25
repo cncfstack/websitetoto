@@ -5,8 +5,13 @@ before_build(){
     pip install -r requirements.txt
 
     sed -i "s|site_url: https://knative.dev/docs|site_url: https://knative.website.cncfstack.com/docs|g" mkdocs.yml
+    sed -i "s|site_url: https://knative.dev/blog|site_url: https://knative.website.cncfstack.com/blog|g" blog/mkdocs.yml
 
+    log_info "文档的mkdocs.yml"
     cat mkdocs.yml
+
+    log_info "blog 的 mkdcos.yml"
+    cat blog/mkdocs.yml
 }
 
 build(){
