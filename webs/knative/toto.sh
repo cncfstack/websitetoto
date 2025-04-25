@@ -48,7 +48,7 @@ save_return(){
 
 
 after_build(){
-    filetoto "./build"
+    filetoto "./site"
     save_return
 }
 
