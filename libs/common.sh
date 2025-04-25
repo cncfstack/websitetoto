@@ -321,6 +321,7 @@ filetoto(){
         # 部分CSS引用时会添加完整性校验，修改了文件后不删除校验会导致浏览器拒绝处理
         sed -i 's/integrity="[^"]*"//g' $file
 
+        #,script.integrity="sha256-waClS2re9NUbXRsryKoof+F9qc1gjjIhc2eT7ZbIv94=",script.crossOrigin="anonymous"
         # jaeger 中通过脚本的方式生成脚本，需要单独处理
         sed -i 's/,script.integrity="[^"]*"//g' $file
 
