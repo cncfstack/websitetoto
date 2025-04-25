@@ -21,15 +21,19 @@ before_build(){
 
 build(){
     log_info "开始进行站点构建"
-    mkdir output
-    hugo \
-    --destination ./output \
-    --cleanDestinationDir \
-    --environment production \
-    --minify \
-    --gc \
-    --enableGitInfo \
-    --baseURL https://crossplane.website.cncfstack.com
+    # mkdir output
+    # hugo \
+    # --destination ./output \
+    # --cleanDestinationDir \
+    # --environment production \
+    # --minify \
+    # --gc \
+    # --enableGitInfo \
+    # --baseURL https://crossplane.website.cncfstack.com
+    CONTEXT=production
+    export CONTEXT=production
+    sed -i 's|--baseURL https://docs.crossplane.io/|--baseURL https://crossplane.website.cncfstack.com/|g' netlify_build.sh
+    bash -x netlify_build.sh
 }
 
 save_return(){
