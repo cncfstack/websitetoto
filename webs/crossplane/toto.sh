@@ -68,7 +68,6 @@ after_build(){
 }
 
 
-
 cd project_dir
 if cat .git/config  |grep '/crossplane/docs.git' ;then
     log_info "匹配到 crossplane"
