@@ -300,7 +300,6 @@ filetoto(){
     curl -fsSL https://raw.githubusercontent.com/cncfstack/filetoto/refs/heads/main/special.file-and-sed -o /tmp/special.file-and-sed
 
 
-
     cat /tmp/static.file|awk -F'https://' '{print "s|"$0"|https://filetoto.cncfstack.com/"$2"|g"}' > /tmp/toto.sed
     cat /tmp/special.file-and-sed >> /tmp/toto.sed
 
@@ -316,15 +315,16 @@ filetoto(){
             log_info "NOT ASCII text, Just Skip: $file"
             continue
         fi
-        sudo sed -i -f /tmp/toto.sed $file
+        sudo sed -i -f /tmp/toto.sed $file  &>/dev/null
 
         # 部分CSS引用时会添加完整性校验，修改了文件后不删除校验会导致浏览器拒绝处理
-        sed -i 's/integrity="[^"]*"//g' $file
+        sed -i 's/integrity="[^"]*"//g' $file  &>/dev/null
 
         #,script.integrity="sha256-waClS2re9NUbXRsryKoof+F9qc1gjjIhc2eT7ZbIv94=",script.crossOrigin="anonymous"
         # jaeger 中通过脚本的方式生成脚本，需要单独处理
-        sed -i 's/\,script\.integrity="[^"]*"//g' $file
+        sed -i 's/\,script\.integrity="[^"]*"//g' $file  &>/dev/null
 
         log_info "$file 文件被替换"
+        
     done
 }
