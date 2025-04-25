@@ -2,11 +2,17 @@ source libs/common.sh
 
 before_build(){
 
+    # 在make prepare前需要对脚本就行fix改造
+    # 无法获取随机值，任务会卡住知道超时
+    sed -i 's|STASH_TOKEN=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)|STASH_TOKEN=AowSMQkCLCTVPCDXKu9Quvad6l21pA0x|g' load-docs.sh
+   
     make prepare
+
+
     npm i
 
     install_hugo_v74
-    #install_postcss
+    install_postcss
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="d2323b72-657c-4da2-9371-67f8383fc2c8"></script>' >>  layouts/partials/favicon.html
@@ -17,10 +23,14 @@ build(){
 
     #npm run build:production
 
+    CONTEXT=production
+    export CONTEXT=production
+
     mkdir output
     hugo \
     --destination ./output \
     --cleanDestinationDir \
+    --e production \
 	--buildDrafts \
 	--buildFuture \
     --minify \
@@ -48,12 +58,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./output"
+    save_return 
+}
 
 cd project_dir
 if cat .git/config  |grep '/goharbor/website.git' ;then
     echo "匹配到 harbor"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi
