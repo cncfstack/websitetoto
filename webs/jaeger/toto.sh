@@ -4,7 +4,7 @@ before_build(){
     install_hugo_v143_1
     install_postcss
 
-    echo "该项目依赖 bluma，需要安装对应版本的依赖"
+    log_info "该项目依赖 bluma，需要安装对应版本的依赖"
     cd themes/jaeger-docs && npm install && cd -
 
     # 添加网站访问统计
@@ -47,12 +47,22 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    # Jaeger在构建完成后，并不能生成sass的css文件，页面局部强依赖，所以从原来的官网进行同步
+    # 但是，这个文件可能会变化，需要定期关注
+    curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css
+
+    mkdir output/sass
+    curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/sass/style.sass
+}
+
 
 cd project_dir
 if cat .git/config  |grep '/jaegertracing/documentation.git' ;then
-    echo "=============================================> 匹配到 jaeger"
+    echo "匹配到 jaeger"
     before_build
     build
+    after_build
     cycle_sed "./output"
     save_return 
 fi
