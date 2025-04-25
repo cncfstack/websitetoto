@@ -19,6 +19,7 @@ build(){
     hugo \
     --destination ./output \
     --cleanDestinationDir \
+    --environment production \
     --minify \
     --gc \
     --enableGitInfo \
