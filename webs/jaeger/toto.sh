@@ -48,13 +48,20 @@ save_return(){
 }
 
 after_build(){
+
+
     # Jaeger在构建完成后，并不能生成sass的css文件，页面局部强依赖，所以从原来的官网进行同步
     # 但是，这个文件可能会变化，需要定期关注
     curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css
 
     mkdir output/sass
     curl  -fsSL   https://www.jaegertracing.io/css/style.ef9a0a808867e6c9162c0e279c43705ccc7a3a3bac3db8b6796c4e609335c848.css -o ./output/sass/style.sass
+
+    filetoto "./output"
+    save_return
 }
+
+
 
 
 cd project_dir
@@ -63,6 +70,4 @@ if cat .git/config  |grep '/jaegertracing/documentation.git' ;then
     before_build
     build
     after_build
-    cycle_sed "./output"
-    save_return 
 fi
