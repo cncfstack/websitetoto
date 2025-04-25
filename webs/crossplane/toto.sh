@@ -34,6 +34,8 @@ build(){
     export CONTEXT=production
     sed -i 's|--baseURL https://docs.crossplane.io/|--baseURL https://crossplane.website.cncfstack.com/|g' netlify_build.sh
     bash -x netlify_build.sh
+
+    ls -lh
 }
 
 save_return(){
@@ -42,7 +44,7 @@ save_return(){
     tarfile="crossplane.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C output .
+    tar -czf ${tarfile} -C public .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -59,7 +61,7 @@ save_return(){
 after_build(){
 
     # 先进行文件替换
-    filetoto "./output"
+    filetoto "./public"
 
     # 处理完成后，进行推送
     save_return
