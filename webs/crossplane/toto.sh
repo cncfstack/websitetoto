@@ -5,12 +5,14 @@ before_build(){
     install_hugo_v119
     install_postcss
 
+
+    log_info "构建 JS"
+    cd utils/webpack && npm install && npm run prod && cd -
+
     log_info "npm install 安装依赖软件"
     npm install 
     npm fund
 
-
-    cd docs/utils/webpack && npm install && cd -
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="9b8051a7-fd5d-4cec-b8fe-3e9ec82cfad1"></script>' >>  ./themes/geekboot/layouts/partials/favicons.html
