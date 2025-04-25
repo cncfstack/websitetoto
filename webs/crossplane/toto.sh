@@ -2,8 +2,8 @@ source libs/common.sh
 
 before_build(){
 
-    install_hugo_v145
-    install_postcss
+    install_hugo_v119
+    #install_postcss
 
     log_info "npm install 安装依赖软件"
     npm install 
