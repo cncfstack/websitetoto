@@ -323,7 +323,7 @@ filetoto(){
 
         #,script.integrity="sha256-waClS2re9NUbXRsryKoof+F9qc1gjjIhc2eT7ZbIv94=",script.crossOrigin="anonymous"
         # jaeger 中通过脚本的方式生成脚本，需要单独处理
-        sed -i 's/,script.integrity="[^"]*"//g' $file
+        sed -i 's/\,script\.integrity="[^"]*"//g' $file
 
         log_info "$file 文件被替换"
     done
