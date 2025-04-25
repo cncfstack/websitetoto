@@ -46,11 +46,17 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+
+after_build(){
+    filetoto "./build"
+    save_return
+}
+
+
 cd project_dir
 if cat .git/config  |grep '/knative/docs.git' ;then
     log_info "匹配到 knative"
     before_build
     build
-    filetoto "./build"
-    save_return 
+    after_build
 fi
