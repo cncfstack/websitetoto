@@ -23,15 +23,7 @@ build(){
     --destination ./website-site \
     --cleanDestinationDir \
     --environment production \
-    --buildFuture \
-    --noBuildLock \
     --minify \
-    --printI18nWarnings \
-    --printMemoryUsage \
-    --printPathWarnings \
-    --printUnusedTemplates \
-    --templateMetrics  \
-    --templateMetricsHints \
     --baseURL https://volcano.website.cncfstack.com
 }
 
