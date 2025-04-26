@@ -4,6 +4,12 @@ before_build(){
     install_hugo_v83_1
     install_postcss
 
+    # 安装依赖
+    npm install
+
+    # 获取一下git 子模块内容
+    npm run preinstall
+
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="e2245cb1-9c47-4c63-9330-88f7e729f480"></script>' >>  ./layouts/partials/favicons.html
 
