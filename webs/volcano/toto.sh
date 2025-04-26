@@ -2,17 +2,18 @@ source libs/common.sh
 
 before_build(){
     echo "npm install"
-    npm install
     
-    echo "install hugo"
-    install_hugo_v120
+    install_hugo_v57_2
+    install_postcss
+    npm install
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="8ccc7a7d-06b8-477d-9d25-eb27c0ac9bbc"></script>' >> layouts/partials/favicons.html
 
     # 文件语法错误，无法编译
-    rm -f content/zh/blog/*
-    rm -f content/en/blog/*
+    # rm -f content/zh/blog/*
+    # rm -f content/en/blog/*
+
 }
 
 build(){
@@ -21,6 +22,7 @@ build(){
     ./hugo \
     --destination ./website-site \
     --cleanDestinationDir \
+    --environment production \
     --buildFuture \
     --noBuildLock \
     --minify \

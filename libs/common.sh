@@ -50,6 +50,10 @@ install_hugo(){
     fi
 }
 
+install_hugo_v57_2(){  
+    install_hugo "https://github.com/gohugoio/hugo/releases/download/v0.57.2/hugo_extended_0.57.2_Linux-64bit.tar.gz" 
+}
+
 install_hugo_v65_3(){  
     install_hugo "https://github.com/gohugoio/hugo/releases/download/v0.65.3/hugo_extended_0.65.3_Linux-64bit.tar.gz" 
 }
