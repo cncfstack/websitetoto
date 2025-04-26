@@ -50,13 +50,16 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./website-site"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/vitessio/website.git' ;then
     echo "匹配到 vitessio"
     before_build
-    find_and_sed_v2 "./website-site"
     build
-    save_return 
+    after_build 
 fi
 
