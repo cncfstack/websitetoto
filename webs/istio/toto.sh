@@ -19,7 +19,6 @@ build(){
     --cleanDestinationDir \
     --minify \
     --gc \
-    --enableGitInfo \
     --baseURL https://istio.website.cncfstack.com
 
 }
@@ -42,13 +41,15 @@ save_return(){
 
     echo "project_dir/${tarfile}" > ret-data
 }
-
+after_build(){
+    filetoto "./output"
+    save_return 
+}
 
 cd project_dir
 if cat .git/config  |grep '/istio/istio.io.git' ;then
     echo "匹配到 istio"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi
