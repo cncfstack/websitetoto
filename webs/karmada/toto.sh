@@ -4,6 +4,8 @@ source libs/common.sh
 before_build(){
     npm install
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'77375498-62d6-417f-ba87-4945bfe9b001'}}]})}),|g" docusaurus.config.js
+    sed -i "s|url: "https://karmada.io",|url: 'https://karmada.website.cncfstack.com',|g" docusaurus.config.js
+
     cat ./docusaurus.config.js
 }
 build(){
