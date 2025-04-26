@@ -9,10 +9,8 @@ before_build(){
 }
 
 build(){
-    echo "npm build-----"
-
+    log_info "开始进行构建，npm build-----"
     npm run build
-
     ls -lh
 
 }
