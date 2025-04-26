@@ -16,6 +16,8 @@ build(){
 }
 
 
+
+
 save_return(){
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
     tarfile="kubeedge.tgz"
@@ -34,12 +36,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./build"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/kubeedge/website.git' ;then
     echo " 匹配到 kubeedge"
     before_build
-    find_and_sed_v2 "./build"
     build
-    save_return 
+    after_build 
 fi
