@@ -10,6 +10,8 @@ before_build(){
 
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'2ef83157-07a7-4bff-a911-e05f83e8663b'}}]})}),|g" docusaurus.config.ts
 
+    sed -i "s|url:\s*'https://openfeature.dev',|url: 'https://openfeature.website.cncfstack.com',|g" docusaurus.config.js
+
 
     log_info "./docusaurus.config.ts 配置文件内容"
     cat ./docusaurus.config.ts
@@ -47,11 +49,17 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+
+after_build(){
+    filetoto "./build"
+    save_return
+}
+
+
 cd project_dir
 if cat .git/config  |grep '/open-feature/openfeature.dev.git' ;then
     log_info "匹配到 open-feature"
     before_build
-    find_and_sed_v2 "./build"
     build
-    save_return 
+    after_build
 fi
