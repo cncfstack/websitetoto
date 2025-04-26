@@ -30,15 +30,8 @@ build(){
     mkdir output
     hugo \
     --destination ./output \
-    --cleanDestinationDir \
-    --e production \
-	--buildDrafts \
-	--buildFuture \
     --minify \
-    --gc \
-    --enableGitInfo \
     --baseURL https://harbor.website.cncfstack.com
-
 }
 
 save_return(){
