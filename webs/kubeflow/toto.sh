@@ -2,8 +2,14 @@ source libs/common.sh
 
 before_build(){
     install_hugo_v124_1
+
+    log_info "安装 npm 软件包"
     npm install 
+
+    log_info "递归获取 git submodule"
     git submodule update --init --recursive
+
+    log_info "安装docsy依赖包"
     cd themes/docsy/ && npm install && cd -
 
     # 添加网站访问统计
@@ -42,12 +48,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./output"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/kubeflow/website.git' ;then
     echo "匹配到 kubeflow"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi
