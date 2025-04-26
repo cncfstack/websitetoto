@@ -4,7 +4,7 @@ before_build(){
 
     # 在make prepare前需要对脚本就行fix改造
     # 无法获取随机值，任务会卡住知道超时
-    sed -i 's#STASH_TOKEN=$(cat /dev/urandom | LC_CTYPE=C tr -dc 'a-zA-Z0-9' | fold -w 32 | head -n 1)#STASH_TOKEN=AowSMQkCLCTVPCDXKu9Quvad6l21pA0x#g' load-docs.sh
+    sed -i 's#STASH_TOKEN=[^)]*)#STASH_TOKEN=AowSMQkCLCTVPCDXKu9Quvad6l21pA0x#g' load-docs.sh
     cat load-docs.sh
 
     make prepare
