@@ -9,6 +9,10 @@ before_build(){
     #sed -i "s|themeConfig:\s*\{|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})})],themeConfig: {|g" docusaurus.config.js
 
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'7ca83057-271c-475a-b048-768e444e0076'}}]})}),|g" docusaurus.config.js
+    
+    sed -i "s|url:\s*\"https://opencost.io\",|url: 'https://opencost.website.cncfstack.com',|g" docusaurus.config.js
+
+
 
     log_info "./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
@@ -45,11 +49,16 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./build"
+    save_return
+}
+
+
 cd project_dir
 if cat .git/config  |grep '/opencost/opencost-website.git' ;then
     log_info "匹配到 chaos-mesh"
     before_build
-    find_and_sed_v2 "./build"
     build
-    save_return 
+    after_build
 fi
