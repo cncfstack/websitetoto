@@ -1,11 +1,14 @@
 source libs/common.sh
 
 before_build(){
-    install_hugo_v114
+    install_hugo_v145
     install_postcss
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="9e595152-e500-4016-a1d1-a0f2d6b94415"></script>' >>  ./layouts/partials/hooks/head-end.html
+
+
+
 
 }
 
@@ -15,6 +18,7 @@ build(){
 
     mkdir output
     hugo \
+    --environment production \
     --destination ./output \
     --cleanDestinationDir \
     --minify \
