@@ -54,12 +54,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./website-site"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/volcano-sh/website.git' ;then
     echo "匹配到 volcano"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build 
 fi
