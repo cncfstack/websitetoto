@@ -2,6 +2,9 @@ source libs/common.sh
 
 before_build(){
 
+    install_hugo_v74
+    install_postcss
+
     # 在make prepare前需要对脚本就行fix改造
     # 无法获取随机值，任务会卡住知道超时
     sed -i 's#STASH_TOKEN=[^)]*)#STASH_TOKEN=AowSMQkCLCTVPCDXKu9Quvad6l21pA0x#g' load-docs.sh
@@ -11,8 +14,6 @@ before_build(){
 
     npm i
 
-    install_hugo_v74
-    install_postcss
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="d2323b72-657c-4da2-9371-67f8383fc2c8"></script>' >>  layouts/partials/favicon.html
