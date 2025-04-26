@@ -42,12 +42,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./output"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/kyverno/website.git' ;then
     echo "匹配到 kyverno"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi
