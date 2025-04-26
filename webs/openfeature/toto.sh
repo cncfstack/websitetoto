@@ -10,7 +10,7 @@ before_build(){
 
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'2ef83157-07a7-4bff-a911-e05f83e8663b'}}]})}),|g" docusaurus.config.ts
 
-    sed -i "s|url:\s*'https://openfeature.dev',|url: 'https://openfeature.website.cncfstack.com',|g" docusaurus.config.js
+    sed -i "s|url:\s*'https://openfeature.dev',|url: 'https://openfeature.website.cncfstack.com',|g" docusaurus.config.ts
 
 
     log_info "./docusaurus.config.ts 配置文件内容"
