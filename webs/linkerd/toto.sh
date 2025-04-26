@@ -5,36 +5,36 @@ before_build(){
     install_hugo_v136_5
     install_postcss
 
+    # 注点意文档在这个目录中
+    cd linkerd.io
+    
     # 添加网站访问统计
-    sed -i 's|<head>|<head><script defer src="https://umami.cncfstack.com/script.js" data-website-id="ca77e090-43b0-494c-908a-f0183f0adb53"></script>|g' layouts/_default/baseof.html
+    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="0f50e996-f7be-49d6-bc58-0ac6174f5c34"></script>' >>  ./layouts/partials/head-meta.html
 
 }
+
 
 build(){
 
-    # mkdir output
-    # hugo \
-    # --environment production \
-    # --destination ./output \
-    # --cleanDestinationDir \
-    # --minify \
-    # --gc \
-    # --enableGitInfo \
-    # --baseURL https://linkerd.website.cncfstack.com
+    hugo \
+    --environment production \
+    --cleanDestinationDir \
+    --minify \
+    --gc \
+    --enableGitInfo \
+    --baseURL https://linkerd.website.cncfstack.com
     
-    make production-build
-
 }
 
 save_return(){
-    ls -lha
-    pwd
-    echo "${workdir}/output&oss://cncfstack-istio" > ${workdir}/ret-data
+    # ls -lha
+    # pwd
+    # echo "project_dir/output&oss://cncfstack-istio" > project_dir/ret-data
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
-    tarfile="kyverno.tgz"
+    tarfile="linkerd.tgz"
 
-    # 进入到site目录后进行打包，这样是为了便于部署时解压
+    # 进入到目录后进行打包，这样是为了便于部署时解压
     tar -czf ${tarfile} -C public .
 
     if [ ! -s ${tarfile} ];then
@@ -56,7 +56,7 @@ after_build(){
 
 cd project_dir
 if cat .git/config  |grep '/linkerd/website.git' ;then
-    echo "匹配到 istio"
+    echo "匹配到 linkerd"
     before_build
     build
     after_build
