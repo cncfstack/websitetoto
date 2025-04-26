@@ -45,7 +45,7 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "project_dir/${tarfile}" > ret-data
+    echo "project_dir/linkerd.io/${tarfile}" > ../ret-data
 }
 
 after_build(){
