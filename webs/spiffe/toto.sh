@@ -52,11 +52,12 @@ build(){
     --minify \
     --baseURL https://spiffe.website.cncfstack.com
 
+    docker inspect tmp
+
     docker ps -a
 
     docker logs -f tmp
 
-    docker inspect tmp
 
     debug_tools
 }
