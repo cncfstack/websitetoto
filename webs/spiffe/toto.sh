@@ -23,6 +23,7 @@ before_build(){
 # RUN pipenv sync --dev
 # CMD [ "pipenv run bash run.sh" ]
 
+    log_info "构建本地开发镜像"
     make docker-build
 
 }
@@ -44,15 +45,12 @@ build(){
     # make setup
     # make production-build
 
+    log_info "使用本地开发镜像镜像构建"
     docker run -itd --rm  -v `pwd`:/app spiffe.io:latest \
-    hugo \
+    ./hugo \
     --destination ./public \
     --cleanDestinationDir \
-	--buildDrafts \
-	--buildFuture \
     --minify \
-    --gc \
-    --enableGitInfo \
     --baseURL https://spiffe.website.cncfstack.com
 }
 
