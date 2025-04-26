@@ -23,7 +23,7 @@ before_build(){
 # RUN pipenv sync --dev
 # CMD [ "pipenv run bash run.sh" ]
 
-
+    make docker-build
 
 }
 
