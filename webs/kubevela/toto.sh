@@ -3,11 +3,15 @@ source libs/common.sh
 before_build(){
     yarn install
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'8c8b1d6d-a7fa-43ca-9933-db30591777e9'}}]})}),|g" docusaurus.config.js
+    sed -i "s|url:\s*'https://kubevela.io',|url: 'https://kubevela.website.cncfstack.com',|g" docusaurus.config.js
+
+
     cat ./docusaurus.config.js
 }
 
 build(){
-    echo "npm build-----"
+
+    log_info "npm build-----"
 
     yarn build
 
@@ -35,12 +39,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./build"
+    save_return
+}
 
 cd project_dir
 if cat .git/config  |grep '/kubevela/kubevela.github.io.git' ;then
     echo "匹配到 kubevela"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build 
 fi
