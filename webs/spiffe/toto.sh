@@ -7,6 +7,8 @@ before_build(){
     npm install
     # python pull_external.py
 
+    # pipenv run python pull_external.py
+
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="86f12ca0-83a8-470a-af6c-6ba96d72998e"></script>' >>  layouts/partials/meta.html
 
@@ -26,7 +28,7 @@ build(){
     # --gc \
     # --enableGitInfo \
     # --baseURL https://spiffe.website.cncfstack.com
-    
+    make setup
     make production-build
 
 }
