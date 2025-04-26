@@ -64,8 +64,7 @@ save_return(){
     debug_tools
     
     log_info "站点构建完成"
-
-    echo "project_dir/website/${tarfile}" > ret-data
+    echo "project_dir/website/${tarfile}" > ../ret-data
 }
 
 after_build(){
