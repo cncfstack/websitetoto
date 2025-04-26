@@ -1,6 +1,6 @@
 source libs/common.sh
 
-before_litmuschaos(){
+before_build(){
     
     cd website
     npm install
@@ -34,7 +34,7 @@ before_litmuschaos(){
 
 }
 
-after_litmuschaos(){
+build(){
 
     log_info "开始 npm run build 构建"
     npm run build
@@ -65,12 +65,15 @@ save_return(){
     echo "project_dir/website/${tarfile}" > ret-data
 }
 
-cd project_dir
+after_build(){
+    filetoto "./website"
+    save_return
+}
 
+cd project_dir
 if cat .git/config  |grep '/litmuschaos/litmus-docs.git' ;then
     log_info "匹配到 litmuschaos"
-    before_litmuschaos
-    find_and_sed_v2 "./website"
-    after_litmuschaos
-    save_return 
+    before_build
+    build
+    after_build
 fi
