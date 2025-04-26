@@ -5,23 +5,24 @@ before_build(){
     install_hugo_v136_5
     install_postcss
 
-
     # 添加网站访问统计
-
     sed -i 's|<head>|<head><script defer src="https://umami.cncfstack.com/script.js" data-website-id="ca77e090-43b0-494c-908a-f0183f0adb53"></script>|g' layouts/_default/baseof.html
 
 }
 
 build(){
 
-    mkdir output
-    hugo \
-    --destination ./output \
-    --cleanDestinationDir \
-    --minify \
-    --gc \
-    --enableGitInfo \
-    --baseURL https://linkerd.website.cncfstack.com
+    # mkdir output
+    # hugo \
+    # --environment production \
+    # --destination ./output \
+    # --cleanDestinationDir \
+    # --minify \
+    # --gc \
+    # --enableGitInfo \
+    # --baseURL https://linkerd.website.cncfstack.com
+    
+    make production-build
 
 }
 
@@ -34,7 +35,7 @@ save_return(){
     tarfile="kyverno.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C output .
+    tar -czf ${tarfile} -C public .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -48,7 +49,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./output"
+    filetoto "./public"
     save_return
 }
 
