@@ -3,6 +3,8 @@ source libs/common.sh
 before_build(){
     npm install
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'9e00beea-6f49-4460-b456-b4fc5fb216c5'}}]})}),|g" docusaurus.config.js
+    sed -i "s|url: "https://kubeedge.io",|url: 'https://kubeedge.website.cncfstack.com',|g" docusaurus.config.js
+
     cat ./docusaurus.config.js
 }
 
