@@ -10,6 +10,9 @@ before_build(){
 {% endblock %}
 EOF
 
+# 原项目中缺少site_url配置，导致sitemap没有正确构建出来
+echo "site_url: 'https://logggie.website.cncfstack.com'" >> mkdocs.yml
+
 }
 
 build(){
@@ -35,14 +38,17 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./site"
+    save_return
+}
 
 
 cd project_dir
 if cat .git/config  |grep '/loggie-io/docs.git' ;then
     echo "匹配到 loggie"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build 
 fi
 
