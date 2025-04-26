@@ -4,13 +4,14 @@ before_build(){
     install_hugo_v124_1
 
     log_info "安装 npm 软件包"
-    npm install 
+    npm install -D
+    npm install
 
     log_info "递归获取 git submodule"
     git submodule update --init --recursive
 
     log_info "安装docsy依赖包"
-    cd themes/docsy/ && npm install && cd -
+    cd themes/docsy/  && git submodule update -f --init && npm install && cd -
 
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="bb40c254-9dfe-47ec-9935-ecfd7263cc97"></script>' >>  ./layouts/partials/favicons.html
@@ -21,13 +22,13 @@ build(){
 
     mkdir output
     hugo \
+    --environment production \
     --destination ./output \
     --cleanDestinationDir \
     --minify \
     --gc \
-    --enableGitInfo \
-    --baseURL https://kubeflow.website.cncfstack.com
-
+    --baseURL https://kubeflow.website.cncfstack.com \
+    --enableGitInfo 
 }
 
 save_return(){
