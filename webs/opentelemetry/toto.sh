@@ -8,6 +8,8 @@ before_build(){
 
     sudo cp -f hugo /usr/bin/
 
+    sed -i "s|baseURL:\s*https://opentelemetry.io|baseURL: https://opentelemetry.website.cncfstack.com|g"  hugo.yaml
+
     #npm run all
     npm run get:submodule
     
@@ -50,12 +52,16 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./public"
+    save_return
+}
+
 
 cd project_dir
 if cat .git/config  |grep '/open-telemetry/opentelemetry.io.git' ;then
     echo " 匹配到 opentelemetry"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build 
 fi
