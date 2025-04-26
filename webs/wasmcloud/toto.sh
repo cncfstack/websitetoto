@@ -25,20 +25,21 @@ before_build(){
 # ]
 #sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'e560133a-5a27-40ad-b816-9896199ffb01'}}]})}),|g" docusaurus.config.js
     
-    log_info "=============================================> 配置文件中没有plugins的配置，单独添加，选择一个常用的KEY"
+    log_info "配置文件中没有plugins的配置，单独添加，选择一个常用的KEY"
     sed -ri "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'ea898aeb-199d-4330-bf53-2e40427bb23d'}}]})}),|g" docusaurus.config.ts
-    
-    log_info "=============================================> ./docusaurus.config.ts 配置文件内容"
+    sed -i "s|url:\s*siteBaseUrl(),|url: 'https://wasmcloud.website.cncfstack.com',|g" docusaurus.config.ts
+
+    log_info "./docusaurus.config.ts 配置文件内容"
     cat ./docusaurus.config.ts
 
 }
 
 build(){
 
-    log_info "=============================================> 开始 npm run build 构建"
+    log_info "开始 npm run build 构建"
     npm run build
 
-    log_info "=============================================> 当前目录中文件列表"
+    log_info "当前目录中文件列表"
     ls -lh
 
 }
@@ -63,11 +64,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./build"
+    save_return
+}
+
 cd project_dir
 if cat .git/config  |grep '/wasmCloud/wasmcloud.com.git' ;then
     log_info "匹配到 wasmcloud"
     before_build
     build
-    find_and_sed_v2 "./build"
-    save_return 
+    after_build 
 fi
