@@ -31,13 +31,15 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
-
+after_build(){
+    filetoto "./build"
+    save_return 
+}
 
 cd project_dir
 if cat .git/config  |grep '/karmada-io/website.git' ;then
     echo "匹配到 karmada"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build
 fi
