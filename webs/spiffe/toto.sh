@@ -26,6 +26,7 @@ build(){
     # --gc \
     # --enableGitInfo \
     # --baseURL https://spiffe.website.cncfstack.com
+    
     make production-build
 
 }
