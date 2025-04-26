@@ -46,7 +46,7 @@ build(){
     # make production-build
 
     log_info "使用本地开发镜像镜像构建"
-    docker run -itd --rm  --name tmp -v `pwd`:/app spiffe.io:latest \
+    docker run -itd --rm  --name tmp -v `pwd`:/app --entrypoint="/bin/bash" spiffe.io:latest  -c \
     ./hugo \
     --cleanDestinationDir \
     --minify \
@@ -54,11 +54,10 @@ build(){
 
     docker ps -a
 
-
     docker logs -f tmp
 
     docker inspect tmp
-    
+
     debug_tools
 }
 
