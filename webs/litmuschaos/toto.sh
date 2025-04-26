@@ -29,6 +29,9 @@ before_build(){
     log_info "配置文件中没有plugins的配置，单独添加，选择一个常用的KEY"
     sed -ri "s|themeConfig:\s*\{|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'494eb503-996b-4489-a5a6-66c557d98c65'}}]})})],themeConfig: {|g" docusaurus.config.js
     
+    sed -i "s|url:\s*'https://docs.litmuschaos.io',|url: 'https://litmuschaos.website.cncfstack.com',|g" docusaurus.config.js
+
+
     log_info "./docusaurus.config.js 配置文件内容"
     cat ./docusaurus.config.js
 
@@ -66,7 +69,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./website"
+    filetoto "./build"
     save_return
 }
 
