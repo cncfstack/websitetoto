@@ -45,7 +45,7 @@ build(){
     # make setup
     # make production-build
 
-    cat > c <<EOF
+    cat > cncfstack-build.sh <<EOF
 #!/usr/bin/env bash -x
 
 # Installs npm dependencies
