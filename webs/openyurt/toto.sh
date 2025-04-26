@@ -2,7 +2,11 @@ source libs/common.sh
 
 before_build(){
     npm install
+    
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'bf711965-231e-4ff8-9620-75f4b7a6256e'}}]})}),|g" docusaurus.config.js
+    
+    sed -i "s|url:\s\"https://openyurt.io\",|url: 'https://openyurt.website.cncfstack.com',|g" docusaurus.config.js
+
     cat ./docusaurus.config.js
 }
 
@@ -33,11 +37,16 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./build"
+    save_return
+}
+
+
 cd project_dir
 if cat .git/config  |grep '/openyurtio/openyurt.io.git' ;then
     echo "匹配到 openyurt"
     before_build
-    find_and_sed
     build
-    save_return 
+    after_build 
 fi
