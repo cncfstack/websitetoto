@@ -12,7 +12,7 @@ before_build(){
 
 }
 
-after_istio_website(){
+build(){
 
     mkdir output
     hugo \
@@ -47,12 +47,16 @@ save_return(){
     echo "project_dir/${tarfile}" > ret-data
 }
 
+after_build(){
+    filetoto "./output"
+    save_return
+}
+
 
 cd project_dir
-if cat .git/config  |grep '/istio/istio.io.git' ;then
+if cat .git/config  |grep '/linkerd/website.git' ;then
     echo "匹配到 istio"
     before_build
-    after_istio_website
-    find_and_sed_v2 "./output"
-    save_return 
+    build
+    after_build
 fi
