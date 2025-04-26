@@ -12,6 +12,19 @@ before_build(){
     # 添加网站访问统计
     echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="86f12ca0-83a8-470a-af6c-6ba96d72998e"></script>' >>  layouts/partials/meta.html
 
+
+# RUN curl https://pyenv.run | bash
+# RUN export PATH="$(pyenv root)/shims/python:$PATH"
+# RUN echo 'eval "$(pyenv init --path)"' >> ~/.bashrc
+#  pyenv install
+#   pyenv global $(cat .python-version)
+#   pyenv exec pip install pipenv --user
+#   RUN export PIPENV_PYTHON="$(pyenv root)/shims/python"
+# RUN pipenv sync --dev
+# CMD [ "pipenv run bash run.sh" ]
+
+
+
 }
 
 build(){
@@ -28,9 +41,19 @@ build(){
     # --gc \
     # --enableGitInfo \
     # --baseURL https://spiffe.website.cncfstack.com
-    make setup
-    make production-build
+    # make setup
+    # make production-build
 
+    docker run -itd --rm  -v `pwd`:/app spiffe.io:latest \
+    hugo \
+    --destination ./public \
+    --cleanDestinationDir \
+	--buildDrafts \
+	--buildFuture \
+    --minify \
+    --gc \
+    --enableGitInfo \
+    --baseURL https://spiffe.website.cncfstack.com
 }
 
 save_return(){
