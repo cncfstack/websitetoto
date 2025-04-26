@@ -52,7 +52,7 @@ build(){
 npm install
 
 # Pulls in external content
-pipenv run python pull_external.py
+sudo pipenv run python pull_external.py
 
 ./hugo \
     --cleanDestinationDir \
@@ -64,7 +64,7 @@ EOF
 
     log_info "使用本地开发镜像镜像构建"
 
-    docker run -itd  --name tmp -v `pwd`:/app:Z --entrypoint="/bin/bash" spiffe.io:latest  -c  "pipenv run bash  cncfstack-build.sh"
+    sudo docker run -itd  --name tmp -v `pwd`:/app:Z --entrypoint="/bin/bash" spiffe.io:latest  -c  "pipenv run bash  cncfstack-build.sh"
 
     docker inspect tmp
 
