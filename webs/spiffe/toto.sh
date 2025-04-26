@@ -45,12 +45,26 @@ build(){
     # make setup
     # make production-build
 
-    log_info "使用本地开发镜像镜像构建"
-    docker run -itd --rm  --name tmp -v `pwd`:/app --entrypoint="/bin/bash" spiffe.io:latest  -c \
-    ./hugo \
+    cat > c <<EOF
+#!/usr/bin/env bash -x
+
+# Installs npm dependencies
+npm install
+
+# Pulls in external content
+pipenv run python pull_external.py
+
+./hugo \
     --cleanDestinationDir \
     --minify \
     --baseURL https://spiffe.website.cncfstack.com
+EOF
+
+    chmod +x cncfstack-build.sh
+
+    log_info "使用本地开发镜像镜像构建"
+
+    docker run -itd  --name tmp -v `pwd`:/app --entrypoint="/bin/bash" spiffe.io:latest  -c  "pipenv run bash  cncfstack-build.sh"
 
     docker inspect tmp
 
