@@ -46,12 +46,17 @@ build(){
     # make production-build
 
     log_info "使用本地开发镜像镜像构建"
-    docker run -itd --rm  -v `pwd`:/app spiffe.io:latest \
+    docker run -itd --rm  --name tmp -v `pwd`:/app spiffe.io:latest \
     ./hugo \
-    --destination ./public \
     --cleanDestinationDir \
     --minify \
     --baseURL https://spiffe.website.cncfstack.com
+
+    docker ps
+
+    docker logs -f tmp
+
+    debug_tools
 }
 
 save_return(){
