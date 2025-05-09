@@ -56,7 +56,11 @@ after_build(){
 
     log_info "output/docs/latest/install/index.html"
     cat output/docs/latest/install/index.html
+
+    filetoto "./output"
+    save_return
 }
+
 
 cd project_dir
 if cat .git/config  |grep '/etcd-io/website.git' ;then
@@ -64,6 +68,4 @@ if cat .git/config  |grep '/etcd-io/website.git' ;then
     before_build
     build
     after_build
-    cycle_sed "./output"
-    save_return 
 fi
