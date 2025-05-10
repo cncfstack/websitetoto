@@ -46,11 +46,15 @@ save_return(){
 }
 
 
+after_build(){
+    filetoto "./output"
+    save_return
+}
+
 cd project_dir
 if cat .git/config  |grep '/falcosecurity/falco-website.git' ;then
     echo "匹配到 falco"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi
