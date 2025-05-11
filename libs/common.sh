@@ -105,7 +105,7 @@ install_hugo_v122(){
 install_hugo_v124_1(){ 
     install_hugo "https://github.com/gohugoio/hugo/releases/download/v0.124.1/hugo_extended_0.124.1_linux-amd64.tar.gz" 
 }
-install_hugo_v130_0(){ 
+install_hugo_v130(){ 
     install_hugo "https://github.com/gohugoio/hugo/releases/download/v0.130.0/hugo_extended_0.130.0_linux-amd64.tar.gz" 
 }
 install_hugo_v136_5(){ 
