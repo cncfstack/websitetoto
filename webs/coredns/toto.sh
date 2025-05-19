@@ -5,7 +5,7 @@ before_build(){
     install_postcss
 
     log_info "添加网站访问统计"
-    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="9f78fcf9-90dc-4597-8fb8-a2b26aaf7656"></script>' >>  layouts/partials/favicons.html
+    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="9f78fcf9-90dc-4597-8fb8-a2b26aaf7656"></script>' >>  themes/coredns/layouts/partials/favicon.html
 }
 
 
@@ -45,13 +45,15 @@ save_return(){
 }
 
 
+after_build(){
+    filetoto "./output"
+    save_return
+}
 
 cd project_dir && log_info "进入到项目代码的目录中，后续的所有动作都是在项目的代码根目录下执行"
-
 if cat .git/config  |grep '/coredns/coredns.io.git' ;then
-    echo "=============================================> 匹配到 coredns"
+    log_info "匹配到 coredns"
     before_build
     build
-    find_and_sed_v2 "./output"
-    save_return 
+    after_build
 fi 
