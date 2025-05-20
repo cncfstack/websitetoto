@@ -10,10 +10,10 @@ before_build(){
     echo "------------------"
     ls -lhathemes/docsy/
     # 添加网站访问统计
-    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="1f96240b-84a8-46d7-85ce-3396d889e9a7"></script>' >>  ./themes/docsy/layouts/partials/favicons.html
+    echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="1f96240b-84a8-46d7-85ce-3396d889e9a7"></script>' >>  ./themes/docsy/layouts/_partials/scripts/mermaid.html
 
-    log_info "./themes/docsy/layouts/partials/favicons.html 文件内容"
-    cat ./themes/docsy/layouts/partials/favicons.html
+    log_info " ./themes/docsy/layouts/_partials/scripts/mermaid.html 文件内容"
+    cat  ./themes/docsy/layouts/_partials/scripts/mermaid.html
 
 }
 
