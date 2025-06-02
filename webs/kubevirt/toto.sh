@@ -27,7 +27,7 @@ save_return(){
     tarfile="kubevirt.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C /tmp/kubevirt-gh-pages .
+    tar -czf ${tarfile} -C ./kubevirt-gh-pages .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -41,7 +41,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "/tmp/kubevirt-gh-pages"
+    filetoto "./kubevirt-gh-pages"
     save_return
 }
 
