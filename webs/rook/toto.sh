@@ -10,9 +10,15 @@ before_build(){
 
 build(){
 
+    git clone https://github.com/rook/rook.git
+
+    # Remove the old master docs and copy your updated docs from your rook repo
+    rm -fr docs/rook/master
+    mkdir docs/rook/master
+
+    cp -r ./rook/Documentation/* docs/rook/master/
+
     make build
-    ls -lha
-    ls _site/
 
 }
 
