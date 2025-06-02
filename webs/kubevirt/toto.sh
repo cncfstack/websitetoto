@@ -6,7 +6,7 @@ before_build(){
 
 build(){
 
-    git clone -b gh-pages https://github.com/kubevirt/kubevirt.github.io.git kubevirt-gh-pages
+    git clone -b gh-pages https://github.com/kubevirt/kubevirt.github.io.git /tmp/kubevirt-gh-pages
 
 }
 
@@ -16,7 +16,7 @@ save_return(){
     tarfile="kubevirt.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C kubevirt-gh-pages .
+    tar -czf ${tarfile} -C /tmp/kubevirt-gh-pages .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -30,7 +30,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./kubevirt-gh-pages"
+    filetoto "/tmp/kubevirt-gh-pages"
     save_return
 }
 
