@@ -1,13 +1,24 @@
 source libs/common.sh
 
+# 分析
+# KubeVirt 有两个文档项目，一个是网站，一个文档
+# 网站：https://github.com/kubevirt/kubevirt.github.io.git
+# 文档：https://github.com/kubevirt/user-guide
+# 
+# 网站的导航中文档地址写死了，需要进行修改： https://github.com/kubevirt/kubevirt.github.io/blob/main/_data/site_nav_pages.yml
+
+
+
 before_build(){
     log_info "添加网站访问统计 "
 }
 
 build(){
 
-    git clone -b gh-pages https://github.com/kubevirt/kubevirt.github.io.git /tmp/kubevirt-gh-pages
+    git clone -b gh-pages https://github.com/kubevirt/kubevirt.github.io.git ./kubevirt-gh-pages
 
+    git clone -b gh-pages https://github.com/kubevirt/user-guide  ./kubevirt-gh-pages/user-guide
+    
 }
 
 save_return(){

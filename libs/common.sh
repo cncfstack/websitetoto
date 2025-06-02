@@ -337,6 +337,9 @@ filetoto(){
         # jaeger 中通过脚本的方式生成脚本，需要单独处理
         sed -i 's/\,script\.integrity="[^"]*"//g' $file  &>/dev/null
 
+        # Kubevir 中文档目录导航位置的体会
+        sed -i 's|https://kubevirt.io/user-guide/|/user-guide/|g' $file  &>/dev/null
+        
         log_info "$file 文件被替换"
         
     done
