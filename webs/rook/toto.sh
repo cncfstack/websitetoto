@@ -19,10 +19,10 @@ build(){
 save_return(){
 
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
-    tarfile="tikv.tgz"
+    tarfile="rook.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C output .
+    tar -czf ${tarfile} -C _site .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -36,7 +36,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./output"
+    filetoto "./_site"
     save_return
 }
 
@@ -45,5 +45,5 @@ if cat .git/config  |grep '/rook/rook.github.io.git' ;then
     echo "匹配到 ROOK"
     before_build
     build
-    #after_build
+    after_build
 fi
