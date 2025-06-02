@@ -14,13 +14,13 @@ build(){
 
     # Remove the old master docs and copy your updated docs from your rook repo
     rm -fr docs/rook/master
-    mkdir docs/rook/master
+    mkdir -p docs/rook/master
 
     log_info     "cp -r ./rook_code/Documentation/* docs/rook/master/"
     cp -r ./rook_code/Documentation/* docs/rook/master/
 
     ls -lha
-    
+
     make build
 
 }
