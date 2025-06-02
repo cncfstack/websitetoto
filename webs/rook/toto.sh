@@ -4,7 +4,7 @@ source libs/common.sh
 # 通过 Makefile 进行构建：https://github.com/rook/rook.github.io/blob/master/Makefile
 
 before_build(){
-    # 添加网站访问统计 0d0748d9-074f-48fb-9292-91f76ac950a3 位 rook
+    log_info "添加网站访问统计 0d0748d9-074f-48fb-9292-91f76ac950a3 -> rook"
     # echo '<script defer src="https://umami.cncfstack.com/script.js" data-website-id="0d0748d9-074f-48fb-9292-91f76ac950a3"></script>' >>  xxx
 }
 
