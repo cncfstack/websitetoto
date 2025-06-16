@@ -30,6 +30,8 @@ build(){
 
     make build
 
+    log_warn "============================"
+    ls -lh
 }
 
 
