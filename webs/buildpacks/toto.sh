@@ -42,7 +42,7 @@ save_return(){
     tarfile="buildpacks.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C build .
+    tar -czf ${tarfile} -C public .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -56,7 +56,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./build"
+    filetoto "./public"
     save_return
 }
 
