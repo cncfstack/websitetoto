@@ -15,6 +15,7 @@ before_build(){
 #     grep 'site_url:' mkdocs.yml && sed -i "s|site_url:.*|site_url: 'https://cloud-custodian.website.cncfstack.com'|g" mkdocs.yml || echo "site_url: 'https://cloud-custodian.website.cncfstack.com'" >> mkdocs.yml
 
 #     cat mkdocs.yml
+    echo "skip before_build"
 }
 
 build(){
