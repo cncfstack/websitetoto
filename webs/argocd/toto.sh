@@ -18,7 +18,9 @@ EOF
 
 build(){
     echo "after_argocd"
-    sudo docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material  build
+    # sudo docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material  build
+    make build-docs
+    ls -lha
 }
 
 
