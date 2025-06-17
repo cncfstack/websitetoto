@@ -14,12 +14,17 @@ EOF
     # 查询mkdocs.yml文件中是否有site_url行，如果没有就新添加一行，如果有无论什么值都直接进行替换
     grep 'site_url:' mkdocs.yml && sed -i "s|site_url:.*|site_url: 'https://argocd.website.cncfstack.com'|g" mkdocs.yml || echo "site_url: 'https://argocd.website.cncfstack.com'" >> mkdocs.yml
 
+    cat mkdocs.yml
 }
 
 build(){
-    echo "after_argocd"
+    log_info "build Argocd"
     # sudo docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material  build
-    make build-docs
+    pip install -r requirements.txt
+
+    pip install mkdocs; 
+    pip install $$(mkdocs get-deps)
+    mkdocs build
     ls -lha
 }
 
