@@ -16,12 +16,12 @@
 - 是否通过 make 命令构建
 
 涉及项目:
-- ArgoCD
-- Rook
-- Loggie
-- Knative
-- Keptn(todo)
-- Kubescape(todo)
+- [x] ArgoCD
+- [x] Rook
+- [x] Loggie
+- [x] Knative
+- [x] Keptn
+- Kubescape(todo): 没有文档相关的构建说明
 - CloudCustodian(todo)
 
 
