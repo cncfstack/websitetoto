@@ -22,7 +22,7 @@ build(){
     # sudo docker run --rm -v ${PWD}:/docs squidfunk/mkdocs-material  build
     # pip install -r requirements.txt
 
-    pip install mkdocs; 
+    pip install mkdocs
     mkdocs get-deps
 
     pip install `mkdocs get-deps`
@@ -49,7 +49,6 @@ after_build(){
     filetoto "./site"
     save_return
 }
-
 
 cd project_dir
 if cat .git/config  |grep '/argoproj/argo-cd.git' ;then

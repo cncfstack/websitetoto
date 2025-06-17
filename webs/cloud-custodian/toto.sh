@@ -1,3 +1,6 @@
+# TODO 没有正常构建
+# 基于 sphinx 的方式，需要深入了解
+
 source libs/common.sh
 
 before_build(){
