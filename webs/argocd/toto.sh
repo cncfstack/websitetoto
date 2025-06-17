@@ -23,7 +23,9 @@ build(){
     pip install -r requirements.txt
 
     pip install mkdocs; 
-    pip install $$(mkdocs get-deps)
+    mkdocs get-deps
+    
+    pip install `mkdocs get-deps`
     mkdocs build
     ls -lha
 }
