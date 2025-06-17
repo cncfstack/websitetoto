@@ -15,6 +15,16 @@
 - 构建是否有文档依赖，
 - 是否通过 make 命令构建
 
+涉及项目:
+- ArgoCD
+- Rook
+- Loggie
+- Knative
+- Keptn(todo)
+- Kubescape(todo)
+- CloudCustodian(todo)
+
+
 # 常见问题
 
 ## 默认输出路径
