@@ -6,10 +6,13 @@ before_build(){
     
     sed -i "s|plugins:\s*\[|plugins: [()=>({name:'umami-analytics',injectHtmlTags:()=>({headTags:[{tagName:'script',attributes:{defer:true,src:'https://umami.cncfstack.com/script.js','data-website-id':'88e3efe4-27da-45c2-8de3-ee4b9670e39f'}}]})}),|g" docusaurus.config.js
     
-    sed -i "s|url:\s\'https://podman.io\',|url: 'https://podman.website.cncfstack.com',|g" docusaurus.config.js
+    sed -i "s|https://podman.io|https://podman.website.cncfstack.com|g" docusaurus.config.js
 
     cat ./docusaurus.config.js
 }
+
+
+
 
 build(){
     
