@@ -1,0 +1,15 @@
+name: To-To-To Cloud-Custodian
+on:
+  schedule:
+    - cron: "16 1 * * 2"
+  workflow_dispatch:
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - name:  Cloud-Custodian To-To-To
+        run: |
+          /bin/bash build.sh https://github.com/cloud-custodian/cloud-custodian.git
+          src=`cat project_dir/ret-data|grep -v ^$|head -n 1`
+          ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-website/
