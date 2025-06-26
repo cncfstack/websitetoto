@@ -36,7 +36,7 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "project_dir/website/${tarfile}" > ret-data
+    echo "project_dir/${tarfile}" > ret-data
 }
 
 
