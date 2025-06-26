@@ -17,7 +17,9 @@ build(){
     sudo gem install bundler
 
     log_info "开始 bundle install"
+    sudo bundle add kramdown-parser-gfm
     sudo bundle install
+
     
     log_info "开始 bundle exec jekyll build"
     sudo bundle exec jekyll build
