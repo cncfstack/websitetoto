@@ -26,7 +26,7 @@ save_return(){
     tarfile="thanos.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C public .
+    tar -czf ${tarfile} -C website/public .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -36,12 +36,12 @@ save_return(){
     
     log_info "站点构建完成"
 
-    echo "project_dir/${tarfile}" > ret-data
+    echo "project_dir/website/${tarfile}" > ret-data
 }
 
 
 after_build(){
-    filetoto "./public"
+    filetoto "./website/public"
     save_return
 }
 
