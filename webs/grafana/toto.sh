@@ -15,8 +15,8 @@ build(){
     
     cd docs
 
-    make docs
-
+    make docs-local-static
+    pwd
     ls -lh
 }
 
