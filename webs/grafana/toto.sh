@@ -1,5 +1,8 @@
 source libs/common.sh
 
+# ！！！！！！！！
+# 没有构建成功
+
 before_build(){
     log_info "build grafana"
     # 当前在 project_dir 目录下,../是工作目录，不是项目目录了

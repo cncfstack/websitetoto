@@ -26,14 +26,68 @@ Read-the-Docs: https://app.readthedocs.org/
 未知 ： 未知
 
 ## 基于 github page
+- [x]: kubevirt
+- [x]: rook
+
+
+## 基于 make 封装
+
+- [x]: buildpacks
+- [x]: cloud-custodian
+- [x]: coressplane:,基于netlify_build脚本构建的文档
+- [x]: keptn
+- [x]: knatvie 基于脚本构建
+- [x]: kubeedge
+
 ## 基于 Hugo 
+
+- [x]: cloudevents
+- [x]: containerd
+- [x]: coredns
+- [x]: cni
+- [x]: dapr
+- [x]: emissary-ingress
+- [x]: etcd
+- [x]: falco
+- [x]: fluxcd
+- []: grafana: 镜像了特殊的封装，还未迁移成功
+- [x]: grpc
+- [x]: harbor
+- [x]: helm
+- [x]: in-toto
+- [x]: istio
+- [x]: jaeger
+- [x]: keda
+- [x]: kubeflow：文档在多层子目录中
+- [x]: kubernetes
+- [x]: kyverno
+- [x]: letsencrypt
+- [x]: linkerd
+- [x]: longhorn
+- [x]: notary
+- [x]: openTelemetry: NPM+hugo
+- []: spiffe：还没有构建成功
+- [x]: tikv
+- [x]: vitess
+- [x]: volcano
+
+
 
 ## 基于 Docusaurus 构建的文档
 
 - [x] BackStage: 基于 Yarn + docusaurus.config.ts 构建，多一层文档 microsite 目录
-- [] Podman
-
-
+- [x] Chaosmesh: 基于 NPM + docusaurus.config.js
+- [x] Dragonfly:  基于 Yarn + docusaurus.config.js
+- [x] Karmada: 基于 NPM + docusaurus.config.js
+- [x]: kubevela： 基于 Yarn + docusaurus.config.js
+- [x]: litmuschaos: 基于 NPM + docusaurus.config.js
+- [x]: openCost
+- [x]: OpenFeature
+- [x]: OpenKruise
+- [x]: openYurt: 基于 NPM + docusaurus.config.js
+- [] Podman:  基于 Yarn + docusaurus.config.js，网站构建好了，但是文档还没有
+- [x]: wasmCloud 基于 Yarn + docusaurus.config.ts 构建，多一层文档 microsite 目录
+- [] Calico: Makefile + Yarn + docusaurus.config.js
 
 
 ## 基于 Material for MkDocs
@@ -52,6 +106,7 @@ Read-the-Docs: https://app.readthedocs.org/
 - [x] Keptn
 - [] Kubescape(todo): 没有文档相关的构建说明
 - [] CloudCustodian(todo)：基于 sphinx 构建，相对不熟悉
+- [x] Loggie
 
 
 
