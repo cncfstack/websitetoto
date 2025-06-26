@@ -13,7 +13,8 @@ build(){
     pwd
     ls -lha
 
-    gem install bundler
+    # 添加sudo 权限
+    sudo gem install bundler
     bundle install
     
     bundle exec jekyll build
