@@ -11,6 +11,6 @@ jobs:
       - name: Push To-To-To
         run:  |
           set -x
-          /bin/bash build.sh https://github.com/tigera/docs.git
+          /bin/bash build.sh https://github.com/cri-o/cri-o.io.git
           src=`cat project_dir/ret-data|grep -v ^$|head -n 1`
           ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-website/
