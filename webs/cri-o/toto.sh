@@ -38,7 +38,7 @@ save_return(){
     tarfile="cri-o.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C build .
+    tar -czf ${tarfile} -C _site .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -52,7 +52,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./build"
+    filetoto "./_site"
     save_return
 }
 
@@ -61,5 +61,5 @@ if cat .git/config  |grep '/cri-o/cri-o.io.git' ;then
     log_info "匹配到 cri-o"
     before_build
     build
-    #after_build 
+    after_build
 fi
