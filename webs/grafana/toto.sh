@@ -2,13 +2,19 @@ source libs/common.sh
 
 before_build(){
     log_info "build grafana"
+    # 当前在 project_dir 目录下,../是工作目录，不是项目目录了
+    # 重新拉取grafana项目，保证路径位 workdir/grafana/.git/config
+    cd .. && git clone https://github.com/grafana/grafana.git
+    # 然后进入grafana项目
+    cd grafana
+    pwd
 }
 
 
 build(){
     
     cd docs
-    
+
     make docs
 
     ls -lh
