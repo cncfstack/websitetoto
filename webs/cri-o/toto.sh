@@ -10,16 +10,23 @@ before_build(){
 build(){
 
     log_info "开始 npm run build 构建"
-    pwd
-    ls -lha
 
     # 添加sudo 权限
-    sudo gem install bundler
-    bundle install
-    
-    bundle exec jekyll build
-    gem build jekyll-theme-cayman.gemspec
 
+    log_info "开始 gem install bundler"
+    sudo gem install bundler
+
+    log_info "开始 bundle install"
+    sudo bundle install
+    
+    log_info "开始 bundle exec jekyll build"
+    sudo bundle exec jekyll build
+
+    log_info "开始 gem build"
+    sudo gem build jekyll-theme-cayman.gemspec
+
+    pwd
+    ls -lha
 }
 
 
