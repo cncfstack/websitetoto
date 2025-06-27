@@ -1,16 +1,17 @@
 source libs/common.sh
 
 before_build(){
-    echo "console before build"
+    echo "before build"
+
     cd website
     npm install
-    npm prepare
+    npm run prepare
 }
 
 build(){
 
     # make -C website website
-    npm build
+    npm run build
     
     ls -lha public
 
