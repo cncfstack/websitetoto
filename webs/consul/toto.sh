@@ -9,7 +9,7 @@ build(){
     # make -C website website-local
     
 
-    docker run -it --rm \
+    docker run --rm \
     --volume "`pwd`/content:/app/content" \
     --volume "`pwd`/public:/app/public" \
     --volume "`pwd`/data:/app/data" \
