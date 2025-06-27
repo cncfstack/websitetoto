@@ -6,21 +6,22 @@ before_build(){
 
 build(){
 
-    # make -C website website-local
+    make -C website website
     
+    ls -lha website/public
 
-    docker run --rm \
-    --volume "`pwd`/content:/app/content" \
-    --volume "`pwd`/public:/app/public" \
-    --volume "`pwd`/data:/app/data" \
-    --volume "`pwd`/redirects.js:/app/redirects.js" \
-    --volume "next-dir:/app/website-preview/.next" \
-    --volume "`pwd`/.env:/app/.env" \
-    -e "REPO=consul" \
-    -e "PREVIEW_MODE=developer" \
-    dev-portal-local
+    # docker run --rm \
+    # --volume "`pwd`/content:/app/content" \
+    # --volume "`pwd`/public:/app/public" \
+    # --volume "`pwd`/data:/app/data" \
+    # --volume "`pwd`/redirects.js:/app/redirects.js" \
+    # --volume "next-dir:/app/website-preview/.next" \
+    # --volume "`pwd`/.env:/app/.env" \
+    # -e "REPO=consul" \
+    # -e "PREVIEW_MODE=developer" \
+    # dev-portal-local
 
-    ls -lha `pwd`/public
+    # ls -lha `pwd`/public
 
 }
 
