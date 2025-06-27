@@ -6,11 +6,12 @@ before_build(){
 
 build(){
 
-    make -C website website/local
+    make -C website website-local
     
     pwd
     ls -lha
 
+    echo "============================================================================="
     ls -lha website
 }
 
