@@ -41,7 +41,9 @@ Read-the-Docs: https://app.readthedocs.org/
 - [x]: keptn
 - [x]: knatvie 基于脚本构建
 - [x]: kubeedge
-- [] Thanos: make + hugo 构建
+- [x] Thanos: make + hugo 构建
+- [x]: Consul 基于 make + 容器镜像构建站点
+
 
 ## 基于 Hugo 
 
