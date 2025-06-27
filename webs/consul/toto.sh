@@ -16,23 +16,24 @@ before_build(){
 build(){
 
     log_info "开始构建"
-    make -C website website
+    # make -C website website
 
     # npm run build
     # ls -lha public
 
-    # docker run --rm \
-    # --volume "`pwd`/content:/app/content" \
-    # --volume "`pwd`/public:/app/public" \
-    # --volume "`pwd`/data:/app/data" \
-    # --volume "`pwd`/redirects.js:/app/redirects.js" \
-    # --volume "next-dir:/app/website-preview/.next" \
-    # --volume "`pwd`/.env:/app/.env" \
-    # -e "REPO=consul" \
-    # -e "PREVIEW_MODE=developer" \
-    # dev-portal-local
+    docker run --rm \
+    --volume "`pwd`/content:/app/content" \
+    --volume "`pwd`/public:/app/public" \
+    --volume "`pwd`/data:/app/data" \
+    --volume "`pwd`/redirects.js:/app/redirects.js" \
+    --volume "next-dir:/app/website-preview/.next" \
+    --volume "`pwd`/.env:/app/.env" \
+    -e "REPO=consul" \
+    -e "PREVIEW_MODE=developer" \
+    hashicorp/dev-portal
 
     # ls -lha `pwd`/public
+    ls -lha
 
 }
 
