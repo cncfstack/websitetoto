@@ -2,13 +2,17 @@ source libs/common.sh
 
 before_build(){
     echo "console before build"
+    cd website
+    npm install
+    npm prepare
 }
 
 build(){
 
-    make -C website website
+    # make -C website website
+    npm build
     
-    ls -lha website/public
+    ls -lha public
 
     # docker run --rm \
     # --volume "`pwd`/content:/app/content" \
