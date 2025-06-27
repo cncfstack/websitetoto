@@ -3,17 +3,23 @@ source libs/common.sh
 before_build(){
     echo "before build"
 
-    cd website
-    npm install
-    npm run prepare
+    # log_info "进入 website目录"
+    # cd website
+
+    # log_info "安装依赖"
+    # npm install
+
+    # log_info "准备"
+    # npm run prepare
 }
 
 build(){
 
-    # make -C website website
-    npm run build
-    
-    ls -lha public
+    log_info "开始构建"
+    make -C website website
+
+    # npm run build
+    # ls -lha public
 
     # docker run --rm \
     # --volume "`pwd`/content:/app/content" \
