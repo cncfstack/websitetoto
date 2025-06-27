@@ -9,27 +9,21 @@ build(){
     # make -C website website-local
     
 
-PWD=$(pwd)
-DOCKER_IMAGE="hashicorp/dev-portal"
-DOCKER_IMAGE_LOCAL="dev-portal-local"
-DOCKER_RUN_FLAGS=-it \
-		--publish "3000:3000" \
-		--rm \
-		--tty \
-		--volume "$(PWD)/content:/app/content" \
-		--volume "$(PWD)/public:/app/public" \
-		--volume "$(PWD)/data:/app/data" \
-		--volume "$(PWD)/redirects.js:/app/redirects.js" \
-		--volume "next-dir:/app/website-preview/.next" \
-		--volume "$(PWD)/.env:/app/.env" \
-		-e "REPO=consul" \
-		-e "PREVIEW_MODE=developer"
+    docker run -it \
+    --publish "3000:3000" \
+    --rm \
+    --tty \
+    --volume "`pwd`/content:/app/content" \
+    --volume "`pwd`/public:/app/public" \
+    --volume "`pwd`/data:/app/data" \
+    --volume "`pwd`/redirects.js:/app/redirects.js" \
+    --volume "next-dir:/app/website-preview/.next" \
+    --volume "`pwd`/.env:/app/.env" \
+    -e "REPO=consul" \
+    -e "PREVIEW_MODE=developer" \
+    dev-portal-local
 
-
-docker run $(DOCKER_RUN_FLAGS) $(DOCKER_IMAGE_LOCAL)
-
-
-ls -lha $(PWD)/public
+    ls -lha `pwd`/public
 
 }
 
