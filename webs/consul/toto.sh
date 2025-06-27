@@ -9,10 +9,7 @@ build(){
     # make -C website website-local
     
 
-    docker run -it \
-    --publish "3000:3000" \
-    --rm \
-    --tty \
+    docker run -it --rm \
     --volume "`pwd`/content:/app/content" \
     --volume "`pwd`/public:/app/public" \
     --volume "`pwd`/data:/app/data" \
