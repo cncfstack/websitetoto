@@ -6,13 +6,31 @@ before_build(){
 
 build(){
 
-    make -C website website-local
+    # make -C website website-local
     
-    pwd
-    ls -lha
 
-    echo "============================================================================="
-    ls -lha website
+PWD=$(pwd)
+DOCKER_IMAGE="hashicorp/dev-portal"
+DOCKER_IMAGE_LOCAL="dev-portal-local"
+DOCKER_RUN_FLAGS=-it \
+		--publish "3000:3000" \
+		--rm \
+		--tty \
+		--volume "$(PWD)/content:/app/content" \
+		--volume "$(PWD)/public:/app/public" \
+		--volume "$(PWD)/data:/app/data" \
+		--volume "$(PWD)/redirects.js:/app/redirects.js" \
+		--volume "next-dir:/app/website-preview/.next" \
+		--volume "$(PWD)/.env:/app/.env" \
+		-e "REPO=consul" \
+		-e "PREVIEW_MODE=developer"
+
+
+docker run $(DOCKER_RUN_FLAGS) $(DOCKER_IMAGE_LOCAL)
+
+
+ls -lha $(PWD)/public
+
 }
 
 
