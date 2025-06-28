@@ -10,6 +10,9 @@ build(){
     ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation
     ls -lha docs/documentation/dist/target
 
+    #    keycloak-documentation-999.0.0-SNAPSHOT.zip
+    cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
+
 }
 
 save_return(){
@@ -17,7 +20,7 @@ save_return(){
     tarfile="keycloak.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C docs/documentation/dist/target .
+    tar -czf ${tarfile} -C docs/documentation/dist/target/keycloak-documentation-* .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
