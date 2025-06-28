@@ -122,7 +122,9 @@ Read-the-Docs: https://app.readthedocs.org/
 
 Jekyll : 基于 jekyll 的模板引擎
 
+## 其他特殊方式
 
+- [] Keycloak: 基于mavne 的文档构建
 
 # 常见问题
 
