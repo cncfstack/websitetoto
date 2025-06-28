@@ -8,16 +8,16 @@ build(){
 
     #cd keycloak/docs/documentation
     ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation
-    ls -lha docs/documentation/dist
+    ls -lha docs/documentation/dist/target
 
 }
 
 save_return(){
     # 这行很重要，在其他关联项目中，文件名称必须要匹配
-    tarfile="kyverno.tgz"
+    tarfile="keycloak.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C output .
+    tar -czf ${tarfile} -C docs/documentation/dist/target .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -31,14 +31,14 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./output"
+    filetoto "./docs/documentation/dist/target"
     save_return
 }
 
 cd project_dir
 if cat .git/config  |grep '/keycloak/keycloak.git' ;then
-    echo "匹配到 kyverno"
+    echo "匹配到 keycloak"
     before_build
     build
-    #after_build
+    after_build
 fi
