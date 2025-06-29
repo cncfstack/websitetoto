@@ -50,25 +50,27 @@ build(){
     apt-get install -y tree ruby-full fonts-wqy-microhei
     gem install asciidoctor coderay rouge --no-document
 
-    echo "docs/maven-plugin"
+    echo "===>docs/maven-plugin"
     cd docs/maven-plugin
     mvn clean install -DskipTests
     cd -
 
-    echo "docs"
+    echo "===>docs"
     mvn clean install -am -DskipTests -Dskip.server.build
 
-    echo "docs/documentation"
+    echo "===>docs/documentation"
     cd docs/documentation
     mvn clean install -am -DskipTests -Dskip.server.build
     cd -
 
-    echo "docs/guides"
+    echo "===>docs/guides"
     cd docs/guides
     mvn clean install -am -DskipTests -Dskip.server.build
     cd -
 
+    cd docs 
     tree -d -L 5
+    find . -name "target" 
 }
 
 save_return(){
