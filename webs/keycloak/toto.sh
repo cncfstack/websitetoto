@@ -6,12 +6,19 @@ before_build(){
 
 build(){
 
-    #cd keycloak/docs/documentation
-    ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation
-    ls -lha docs/documentation/dist/target
+    # log_info "构建 Docs 模块"
+    # #cd keycloak/docs/documentation
+    # ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation
+    # ls -lha docs/documentation/dist/target
+    # #    keycloak-documentation-999.0.0-SNAPSHOT.zip
+    # cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
 
-    #    keycloak-documentation-999.0.0-SNAPSHOT.zip
-    cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
+
+    # log_info "构建 Guides 模块"
+    # cd docs
+    # mvn clean install
+
+    ./mvnw clean install ... -Platest,documentation
 
 }
 
@@ -43,5 +50,5 @@ if cat .git/config  |grep '/keycloak/keycloak.git' ;then
     echo "匹配到 keycloak"
     before_build
     build
-    after_build
+    #after_build
 fi
