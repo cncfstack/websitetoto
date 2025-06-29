@@ -51,7 +51,7 @@ build(){
     gem install asciidoctor coderay rouge --no-document
 
     cd docs
-    mvn clean install -Pdocs,manual -DskipTests -Dskip.server.build
+    mvn clean install -DskipTests -Dskip.server.build
 
     tree -L 4
 }
