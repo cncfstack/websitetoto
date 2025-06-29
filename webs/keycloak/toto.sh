@@ -68,9 +68,9 @@ build(){
     mvn clean install -am -DskipTests -Dskip.server.build
     cd -
 
-    cd docs 
-    tree -d -L 5
-    find . -name "target" 
+    # cd docs 
+    # tree -d -L 5
+    # find . -name "target" 
 }
 
 save_return(){
@@ -78,7 +78,8 @@ save_return(){
     tarfile="keycloak.tgz"
 
     # 进入到site目录后进行打包，这样是为了便于部署时解压
-    tar -czf ${tarfile} -C docs/documentation/dist/target/keycloak-documentation-* .
+    # tar -czf ${tarfile} -C docs/documentation/dist/target/keycloak-documentation-* .
+    tar -czf ${tarfile} -C docs .
 
     if [ ! -s ${tarfile} ];then
         log_error "站点构建失败"
@@ -92,7 +93,7 @@ save_return(){
 }
 
 after_build(){
-    filetoto "./docs/documentation/dist/target"
+    #filetoto "./docs/documentation/dist/target"
     save_return
 }
 
@@ -101,5 +102,5 @@ if cat .git/config  |grep '/keycloak/keycloak.git' ;then
     echo "匹配到 keycloak"
     before_build
     build
-    #after_build
+    after_build
 fi
