@@ -6,35 +6,52 @@ before_build(){
 
 build(){
 
-    log_info "构建 Docs 模块"
-    # ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation,guides
-    # ls -lha docs/documentation/dist/target
-    # #    keycloak-documentation-999.0.0-SNAPSHOT.zip
-    # cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
+    # log_info "构建 Docs 模块"
+    # # ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation,guides
+    # # ls -lha docs/documentation/dist/target
+    # # #    keycloak-documentation-999.0.0-SNAPSHOT.zip
+    # # cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
 
 
-    log_info "构建 Guides 模块"
+    # log_info "构建 Guides 模块"
+    # cd docs
+    # mvn clean install
+
+
+    # ./mvnw clean install -Dtest=!ExternalLinksTest -am -pl docs/documentation/tests,docs/documentation/dist -e -Pdocumentation
+
+    # # ./mvnw clean install -Pdocs
+
+    # ls -lha
+
+    # echo "-----"
+
+    # ls -lha target
+
+
+    # echo "=============================================================================="
+    # ls -lha dist
+
+    # echo "=============================================================================="
+
+    # ls -lha dist/target
+ 
+
+
+
+
+
+# Server 文档 → documentation/server/target/generated-docs
+
+# Java 适配器 → documentation/adapters/keycloak-java-adapter/target/generated-docs
+
+
+    apt-get update
+    apt-get install -y tree ruby-full fonts-wqy-microhei
+    gem install asciidoctor coderay rouge --no-document
+
     cd docs
-    mvn clean install
-
-
-    # ./mvnw install -Dtest=!ExternalLinksTest -am -pl docs/documentation/tests,docs/documentation/dist -e -Pdocumentation
-
-    # ./mvnw clean install -Pdocs
-
-    ls -lha
-
-    echo "-----"
-
-    ls -lha target
-
-
-    echo "=============================================================================="
-    ls -lha dist
-
-    echo "=============================================================================="
-
-    ls -lha dist/target
+    mvn clean install -Pdocs,manual -DskipTests -Dskip.server.build
 }
 
 save_return(){
