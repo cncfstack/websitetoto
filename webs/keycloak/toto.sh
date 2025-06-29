@@ -52,6 +52,8 @@ build(){
 
     cd docs
     mvn clean install -Pdocs,manual -DskipTests -Dskip.server.build
+
+    tree -L 4
 }
 
 save_return(){
