@@ -7,8 +7,8 @@ before_build(){
 build(){
 
     log_info "构建 Docs 模块"
-    # ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation
-    # ls -lha docs/documentation/dist/target
+    ./mvnw clean install -am -pl docs/documentation/dist -Pdocumentation,guides
+    ls -lha docs/documentation/dist/target
     # #    keycloak-documentation-999.0.0-SNAPSHOT.zip
     # cd docs/documentation/dist/target && unzip keycloak-documentation-*.zip && cd -
 
@@ -20,7 +20,7 @@ build(){
 
     # ./mvnw install -Dtest=!ExternalLinksTest -am -pl docs/documentation/tests,docs/documentation/dist -e -Pdocumentation
 
-    ./mvnw clean install -Pdocs
+    # ./mvnw clean install -Pdocs
 
     ls -lha
 
