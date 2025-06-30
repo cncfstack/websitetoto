@@ -1,4 +1,4 @@
-name: To-To-To Etcd
+name: To-To=> Etcd
 on:
   schedule:
     - cron: "15 1 * * 3"

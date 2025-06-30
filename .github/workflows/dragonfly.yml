@@ -1,4 +1,4 @@
-name: To-To-To DragonFly
+name: To-To=> DragonFly
 on:
   schedule:
     - cron: "15 0 * * 1"

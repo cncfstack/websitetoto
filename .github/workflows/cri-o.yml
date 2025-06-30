@@ -1,15 +1,15 @@
-name: To-To=> Emissary-Ingress
+name: To-To-To CRI-O
 on:
   schedule:
-    - cron: "15 1 * * 2"
+    - cron: "19 1 * * 5"
   workflow_dispatch:
 jobs:
   build:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - name:  Emissary-Ingress To-To-To
+      - name:  CRI-O To-To-To
         run: |
-          /bin/bash build.sh https://github.com/emissary-ingress/emissary-ingress.dev.git
+          /bin/bash build.sh https://github.com/cri-o/cri-o.io.git
           src=`cat project_dir/ret-data|grep -v ^$|head -n 1`
           ./ossutil --access-key-id ${{ secrets.ALIYUN_CYG_OSS_AK }}  --access-key-secret ${{ secrets.ALIYUN_CYG_OSS_SK }}  --endpoint ${{ secrets.ALIYUN_CYG_OSS_ENDPOINT }} --region ${{ secrets.ALIYUN_CYG_OSS_REGION }}  cp -f ${src} oss://cncfstack-website/

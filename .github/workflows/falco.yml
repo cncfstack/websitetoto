@@ -1,4 +1,4 @@
-name: To-To-To Falco
+name: To-To=> Falco
 on:
   schedule:
     - cron: "15 1 * * 4"

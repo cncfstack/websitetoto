@@ -46,31 +46,62 @@ build(){
 # Java 适配器 → documentation/adapters/keycloak-java-adapter/target/generated-docs
 
 
-    apt-get update
-    apt-get install -y tree ruby-full fonts-wqy-microhei
-    gem install asciidoctor coderay rouge --no-document
+    # apt-get update
+    # apt-get install -y tree ruby-full fonts-wqy-microhei
+    # gem install asciidoctor coderay rouge --no-document
 
-    echo "===>docs/maven-plugin"
-    cd docs/maven-plugin
-    mvn clean install -DskipTests
-    cd -
+    # echo "===>docs/maven-plugin"
+    # cd docs/maven-plugin
+    # mvn clean install -DskipTests
+    # cd -
 
-    echo "===>docs"
-    mvn clean install -am -DskipTests -Dskip.server.build
+    # echo "===>docs"
+    # mvn clean install -am -DskipTests -Dskip.server.build
 
-    echo "===>docs/documentation"
-    cd docs/documentation
-    mvn clean install -am -DskipTests -Dskip.server.build
-    cd -
+    # echo "===>docs/documentation"
+    # cd docs/documentation
+    # mvn clean install -am -DskipTests -Dskip.server.build
+    # cd -
 
-    echo "===>docs/guides"
-    cd docs/guides
-    mvn clean install -am -DskipTests -Dskip.server.build
-    cd -
+    # echo "===>docs/guides"
+    # cd docs/guides
+    # mvn clean install -am -DskipTests -Dskip.server.build
+    # cd -
 
     # cd docs 
     # tree -d -L 5
     # find . -name "target" 
+
+
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/high-availability/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/ui-customization/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/observability/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/server/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/operator/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/securing-apps/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/getting-started/index.html
+# https://keycloak.website.cncfstack.com/guides/target/generated-docs/migration/index.html
+
+
+# https://keycloak.website.cncfstack.com/documentation/target/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/release_notes/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/authorization_services/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/server_admin/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/server_development/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/upgrading/index.html
+# https://keycloak.website.cncfstack.com/documentation/target/api_documentation/index.html
+
+
+# https://keycloak.website.cncfstack.com/documentation/aggregation/src/index.html
+# https://keycloak.website.cncfstack.com/documentation/authorization_services/target/generated-docs/index.html
+# https://keycloak.website.cncfstack.com/documentation/server_admin/target/generated-docs/index.html
+# https://keycloak.website.cncfstack.com/documentation/server_development/target/generated-docs/index.html
+# https://keycloak.website.cncfstack.com/documentation/upgrading/target/generated-docs/index.html
+# https://keycloak.website.cncfstack.com/documentation/api_documentation/target/generated-docs/index.html
+
+
+# https://keycloak.website.cncfstack.com/documentation/release_notes/target/generated-docs/index.html
+
 }
 
 save_return(){

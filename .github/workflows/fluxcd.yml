@@ -1,4 +1,4 @@
-name: To-To-To FluxCD
+name: To-To=> FluxCD
 on:
   schedule:
     - cron: "15 3 * * 5"

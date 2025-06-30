@@ -1,4 +1,4 @@
-name: To-To-To Dapr
+name: To-To=> Dapr
 on:
   schedule:
     - cron: "15 1 * * 0"
